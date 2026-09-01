@@ -1,0 +1,130 @@
+# Private files
+**private**
+
+# LaTeX auxiliary files
+*.tdo
+*.aux
+*.bbl
+*.blg
+*.idx
+*.ind
+*.lof
+*.lot
+*.out
+*.toc
+*.acn
+*.acr
+*.alg
+*.glg
+*.glo
+*.gls
+*.fls
+*.log
+*.fdb_latexmk
+*.snm
+*.nav
+*.synctex.gz
+*.synctex(busy)
+*.run.xml
+*.bcf
+*_minted
+
+# latexindent backup files
+*.bak*
+indent.log
+
+# LaTeX build output - ignore PDFs except in resources/
+*.pdf
+!resources/**/*.pdf
+
+# bin output
+bin/
+*.class
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Python virtual environments
+.venv/
+venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+
+# Python testing and coverage
+.pytest_cache/
+.tox/
+.nox/
+.coverage
+.coverage.*
+htmlcov/
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+
+# Python type checkers and linters
+.mypy_cache/
+.dmypy.json
+dmypy.json
+.pyre/
+.pytype/
+.ruff_cache/
+
+# Jupyter
+.ipynb_checkpoints
+*.ipynb_checkpoints/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Environment and secrets
+.env
+.env.*
+.envrc.local
+
+# Private keys and certificates
+*.pem
+*.key
+id_rsa*
+
+# Claude Code local settings (machine-specific)
+.claude/settings.local.json
+
+# Credentials
+**/credentials.json
+**/secrets.json
+**/.envrc
+
+# Editor files
+*.swp
+*.swo
+*~
+
+# Output files from labs
+lab*/**/output.txt

@@ -1,0 +1,32 @@
+# latexindent configuration for EN-605-202
+# See: https://latexindentpl.readthedocs.io/
+
+# Default indentation
+defaultIndent: "  "
+
+# Modifylinebreaks settings
+modifyLineBreaks:
+  oneSentencePerLine:
+    manipulateSentences: 0  # Don't force one sentence per line
+  textWrapOptions:
+    columns: 0  # Don't wrap text (let editor handle it)
+
+# Environment-specific indentation
+indentRules:
+  document: "  "
+  tikzpicture: "  "
+  align: "  "
+  equation: "  "
+  proof: "  "
+
+# Don't indent these environments
+noAdditionalIndent:
+  document: 1
+
+# Preserve blank lines
+preserveBlankLines: 1
+
+# Remove trailing whitespace
+removeTrailingWhitespace:
+  beforeProcessing: 1
+  afterProcessing: 1

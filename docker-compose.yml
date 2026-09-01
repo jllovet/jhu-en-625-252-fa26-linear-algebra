@@ -1,0 +1,7 @@
+services:
+  latex:
+    build: .
+    image: jllovet-latex
+    volumes:
+      - .:/workspace
+    working_dir: /workspace

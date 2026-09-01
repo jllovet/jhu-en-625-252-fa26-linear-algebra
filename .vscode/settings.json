@@ -1,0 +1,133 @@
+{
+  // LaTeX Workshop configuration for Docker builds
+  "latex-workshop.docker.enabled": true,
+  "latex-workshop.docker.image.latex": "jllovet-latex",
+
+  // ===================
+  // Linting (ChkTeX)
+  // ===================
+  "latex-workshop.linting.chktex.enabled": true,
+  "latex-workshop.linting.chktex.exec.path": "chktex",
+  "latex-workshop.linting.chktex.exec.args": [
+    "-wall",
+    "-n1", // Command terminated with space
+    "-n2", // Non-breaking space (~) should have been used
+    "-n8", // Wrong length of dash
+    "-n11", // Use \ldots for ellipsis
+    "-n22", // Comment displayed
+    "-n26", // Space before punctuation
+    "-n30", // Multiple spaces detected
+    "-n44", // User regex (booktabs)
+    "-n46", // Use \( ... \) instead of $ ... $
+    "-q"
+  ],
+
+  // ===================
+  // Formatting (latexindent)
+  // ===================
+  "latex-workshop.formatting.latex": "latexindent",
+  "latex-workshop.formatting.latexindent.path": "latexindent",
+  "latex-workshop.formatting.latexindent.args": [
+    "-c",
+    "%DIR%/",
+    "%TMPFILE%",
+    "-y=defaultIndent: '  '"
+  ],
+  "[latex]": {
+    "editor.defaultFormatter": "James-Yu.latex-workshop",
+    "editor.formatOnSave": false,
+    "editor.wordWrap": "on",
+    "editor.tabSize": 2
+  },
+
+  // Build recipes
+  "latex-workshop.latex.recipes": [
+    {
+      "name": "latexmk-lualatex (Docker)",
+      "tools": ["latexmk-lualatex-docker"]
+    },
+    {
+      "name": "latexmk-pdflatex (Docker)",
+      "tools": ["latexmk-pdflatex-docker"]
+    },
+    {
+      "name": "pdflatex (Docker)",
+      "tools": ["pdflatex-docker"]
+    }
+  ],
+
+  // Build tools
+  "latex-workshop.latex.tools": [
+    {
+      "name": "latexmk-lualatex-docker",
+      "command": "latexmk",
+      "args": [
+        "-synctex=1",
+        "-interaction=nonstopmode",
+        "-file-line-error",
+        "-lualatex",
+        "-outdir=%OUTDIR%",
+        "%DOC%"
+      ],
+      "env": {}
+    },
+    {
+      "name": "latexmk-pdflatex-docker",
+      "command": "latexmk",
+      "args": [
+        "-synctex=1",
+        "-interaction=nonstopmode",
+        "-file-line-error",
+        "-pdf",
+        "-outdir=%OUTDIR%",
+        "%DOC%"
+      ],
+      "env": {}
+    },
+    {
+      "name": "pdflatex-docker",
+      "command": "pdflatex",
+      "args": [
+        "-synctex=1",
+        "-interaction=nonstopmode",
+        "-file-line-error",
+        "%DOC%"
+      ],
+      "env": {}
+    }
+  ],
+
+  // Auto-build on save
+  "latex-workshop.latex.autoBuild.run": "onSave",
+
+  // Clean auxiliary files
+  "latex-workshop.latex.autoClean.run": "onBuilt",
+  "latex-workshop.latex.clean.fileTypes": [
+    "*.aux",
+    "*.bbl",
+    "*.blg",
+    "*.idx",
+    "*.ind",
+    "*.lof",
+    "*.lot",
+    "*.out",
+    "*.toc",
+    "*.acn",
+    "*.acr",
+    "*.alg",
+    "*.glg",
+    "*.glo",
+    "*.gls",
+    "*.fls",
+    "*.log",
+    "*.fdb_latexmk",
+    "*.snm",
+    "*.nav",
+    "*.synctex.gz"
+  ],
+
+  // PDF preview settings
+  "latex-workshop.view.pdf.viewer": "tab",
+  "latex-workshop.view.pdf.internal.synctex.keybinding": "double-click",
+  "python-envs.defaultEnvManager": "ms-python.python:system"
+}
