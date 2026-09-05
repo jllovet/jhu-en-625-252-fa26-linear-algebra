@@ -131,6 +131,31 @@ Hence, a parameterized description of the system $A$ is:
 The procedure for row reduction can be found in \parencite{LayEtAl2020LinearAlgebraAndItsApplications}, \parencite{jhuwse625-252-module-01-lectures}.
 
 \pagebreak
+
+I used the following tools to validate my solution programmatically. I tried out a few options to see what is available among deterministic tools, since some are useful for pedagogic purposes and some are useful for performing calculations.
+
+Here I am using a tool at \url{https://matrixcalc.org} that solves and explains the derivation of the general solution, with the option of selecting specific algorithms. This site has a number of useful tools for matrix operations.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth,page=1]{2026-09-04-systems-of-equations-calculator.png}
+  \caption{System of Linear Equations Calculator \cite{MatrixcalcSystemOfLinearEquations}}\label{fig:matrix-system-of-linear-equations-calculator}
+\end{figure}
+
+\pagebreak
+Here is a partial solution produced by a TI-84 emulator at \url{https://ti84calculator.io/}, reducing the matrix to reduce row echelon form through the built in \texttt{rref} function. While this has the advantage that it can also be done offline using a physical calculator or one of a large number of emulators, it does leave some additional work to be done, since the reduced row echelon form still must be converted into an expression of a parametric solution to the system. The repository for the emulator can be found in \cite{GitHubGitHubBifduTICalculator}.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth,page=1]{2026-09-04-ti-84-emulator.png}
+  \caption{TI-84 Emulator \cite{TI84CalculatorIO}}\label{fig:ti84-calculator-online-emulator}
+\end{figure}
+
+In addition to these, I re-explored using SymPy, a package for symbolic mathematics in Python. I asked Claude \cite{Anthropic2026ClaudeOpus48} to provide me a brief demo, and then I read SymPy documentation at \cite{DocssympyorgMatricesSymPy} \cite{Sympy10.7717/peerj-cs.103} to write a short script to solve the system. I plan to spend more time with SymPy and similar libraries across languages in the future, both for applications such as building automated reasoning tools and for doing research and work in various areas of mathematics.
+
+\inputminted[breaklines, breakanywhere, fontsize=\footnotesize, frame=single, fontsize=\footnotesize]{python}{solve.py}
+
+\pagebreak
 \noindent\textbf{Problem 2:}
 \medskip
 
