@@ -33,6 +33,8 @@
 \usepackage{tcolorbox}
 \usepackage{enumitem}
 \usepackage{array}
+\usepackage{todonotes}
+\setuptodonotes{inline}  % render \todo notes as full-width blocks in the text flow, not margin boxes
 
 % Based on template from COSC-417 at Towson University, originally authored by Marius Zimand
 
@@ -164,6 +166,22 @@ What would you have to know about the pivot columns in an augmented matrix in or
 \medskip
 \noindent\textbf{Answer:}
 \medskip
+
+Recall Theorem 2 from \citetitle{LayEtAl2020LinearAlgebraAndItsApplications}, which says:
+
+\begin{tcolorbox}[colback=blue!10!white, colframe=blue!80!black, title=Theorem 2 - Existence and Uniqueness Theorem]
+  A linear system is consistent if and only if the rightmost column of the augmented matrix is \emph{not} a pivot column - that is, if and only if an echelon form of the augmented matrix has \emph{no} row of the form
+  \begin{align*}
+    [\ 0 \ldots 0\ \ b\ ] \text{ with $b$ nonzero}
+  \end{align*}
+  If a linear system is consistent, then the solution set contains either (i) a unique solution, when there are no free variables, or (ii) infinitely many solutions, when there is at least one free variable.
+\end{tcolorbox}
+
+By this theorem, when the linear system is consistent and it has a unique solution, there are no free variables. What does this mean for the pivot columns? In order to answer this it will be easier to think about the structure of the matrix rows as well. A free variable can be identified when a matrix is in reduced row echelon form. Within a given row of a matrix in reduced row echelon form, if there are any coefficients to the right of that row's pivot variable (if there is a pivot variable in the row), then those coefficients are free variables.
+
+\todo{Expand explanation with examples, and discuss how pivot position does not exist for a column corresponding to a free variable. Use examples from p 19 etc}
+
+\todo{Add generalized argument using indices}
 
 \pagebreak
 
