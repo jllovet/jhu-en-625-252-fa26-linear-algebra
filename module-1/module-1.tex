@@ -177,11 +177,112 @@ Recall Theorem 2 from \citetitle{LayEtAl2020LinearAlgebraAndItsApplications}, wh
   If a linear system is consistent, then the solution set contains either (i) a unique solution, when there are no free variables, or (ii) infinitely many solutions, when there is at least one free variable.
 \end{tcolorbox}
 
-By this theorem, when the linear system is consistent and it has a unique solution, there are no free variables. What does this mean for the pivot columns? In order to answer this it will be easier to think about the structure of the matrix rows as well. A free variable can be identified when a matrix is in reduced row echelon form. Within a given row of a matrix in reduced row echelon form, if there are any coefficients to the right of that row's pivot variable (if there is a pivot variable in the row), then those coefficients are free variables.
+\medskip
 
-\todo{Expand explanation with examples, and discuss how pivot position does not exist for a column corresponding to a free variable. Use examples from p 19 etc}
+By this theorem, when the linear system is consistent and it has a unique solution, there are no free variables. What do we have to know about the pivot columns for this to be the case? In order to answer this it will be easier to think about the structure of the matrix rows as well. A free variable can be identified when a matrix is in reduced row echelon form (RREF). Within a given row of a matrix in RREF, if there are any coefficients to the right of that row's pivot variable (if there is a pivot variable in the row), then those coefficients are free variables.
 
-\todo{Add generalized argument using indices}
+Consider the matrix $A$ below. Let the black squares $\blacksquare$ indicate that a position $A_{i,j}$ is a pivot position in row $i$, column $j$. In RREF, this means that each element in a $\blacksquare$ position is equal to $1$. Let the value $\star$ indicate that that there is a value $x$ at $A_{i,j}$, such that $x \in D$, where $D$ is the domain of the elements of $A$.
+
+\begin{align*}
+  A & =
+  \left[\begin{array}{rrr|r}
+      \blacksquare & 0            & 0            & \star \\
+      0            & \blacksquare & 0            & \star \\
+      0            & 0            & \blacksquare & \star
+    \end{array}\right]
+\end{align*}
+
+Presume there is a matrix $A_0$ in RREF, and that we have replaced the elements at the positions with $\blacksquare$ with $1$. Let each of the stars be replaced by a variable $a,b,c \in D$, where $D$ is the domain of the elements of $A$. Performing these replacements:
+
+\begin{align*}
+  A_0 & =
+  \left[\begin{array}{rrr|r}
+      1 & 0 & 0 & a \\
+      0 & 1 & 0 & b \\
+      0 & 0 & 1 & c
+    \end{array}\right]
+\end{align*}
+
+Having a matrix in the form of $A_0$ is the best-case scenario for us in determining that there is a unique solution to the system of equations, because a matrix in RREF is unique among the class of matrices that are equivalent under the set of elementary row operations. In this form, the solution to the system of equations can be read off from the matrix, in a way similar to how the values of a boolean function can be read off from a truth table in conjunctive normal form. In RREF, the following characteristics hold:
+
+\begin{enumerate}
+  \item The final column is not a pivot column (by Theorem 2)
+  \item Each pivot column has a single nonzero value $1$
+  \item The pivot column is the location of the leftmost nonzero value in the row
+  \item In each pivot column, if there are rows above or below the pivot position, the values of elements in those positions will be $0$
+\end{enumerate}
+
+If these characteristics were not to hold, then a) the system would not be in RREF, or b) it would have infinitely many solutions, or c) it would have no solution. In the first case, the matrix would be reducible to RREF through a set of elementary row operations, since there are other matrices that are equivalent to $A$, namely $\{X \in M_A, \mid X \sim A\}$, where $M_A$ is the class of matrices that can be obtained through the elementary row operations of scaling, swapping, and row addition.
+
+Consider the matrix $B$ below.
+
+\begin{align*}
+  B & =
+  \left[\begin{array}{rrr|r}
+      \blacksquare & \star        & \star        & \star \\
+      \star        & \blacksquare & \star        & \star \\
+      \star        & \star        & \blacksquare & \star
+    \end{array}\right]
+\end{align*}
+
+If $B \in M_A$, then $B = F(A)$, where $F$ is a some composition of elementary row operations. Because of the closure of the class of matrices $M_A$ under the elementary row operations, there are infinitely many unique matrices that are equivalent to $A$ and for which the matrix $A$ is a characteristic, fully simplified matrix.
+
+What are ways that they look? Let each of the black squares in $A$ be replaced by the value $1$. Further, let each of the stars be replaced by a variable $a,b,c \in D$, where $D$ is the domain of the elements of $A$. The composition of elementary row operations transforms $A_0$ into other equivalent matrices. An example is shown below. The inverse process is what row reduction into RREF performs, though this does not have to be in exactly the reverse sequence composition $F$ of row operations transformations from $A_0$ to another matrix $B$.
+
+\begin{align*}
+  A_0 & =
+  \left[\begin{array}{rrr|r}
+      1 & 0 & 0 & a \\
+      0 & 1 & 0 & b \\
+      0 & 0 & 1 & c
+    \end{array}\right]
+  \\[6pt]
+      & \sim
+  \left[\begin{array}{rrr|r}
+      1 & 2 & 0 & a + 2b \\
+      0 & 1 & 0 & b      \\
+      0 & 0 & 1 & c
+    \end{array}\right]
+      & \rho_1 \leftarrow \rho_1 + (2)\rho_2
+  \\[6pt]
+      & \sim
+  \left[\begin{array}{rrr|r}
+      1 & 2 & 0 & a + 2b \\
+      0 & 1 & 3 & b + 3c \\
+      0 & 0 & 1 & c
+    \end{array}\right]
+      & \rho_2 \leftarrow \rho_2 + (3)\rho_3
+  \\[6pt]
+      & \sim
+  \left[\begin{array}{rrr|r}
+      1 & 2 & 0 & a + 2b      \\
+      0 & 1 & 3 & b + 3c      \\
+      2 & 4 & 1 & 2a + 4b + c
+    \end{array}\right]
+      & \rho_3 \leftarrow \rho_3 + (2)\rho_1
+\end{align*}
+
+Consider next the situation where for some matrix $C$, where $C \not\in M_A$. This means that there is no sequence $F: C \to A$ of elementary row operations that could transform $C$ to $A$ while maintaining the equivalence of the systems represented. If this were the case and also there were no row in $C$ of the form $[\ 0 \ldots 0\ \ b\ ] \text{ with $b$ nonzero}$, then $C$ would have infinitely many solutions, again by Theorem 2. In such a case, there would be free variables in $C$, where there would be non-zero coefficients to the right of pivot positions that could not be reduced to zero by the elementary row operations. Take for example matrix $C$ below, where the variables $a,b \ne 0$:
+
+\begin{align*}
+  C & =
+  \left[\begin{array}{rrrrr|r}
+      \blacksquare & a     & \star        & \star & \star        & \star \\
+      \star        & \star & \blacksquare & b     & \star        & \star \\
+      \star        & \star & \star        & \star & \blacksquare & \star
+    \end{array}\right]
+\end{align*}
+
+The matrix $C$ above could be reduced to echelon form, but not to reduced row echelon form. There is no single characteristic matrix for this system, because there is not a unique solution. Finally, in the final case, wherethere is another matrix $X \not\in M_A$, where $X$ has a pivot column where the row containing the pivot position is of the form $[\ 0 \ldots 0\ \ b\ ] \text{ with $b$ nonzero}$, the system $X$ is inconsistent, by Theorem 2. See the example inconsistent system $X$ below.
+
+\begin{align*}
+  X & =
+  \left[\begin{array}{rrr|r}
+      \star & \star & \star & \star \\
+      \star & \star & \star & \star \\
+      0 & 0 & 0 & 1
+    \end{array}\right]
+\end{align*}
 
 \pagebreak
 
