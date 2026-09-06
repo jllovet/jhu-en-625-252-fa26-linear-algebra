@@ -48,7 +48,7 @@
       \begin{flushleft}
         Jonathan Llovet \\  % authors' names
         EN.625.252.81 \\  %class
-        2026-08-31 \\  % date
+        2026-09-06 \\  % date
         Module 1 - Homework 1 \\ % ID
       \end{flushleft}
       \center{\Large{\textbf{Linear Algebra}}}
@@ -134,7 +134,7 @@ The procedure for row reduction can be found in \parencite{LayEtAl2020LinearAlge
 
 \pagebreak
 
-I used the following tools to validate my solution programmatically. I tried out a few options to see what is available among deterministic tools, since some are useful for pedagogic purposes and some are useful for performing calculations.
+I used the following tools to validate my solution programmatically. I tried out a few options to see what is available among deterministic tools, since some are more useful for pedagogic purposes and some are useful for performing calculations.
 
 Here I am using a tool at \url{https://matrixcalc.org} that solves and explains the derivation of the general solution, with the option of selecting specific algorithms. This site has a number of useful tools for matrix operations.
 
@@ -145,7 +145,7 @@ Here I am using a tool at \url{https://matrixcalc.org} that solves and explains 
 \end{figure}
 
 \pagebreak
-Here is a partial solution produced by a TI-84 emulator at \url{https://ti84calculator.io/}, reducing the matrix to reduce row echelon form through the built in \texttt{rref} function. While this has the advantage that it can also be done offline using a physical calculator or one of a large number of emulators, it does leave some additional work to be done, since the reduced row echelon form still must be converted into an expression of a parametric solution to the system. The repository for the emulator can be found in \cite{GitHubGitHubBifduTICalculator}.
+Here is a partial solution produced by a TI-84 emulator at \url{https://ti84calculator.io/}, reducing the matrix to reduced row echelon form through the built in \texttt{rref} function. While this has the advantage that it can also be done offline using a physical calculator or one of a large number of emulators, it does leave some additional work to be done, since the reduced row echelon form still must be converted into an expression of a parametric solution to the system. The repository for the emulator can be found in \cite{GitHubGitHubBifduTICalculator}.
 
 \begin{figure}[H]
   \centering
@@ -167,7 +167,7 @@ What would you have to know about the pivot columns in an augmented matrix in or
 \noindent\textbf{Answer:}
 \medskip
 
-Recall Theorem 2 from \citetitle{LayEtAl2020LinearAlgebraAndItsApplications}, which says:
+Recall Theorem 2 from \citetitle{LayEtAl2020LinearAlgebraAndItsApplications} \cite{LayEtAl2020LinearAlgebraAndItsApplications}, which says:
 
 \begin{tcolorbox}[colback=blue!10!white, colframe=blue!80!black, title=Theorem 2 - Existence and Uniqueness Theorem]
   A linear system is consistent if and only if the rightmost column of the augmented matrix is \emph{not} a pivot column - that is, if and only if an echelon form of the augmented matrix has \emph{no} row of the form
@@ -227,7 +227,7 @@ Consider the matrix $B$ below.
 
 If $B \in M_A$, then $B = F(A)$, where $F$ is a some composition of elementary row operations. Because of the closure of the class of matrices $M_A$ under the elementary row operations, there are infinitely many unique matrices that are equivalent to $A$ and for which the matrix $A$ is a characteristic, fully simplified matrix.
 
-What are ways that they look? Let each of the black squares in $A$ be replaced by the value $1$. Further, let each of the stars be replaced by a variable $a,b,c \in D$, where $D$ is the domain of the elements of $A$. The composition of elementary row operations transforms $A_0$ into other equivalent matrices. An example is shown below. The inverse process is what row reduction into RREF performs, though this does not have to be in exactly the reverse sequence composition $F$ of row operations transformations from $A_0$ to another matrix $B$.
+What are ways that they look? Let each of the black squares in $A$ be replaced by the value $1$. Further, let each of the stars be replaced by a variable $a,b,c \in D$, where $D$ is the domain of the elements of $A$. Applying a composition $F$ of elementary row operations transforms $A_0$ into other equivalent matrices. An example is shown below. The inverse process is what row reduction into RREF performs, though this does not have to be in exactly the reverse sequence composition $F$ of row operations transformations from $A_0$ to another matrix $B$.
 
 \begin{align*}
   A_0 & =
@@ -262,7 +262,7 @@ What are ways that they look? Let each of the black squares in $A$ be replaced b
       & \rho_3 \leftarrow \rho_3 + (2)\rho_1
 \end{align*}
 
-Consider next the situation where for some matrix $C$, where $C \not\in M_A$. This means that there is no sequence $F: C \to A$ of elementary row operations that could transform $C$ to $A$ while maintaining the equivalence of the systems represented. If this were the case and also there were no row in $C$ of the form $[\ 0 \ldots 0\ \ b\ ] \text{ with $b$ nonzero}$, then $C$ would have infinitely many solutions, again by Theorem 2. In such a case, there would be free variables in $C$, where there would be non-zero coefficients to the right of pivot positions that could not be reduced to zero by the elementary row operations. Take for example matrix $C$ below, where the variables $a,b \ne 0$:
+Consider next the situation for some matrix $C$, where $C \not\in M_A$. This means that there is no sequence $F: C \to A$ of elementary row operations that could transform $C$ to $A$ while maintaining the equivalence of the systems represented. If this were the case and also there were no row in $C$ of the form $[\ 0 \ldots 0\ \ b\ ] \text{ with $b$ nonzero}$, then $C$ would have infinitely many solutions, again by Theorem 2. In such a case, there would be free variables in $C$, where there would be non-zero coefficients to the right of pivot positions that could not be reduced to zero by the elementary row operations. Take for example matrix $C$ below, where the variables $a,b \ne 0$:
 
 \begin{align*}
   C & =
@@ -273,7 +273,7 @@ Consider next the situation where for some matrix $C$, where $C \not\in M_A$. Th
     \end{array}\right]
 \end{align*}
 
-The matrix $C$ above could be reduced to echelon form, but not to reduced row echelon form. There is no single characteristic matrix for this system, because there is not a unique solution. Finally, in the final case, wherethere is another matrix $X \not\in M_A$, where $X$ has a pivot column where the row containing the pivot position is of the form $[\ 0 \ldots 0\ \ b\ ] \text{ with $b$ nonzero}$, the system $X$ is inconsistent, by Theorem 2. See the example inconsistent system $X$ below.
+The matrix $C$ above could be reduced to echelon form, but not to reduced row echelon form. There is no single characteristic matrix for this system, because there is not a unique solution. Finally, in the final case, where there is another matrix $X \not\in M_A$, where $X$ has a pivot column where the row containing the pivot position is of the form $[\ 0 \ldots 0\ \ b\ ] \text{ with $b$ nonzero}$, the system $X$ is inconsistent, by Theorem 2. See the example inconsistent system $X$ below.
 
 \begin{align*}
   X & =
@@ -386,7 +386,7 @@ Let the given system be referred to as $A$, and let it be represented as the fol
               & \rho_2 \leftarrow \tfrac{1}{8}\rho_2
         \end{align*}
 
-        The equation corresponding to the final row is satisfied $\forall k \in \mathbb{R} \mid k \ne 8$. This gives us the answer to our next question. Here, though, how can we constrain the system to a single solution? If $k = 8$, then $\tfrac{k-8}{8} = \frac{0}{8} = 0$. This means that the only solution to the system when $h=0, k=8$ is $(2, 0)$, QED.
+        The equation corresponding to the final row is satisfied $\forall k \in \mathbb{R} \mid k \ne 8$. How can we constrain the system to a single solution? If $k = 8$, then $\tfrac{k-8}{8} = \frac{0}{8} = 0$. This means that the only solution to the system when $h=0, k=8$ is $(2, 0)$, QED.
 
   \item Infinitely Many Solutions
 
@@ -416,7 +416,7 @@ Let the given system be referred to as $A$, and let it be represented as the fol
             & \rho_2 \leftarrow \rho_2 + (-4)\rho_1
         \end{align*}
 
-        We are most of the way there. To preserve the consistency of this system, we must avoid having row two have a pivot in the final position. Consequently, we must contrive that $k-8 = 0$, which is satisfied when $k=8$. The system then reduces to
+        We are most of the way there. To preserve the consistency of this system, we must avoid having row $2$ have a pivot in the final position. Consequently, we must contrive that $k-8 = 0$, which is satisfied when $k=8$. The system then reduces to
 
         \begin{align*}
           A_1 & =
