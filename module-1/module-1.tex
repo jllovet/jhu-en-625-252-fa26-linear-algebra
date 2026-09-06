@@ -307,6 +307,52 @@ Consider the linear system:
 \noindent\textbf{Answer:}
 \medskip
 
+Let the given system be referred to as $A$, and let it be represented as the following matrix:
+
+\begin{align*}
+  A & =
+  \left[\begin{array}{rr|r}
+      1 & h & 2 \\
+      4 & 8 & k
+    \end{array}\right]
+\end{align*}
+
+\begin{enumerate}
+  \item No Solution
+
+        To find a system with no solution, we can lean on Theorem 2, which tells us that we have a system with no solution if there is a row such that the pivot $b$ is in the final position (i.e. the last element in the row), $b \ne 0$, and all the preceding elements in the row are equal to $0$. Let us transform the given system $A$ as follows:
+        \begin{align*}
+          A & =
+          \left[\begin{array}{rr|r}
+              1 & h & 2 \\
+              4 & 8 & k
+            \end{array}\right]
+          \\[6pt]
+            & \sim
+          \left[\begin{array}{rr|r}
+              1 & h    & 2   \\
+              0 & 8-4h & k-8
+            \end{array}\right]
+            & \rho_2 \leftarrow \rho_2 + (-4)\rho_1
+        \end{align*}
+        Now, concretely, we can ask: under what conditions is the equation $8 - 4h = k - 8$ inconsistent? If one side of the equation equals $0$ while the other does not, then we have found what we are looking for. If $h = 2$, then $8 - 4h = 0$. Then the system is inconsistent $\forall k \in \mathbb{R} \mid k \ne 8$. Take for example $h=2, k=9$. Then the system $A$ is:
+        \begin{align*}
+          A & =
+          \left[\begin{array}{rr|r}
+              1 & h      & 2   \\
+              0 & 8-4(2) & 9-8
+            \end{array}\right]
+          \\[6pt]
+            & \sim
+          \left[\begin{array}{rr|r}
+              1 & h & 2 \\
+              0 & 0 & 1
+            \end{array}\right]
+        \end{align*}
+        This is inconsistent by Theorem 2, QED.
+
+\end{enumerate}
+
 \pagebreak
 
 
