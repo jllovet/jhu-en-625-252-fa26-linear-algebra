@@ -351,6 +351,82 @@ Let the given system be referred to as $A$, and let it be represented as the fol
         \end{align*}
         This is inconsistent by Theorem 2, QED.
 
+  \item Unique Solution
+
+        Here we can reuse work from the last question. Consider again this transformation of the sytem $A$:
+
+        \begin{align*}
+          A & =
+          \left[\begin{array}{rr|r}
+              1 & h & 2 \\
+              4 & 8 & k
+            \end{array}\right]
+          \\[6pt]
+            & \sim
+          \left[\begin{array}{rr|r}
+              1 & h    & 2   \\
+              0 & 8-4h & k-8
+            \end{array}\right]
+            & \rho_2 \leftarrow \rho_2 + (-4)\rho_1
+        \end{align*}
+        To satisfy Theorem 2, we must have the matrix in echelon form, so that $8-4h \ne 0$, so that the rightmost value is not a pivot. If we have the system in echelon form, then we must consider a value for $h$ that satisfies the constraint that there are no free variables. In order for that to be the case in row 1, $h$ must equal $0$. Let the final matrix above be $A_0$. Substituting in $h=0$ into $A_0$:
+
+        \begin{align*}
+          A_0 & =
+          \left[\begin{array}{rr|r}
+              1 & 0 & 2   \\
+              0 & 8 & k-8
+            \end{array}\right]
+          \\[6pt]
+              & \sim
+          \left[\begin{array}{rr|r}
+              1 & 0 & 2             \\
+              0 & 1 & \frac{k-8}{8}
+            \end{array}\right]
+              & \rho_2 \leftarrow \tfrac{1}{8}\rho_2
+        \end{align*}
+
+        The equation corresponding to the final row is satisfied $\forall k \in \mathbb{R} \mid k \ne 8$. This gives us the answer to our next question. Here, though, how can we constrain the system to a single solution? If $k = 8$, then $\tfrac{k-8}{8} = \frac{0}{8} = 0$. This means that the only solution to the system when $h=0, k=8$ is $(2, 0)$, QED.
+
+  \item Infinitely Many Solutions
+
+        Consider the original given system again:
+
+        \begin{align*}
+          A & =
+          \left[\begin{array}{rr|r}
+              1 & h & 2 \\
+              4 & 8 & k
+            \end{array}\right]
+        \end{align*}
+        Here we want to contrive to have a free variable, since per Theorem 2, there are infinitely many solutions if the system is consistent and has at least one free variable. A free variable is a variable that is not equal to $0$ when the system is in RREF. Since $k$ is in the final position, we must try to eliminate it, along with the other values from the second row. To do so, first let $h = 2$. Then we can perform a row reduction on the system.
+
+        \begin{align*}
+          A & =
+          \left[\begin{array}{rr|r}
+              1 & 2 & 2 \\
+              4 & 8 & k
+            \end{array}\right]
+          \\[6pt]
+            & \sim
+          \left[\begin{array}{rr|r}
+              1 & 2 & 2   \\
+              0 & 0 & k-8
+            \end{array}\right]
+            & \rho_2 \leftarrow \rho_2 + (-4)\rho_1
+        \end{align*}
+
+        We are most of the way there. To preserve the consistency of this system, we must avoid having row two have a pivot in the final position. Consequently, we must contrive that $k-8 = 0$, which is satisfied when $k=8$. The system then reduces to
+
+        \begin{align*}
+          A_1 & =
+          \left[\begin{array}{rr|r}
+              1 & 2 & 2 \\
+              0 & 0 & 0
+            \end{array}\right]
+        \end{align*}
+
+        In this system, there is a free variable, namely $x_2$, which means that there are infinitely many solutions, QED.
 \end{enumerate}
 
 \pagebreak
