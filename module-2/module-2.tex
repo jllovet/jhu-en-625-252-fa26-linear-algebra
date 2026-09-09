@@ -1,0 +1,136 @@
+\documentclass[10pt,letterpaper,final]{report}
+\usepackage[margin=.75in]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\renewcommand\qedsymbol{$\blacksquare$}
+\usepackage{enumerate}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{pdfpages}
+\usepackage{graphics}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage{tikz-qtree}
+\usepackage{forest}
+\usepackage{float}
+\usetikzlibrary{automata,arrows}
+\usetikzlibrary{shapes.multipart, positioning}
+\usepackage{mdframed}
+\usepackage[
+  backend=biber,
+  style=numeric-comp,
+  sorting=none
+]{biblatex}
+\addbibresource{references.bib}
+
+\usepackage{minted}
+\usemintedstyle{algol_nu}
+\usepackage{xltabular}
+\usepackage{pdflscape}
+\usepackage{tcolorbox}
+\usepackage{enumitem}
+\usepackage{array}
+\usepackage{todonotes}
+\setuptodonotes{inline}  % render \todo notes as full-width blocks in the text flow, not margin boxes
+
+% Based on template from COSC-417 at Towson University, originally authored by Marius Zimand
+
+% To input a script, adapt the following:
+% \inputminted[breaklines, breakanywhere, fontsize=\footnotesize, frame=single, fontsize=\footnotesize]{python}{script.py}
+
+\begin{document}
+\begin{center}
+  \fbox{
+    \vbox{
+      \begin{flushleft}
+        Jonathan Llovet \\  % authors' names
+        EN.625.252.81 \\  %class
+        2026-09-13 \\  % date
+        Module 2 - Homework 2 \\ % ID
+      \end{flushleft}
+      \center{\Large{\textbf{Linear Algebra}}}
+      %\end{mdframed}
+    } % end vbox
+  } % end fbox
+  \vline
+\end{center}
+
+\medskip
+
+\noindent\textbf{Directions}
+
+Complete the following 4 problems showing all your work. You may use a calculator to check your work, but should write out (or TeX up) all the steps of your solution. Unless otherwise speciﬁed, you may skip some steps of row reduction with a calculator, but state that you did so. Please upload your work as a single .pdf ﬁle in the course.
+
+In the problems below, let
+\begin{align*}
+  A & =
+  \left[\begin{array}{rrr}
+      1 & 1 & 0 \\
+      1 & 2 & 1 \\
+      0 & 1 & 1
+    \end{array}\right]
+\end{align*}
+
+\medskip
+\noindent\textbf{Problem 1:}
+\medskip
+
+Calculate rref($A$) by hand showing all the steps of your row reduction.
+
+\medskip
+\noindent\textbf{Answer:}
+\medskip
+
+\pagebreak
+
+\noindent\textbf{Problem 2:}
+\medskip
+
+Using your answer to Problem 1, determine the general solution of $Ax = 0$.
+
+\medskip
+\noindent\textbf{Answer:}
+\medskip
+
+\pagebreak
+
+\noindent\textbf{Problem 3:}
+\medskip
+
+Solve the matrix equation
+$Ax =
+  \left[\begin{array}{r}
+      1 \\
+      0 \\
+      1
+    \end{array}\right]$, or show that no solution exists.
+
+\medskip
+\noindent\textbf{Answer:}
+\medskip
+
+\pagebreak
+
+\noindent\textbf{Problem 4:}
+\medskip
+
+Use 3D graphing software (e.g. Geogebra or Desmos) to give a geometric description of your answers to problems 2 and 3. (Note: even if a systems is inconsistent, you can still graph to show no common intersection occurring.)
+
+\medskip
+\noindent\textbf{Answer:}
+\medskip
+
+\pagebreak
+
+\section*{Source Code}
+The full source code, including LaTeX, tooling, other artifacts, and git history is available on my Github repository for the class here:
+\begin{center}
+  \url{https://github.com/jllovet/jhu-en-625-252-fa26-linear-algebra}
+\end{center}
+
+\printbibliography
+
+\end{document}
