@@ -79,6 +79,66 @@ Find a matrix $A$ whose inverse $A^{-1} = \begin{bmatrix}
 \noindent\textbf{Answer:}
 \medskip
 
+Since a matrix $A$ is the inverse of its inverse $A^{-1}$, we can find the matrix $A$ whose inverse is the given matrix $A^{-1}$ by the same algorithms as we can find $A^{-1}$ when given $A$. Let $B = A^{-1}$. Then $B^{-1}$ is given by the following formula using the determinant of $B$, denoted by $\det(B)$:
+
+If $\det(B) = ad - bc \ne 0$ and if $B=\begin{bmatrix}
+    a & b \\
+    c & d
+  \end{bmatrix}$, then
+
+\begin{align*}
+  B^{-1} & = \frac{1}{ad - bc}\begin{bmatrix}
+                                d  & -b \\
+                                -c & a
+                              \end{bmatrix}     \reason{By \textcite[Theorem~2.4, p.~112]{LayEtAl2020LinearAlgebraAndItsApplications}} \\[1ex]
+         & = \frac{1}{7(2) - 1(8)}\begin{bmatrix}
+                                    2  & -8 \\
+                                    -1 & 7
+                                  \end{bmatrix} \reason{By substitution}                                                               \\[1ex]
+         & = \frac{1}{6}\begin{bmatrix}
+                          2  & -8 \\
+                          -1 & 7
+                        \end{bmatrix}           \reason{By simplification}                                                             \\[1ex]
+         & = \begin{bmatrix}
+               2/6  & -8/6 \\
+               -1/6 & 7/6
+             \end{bmatrix}                      \reason{By scalar-matrix multiplication}                                               \\[1ex]
+         & = \begin{bmatrix}
+               1/3  & -4/3 \\
+               -1/6 & 7/6
+             \end{bmatrix}                      \reason{By simplification}                                                             \\[1ex]
+\end{align*}
+
+But since $B = A^{-1}$, therefore $B^{-1} = (A^{-1})^{-1} = A$. We can validate that the matrix $B^{-1} = A$ is in fact the inverse of the given matrix $A^{-1}$ by checking whether $AA^{-1} = I$.
+
+\begin{align*}
+  AA^{-1} & = \begin{bmatrix}
+                1/3  & -4/3 \\
+                -1/6 & 7/6
+              \end{bmatrix} \begin{bmatrix}
+                              7 & 8 \\
+                              1 & 2
+                            \end{bmatrix} \reason{By substitution}                                                                         \\[1ex]
+          & = \begin{bmatrix}
+                (1/3)7  + (-4/3)1 & (1/3)8  + (-4/3)2 \\
+                (-1/6)7 + (7/6)1  & (-1/6)8 + (7/6)2
+              \end{bmatrix} \reason{By \textcite[Definition of matrix multiplication, p.~101]{LayEtAl2020LinearAlgebraAndItsApplications}} \\[1ex]
+          & = \begin{bmatrix}
+                7/3  + -4/3 & 8/3  + -8/3 \\
+                -7/6 + 7/6  & -8/6 + 14/6
+              \end{bmatrix} \reason{By multiplication}                                                                                     \\[1ex]
+          & = \begin{bmatrix}
+                3/3 & 0/3 \\
+                0/6 & 6/6
+              \end{bmatrix} \reason{By addition}                                                                                           \\[1ex]
+          & = \begin{bmatrix}
+                1 & 0 \\
+                0 & 1
+              \end{bmatrix} \reason{By simplification}                                                                                     \\[1ex]
+          & = I \reason{By \textcite[Definition of identity matrix, p.~41]{LayEtAl2020LinearAlgebraAndItsApplications}}
+\end{align*}
+
+
 \pagebreak
 
 \noindent\textbf{Problem 2:}
