@@ -166,7 +166,7 @@ Why is the matrix resulting from the product $A^T A$ invertible?
           \begin{align*}
             (AB)^{-1} = B^{-1}A^{-1}
           \end{align*}
-    \item If $A$ is an invertible matrix, then so is $A^T$, and the inverse of $A^T$ is the transpose of $A^-1$. That is,
+    \item If $A$ is an invertible matrix, then so is $A^T$, and the inverse of $A^T$ is the transpose of $A^{-1}$. That is,
           \begin{align*}
             (A^T)^{-1} = (A^{-1})^T
           \end{align*}
@@ -195,7 +195,7 @@ Taking the inverse,
   (BA)^{-1} & = A^{-1}B^{-1} \reason{By \textcite[Theorem 2.6(b), p.~114]{LayEtAl2020LinearAlgebraAndItsApplications}}
 \end{align*}
 
-\emph{Nota bene:} the order is swapped here because we're considering $(BA)^{-1}$, rather than $(AB)^{-1}$. Because $A$ is invertible, we know also know that $A^T$ is invertible by \textcite[Theorem 2.6(b), p.~114]{LayEtAl2020LinearAlgebraAndItsApplications}.
+\emph{Nota bene:} the order is swapped here because we're considering $(BA)^{-1}$, rather than $(AB)^{-1}$. Because $A$ is invertible, we also know that $A^T$ is invertible by \textcite[Theorem 2.6(c), p.~114]{LayEtAl2020LinearAlgebraAndItsApplications}.
 
 Therefore, evaluating this further,
 
@@ -253,13 +253,13 @@ Let the matrices $A = \begin{bmatrix}
 \noindent\textbf{Answer:}
 \medskip
 
-By the argument in \textcite[Ch. 2.2, p.~117]{LayEtAl2020LinearAlgebraAndItsApplications}, row reduction $r: A \to I$ can be viewed as concurrently solving the equation $A\mathbf{x} = \mathbf{b}$, where the value of each $\mathbf{b}$ corresponds to a column of the identity matrix I, here denoted $\mathbf{e_i}$, where $1 < i \le n$. To solve for the variable $b$, therefore, we can solve the equation $A\mathbf{x} = \mathbf{e_2}$, which is equivalent to finding reduced row echelon form of $\begin{bmatrix}
-    A\ \mid \mathbf{e_2}
+By the argument in \textcite[Ch. 2.2, p.~117]{LayEtAl2020LinearAlgebraAndItsApplications}, row reduction $r: A \to I$ can be viewed as concurrently solving the equation $A\mathbf{x} = \mathbf{b}$, where the value of each $\mathbf{b}$ corresponds to a column of the identity matrix I, here denoted $\mathbf{e_i}$, where $1 \le i \le n$. To solve for the variable $b$, therefore, we can solve the equation $A\mathbf{x} = \mathbf{e}_2$, which is equivalent to finding reduced row echelon form of $\begin{bmatrix}
+    A\ \mid \mathbf{e}_2
   \end{bmatrix}$.
 
 \begin{align*}
   \begin{bmatrix}
-    A\ \mid \mathbf{e_2}
+    A\ \mid \mathbf{e}_2
   \end{bmatrix} & =
   \left[\begin{array}{rrr|r}
       3  & -2 & -2 & 0 \\
@@ -285,7 +285,7 @@ By the argument in \textcite[Ch. 2.2, p.~117]{LayEtAl2020LinearAlgebraAndItsAppl
                                  1 & -2/3 & -2/3 & 0 \\
                                  0 & 1    & 1    & 3 \\
                                  0 & 1    & 0    & 0
-                               \end{array}\right] \reason{By row reduction: $3R_2 + R_2 \to R_2$}                            \\[1ex]
+                               \end{array}\right] \reason{By row reduction: $3R_2 \to R_2$}                            \\[1ex]
                          & = \left[\begin{array}{rrr|r}
                                  1 & -2/3 & -2/3 & 0 \\
                                  0 & 1    & 0    & 0 \\
@@ -295,15 +295,15 @@ By the argument in \textcite[Ch. 2.2, p.~117]{LayEtAl2020LinearAlgebraAndItsAppl
                                  1 & -2/3 & -2/3 & 0 \\
                                  0 & 1    & 0    & 0 \\
                                  0 & 0    & 1    & 3
-                               \end{array}\right] \reason{By row reduction: $-R_2 + R_3 \leftrightarrow R_3$}                \\[1ex]
+                               \end{array}\right] \reason{By row reduction: $-R_2 + R_3 \to R_3$}                \\[1ex]
                          & = \left[\begin{array}{rrr|r}
                                  1 & 0 & 0 & 2 \\
                                  0 & 1 & 0 & 0 \\
                                  0 & 0 & 1 & 3
-                               \end{array}\right] \reason{By row reduction: $\frac{3}{2}R_2 + \frac{3}{2}R_3 + R_1 \to R_1$} \\[1ex]
+                               \end{array}\right] \reason{By row reduction: $\frac{2}{3}R_2 + \frac{2}{3}R_3 + R_1 \to R_1$} \\[1ex]
 \end{align*}
 
-Therefore, the solution to $A\mathbf{x} = \mathbf{e_2}$ is $\mathbf{x} = \begin{bmatrix}
+Therefore, the solution to $A\mathbf{x} = \mathbf{e}_2$ is $\mathbf{x} = \begin{bmatrix}
     2 \\0\\3
   \end{bmatrix}$, and consequently $b = 0$. \qed
 
