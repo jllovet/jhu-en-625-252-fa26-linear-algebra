@@ -214,21 +214,21 @@ By the preceding, $\forall A, \exists A^{-1} \implies \exists (A^T A)^{-1}$, bec
 Show that $A^{-1} = (A^T A)^{-1} A^T$ by computing the product of $A$ and $(A^T A)^{-1} A^T$.
 
 \begin{align*}
-  (A^T A)^{-1} A^T  & \reason{Given}                                          \\
-  A(A^T A)^{-1} A^T & = A(A^T A)^{-1} A^T \reason{Multiplying by A}           \\
-                    & = A(A^{-1}(A^T)^{-1}) A^T \reason{Evaluating inverse} \\
+  (A^T A)^{-1} A^T  & \reason{Given}                                                             \\
+  A(A^T A)^{-1} A^T & = A(A^T A)^{-1} A^T \reason{Multiplying by A}                              \\
+                    & = A(A^{-1}(A^T)^{-1}) A^T \reason{Evaluating inverse}                      \\
                     & = AA^{-1}(A^T)^{-1} A^T \reason{By associativity of matrix multiplication} \\
-                    & = I(A^T)^{-1} A^T \reason{By definition of identity matrix} \\
-                    & = (A^T)^{-1} A^T \reason{By simplification} \\
-                    & = I \reason{By definition of identity matrix} \\
+                    & = I(A^T)^{-1} A^T \reason{By definition of identity matrix}                \\
+                    & = (A^T)^{-1} A^T \reason{By simplification}                                \\
+                    & = I \reason{By definition of identity matrix}                              \\
 \end{align*}
 
 But then,
 \begin{align*}
-  A((A^T A)^{-1} A^T) & = I \reason{By the derivation above} \\
-  A^{-1}A((A^T A)^{-1} A^T) & = A^{-1}I \reason{Multiplying by $A^{-1}$} \\
-  I((A^T A)^{-1} A^T) & = A^{-1} \reason{By simplification of $A^{-1}A$ and $A^{-1}I$} \\
-  (A^T A)^{-1} A^T & = A^{-1} \reason{By simplification}
+  A((A^T A)^{-1} A^T)       & = I \reason{By the derivation above}                           \\
+  A^{-1}A((A^T A)^{-1} A^T) & = A^{-1}I \reason{Multiplying by $A^{-1}$}                     \\
+  I((A^T A)^{-1} A^T)       & = A^{-1} \reason{By simplification of $A^{-1}A$ and $A^{-1}I$} \\
+  (A^T A)^{-1} A^T          & = A^{-1} \reason{By simplification}
 \end{align*}
 
 Therefore $A^{-1} = (A^T A)^{-1} A^T$. \qed
@@ -252,6 +252,62 @@ Let the matrices $A = \begin{bmatrix}
 \medskip
 \noindent\textbf{Answer:}
 \medskip
+
+By the argument in \textcite[Ch. 2.2, p.~117]{LayEtAl2020LinearAlgebraAndItsApplications}, row reduction $r: A \to I$ can be viewed as concurrently solving the equation $A\mathbf{x} = \mathbf{b}$, where the value of each $\mathbf{b}$ corresponds to a column of the identity matrix I, here denoted $\mathbf{e_i}$, where $1 < i \le n$. To solve for the variable $b$, therefore, we can solve the equation $A\mathbf{x} = \mathbf{e_2}$, which is equivalent to finding reduced row echelon form of $\begin{bmatrix}
+    A\ \mid \mathbf{e_2}
+  \end{bmatrix}$.
+
+\begin{align*}
+  \begin{bmatrix}
+    A\ \mid \mathbf{e_2}
+  \end{bmatrix} & =
+  \left[\begin{array}{rrr|r}
+      3  & -2 & -2 & 0 \\
+      -1 & 1  & 1  & 1 \\
+      3  & -1 & -2 & 0
+    \end{array}\right] \reason{By argument above}                                                                            \\[1ex]
+                         & = \left[\begin{array}{rrr|r}
+                                 1  & -2/3 & -2/3 & 0 \\
+                                 -1 & 1    & 1    & 1 \\
+                                 3  & -1   & -2   & 0
+                               \end{array}\right] \reason{By row reduction: $\frac{1}{3}R_1 \to R_1$}                        \\[1ex]
+                         & = \left[\begin{array}{rrr|r}
+                                 1 & -2/3 & -2/3 & 0 \\
+                                 0 & 1/3  & 1/3  & 1 \\
+                                 3 & -1   & -2   & 0
+                               \end{array}\right] \reason{By row reduction: $R_1 + R_2 \to R_2$}                             \\[1ex]
+                         & = \left[\begin{array}{rrr|r}
+                                 1 & -2/3 & -2/3 & 0 \\
+                                 0 & 1/3  & 1/3  & 1 \\
+                                 0 & 1    & 0    & 0
+                               \end{array}\right] \reason{By row reduction: $-3R_1 + R_3 \to R_3$}                           \\[1ex]
+                         & = \left[\begin{array}{rrr|r}
+                                 1 & -2/3 & -2/3 & 0 \\
+                                 0 & 1    & 1    & 3 \\
+                                 0 & 1    & 0    & 0
+                               \end{array}\right] \reason{By row reduction: $3R_2 + R_2 \to R_2$}                            \\[1ex]
+                         & = \left[\begin{array}{rrr|r}
+                                 1 & -2/3 & -2/3 & 0 \\
+                                 0 & 1    & 0    & 0 \\
+                                 0 & 1    & 1    & 3
+                               \end{array}\right] \reason{By row reduction: $R_2 \leftrightarrow R_3$}                       \\[1ex]
+                         & = \left[\begin{array}{rrr|r}
+                                 1 & -2/3 & -2/3 & 0 \\
+                                 0 & 1    & 0    & 0 \\
+                                 0 & 0    & 1    & 3
+                               \end{array}\right] \reason{By row reduction: $-R_2 + R_3 \leftrightarrow R_3$}                \\[1ex]
+                         & = \left[\begin{array}{rrr|r}
+                                 1 & 0 & 0 & 2 \\
+                                 0 & 1 & 0 & 0 \\
+                                 0 & 0 & 1 & 3
+                               \end{array}\right] \reason{By row reduction: $\frac{3}{2}R_2 + \frac{3}{2}R_3 + R_1 \to R_1$} \\[1ex]
+\end{align*}
+
+Therefore, the solution to $A\mathbf{x} = \mathbf{e_2}$ is $\mathbf{x} = \begin{bmatrix}
+    2 \\0\\3
+  \end{bmatrix}$, and consequently $b = 0$. \qed
+
+
 
 \pagebreak
 
