@@ -60,12 +60,6 @@
 \end{center}
 
 \medskip
-
-\noindent\textbf{Directions}
-
-Complete the following problems showing all your work. You may use a calculator to check your work, but should write out (or TeX up) all the steps of your solution. Unless otherwise speciﬁed, you may skip some steps of row reduction with a calculator, but state that you did so. Please upload your work as a single .pdf ﬁle in Canvas.
-
-\medskip
 \noindent\textbf{Problem 1:}
 \medskip
 
@@ -135,7 +129,7 @@ But since $B = A^{-1}$, therefore $B^{-1} = (A^{-1})^{-1} = A$. We can validate 
                 0 & 1
               \end{bmatrix} \reason{By simplification}                                                                                     \\[1ex]
           & = I \reason{By \textcite[Definition of identity matrix, p.~41]{LayEtAl2020LinearAlgebraAndItsApplications}}
-\end{align*}
+\end{align*} \qed
 
 
 \pagebreak
@@ -153,6 +147,64 @@ Suppose $A$ is invertible.
 \medskip
 \noindent\textbf{Answer:}
 \medskip
+
+Why is the matrix resulting from the product $A^T A$ invertible?
+
+\begin{enumerate}
+  \item If $A$ is invertible, then it is $n \times n$, by \autocite[Definition of invertible matrix, p.~111]{LayEtAl2020LinearAlgebraAndItsApplications}.
+  \item by \textcite[Theorem 2.6, p.~114]{LayEtAl2020LinearAlgebraAndItsApplications}.
+  \item by \textcite[Theorem 2.8(a,l), p.~121]{LayEtAl2020LinearAlgebraAndItsApplications}.
+\end{enumerate}
+
+\begin{tcolorbox}[colback=blue!10!white, colframe=blue!10!black, title=Theorem 2.6 - Invertible Matrices]
+  \begin{enumerate}[label=\alph*.]
+    \item If $A$ is an invertible matrix, then $A^{-1}$ is invertible and
+          \begin{align*}
+            (A^{-1})^{-1} = A
+          \end{align*}
+    \item If $A$ and $B$ are $n \times n$ invertible matrices, then so is $AB$, and the inverse of $AB$ is the product of the inverses of $A$ and $B$ in the reverse order. That is,
+          \begin{align*}
+            (AB)^{-1} = B^{-1}A^{-1}
+          \end{align*}
+    \item If $A$ is an invertible matrix, then so is $A^T$, and the inverse of $A^T$ is the transpose of $A^-1$. That is,
+          \begin{align*}
+            (A^T)^{-1} = (A^{-1})^T
+          \end{align*}
+  \end{enumerate}
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=blue!10!white, colframe=blue!10!black, title={Theorem 2.8(a,l) - Invertible Matrix Theorem}]
+  Let $A$ be a square $n \times n$ matrix. Then the following statements are equivalent. That is, for a given $A$, the statements are either all true or all false.
+  \begin{enumerate}[label=\alph*.]
+    \item $A$ is an invertible matrix.
+          \\$\vdots$
+          \setcounter{enumi}{11}
+    \item $A^T$ is an invertible matrix.
+  \end{enumerate}
+\end{tcolorbox}
+
+Applying the preceding, let $B = A^T$. Therefore,
+
+\begin{align*}
+  A^T A & = BA \reason{By substitution}
+\end{align*}
+
+Taking the inverse,
+
+\begin{align*}
+  (BA)^{-1} & = A^{-1}B^{-1} \reason{By \textcite[Theorem 2.6(b), p.~114]{LayEtAl2020LinearAlgebraAndItsApplications}}
+\end{align*}
+
+\emph{Nota bene:} the order is swapped here because we're considering $(BA)^{-1}$, rather than $(AB)^{-1}$. Because $A$ is invertible, we know also know that $A^T$ is invertible by \textcite[Theorem 2.6(b), p.~114]{LayEtAl2020LinearAlgebraAndItsApplications}.
+
+Therefore, evaluating this further,
+
+\begin{align*}
+  A^{-1}B^{-1} & = A^{-1}(A^T)^{-1} \reason{By substitution}                                                                  \\[1ex]
+               & = A^{-1}(A^{-1})^T \reason{By \textcite[Theorem 2.6(c), p.~114]{LayEtAl2020LinearAlgebraAndItsApplications}} \\[1ex]
+\end{align*}
+
+By the preceding, $\forall A, \exists A^{-1} \implies \exists (A^T A)^{-1}$, because $(A^T A)^{-1} = A^{-1}(A^{-1})^T$. \qed
 
 \pagebreak
 
