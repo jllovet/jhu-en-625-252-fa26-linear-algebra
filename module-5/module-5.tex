@@ -145,7 +145,7 @@ Suppose $A$ is invertible.
 \end{enumerate}
 
 \medskip
-\noindent\textbf{Answer:}
+\noindent\textbf{Answer - Part 1:}
 \medskip
 
 Why is the matrix resulting from the product $A^T A$ invertible?
@@ -205,6 +205,33 @@ Therefore, evaluating this further,
 \end{align*}
 
 By the preceding, $\forall A, \exists A^{-1} \implies \exists (A^T A)^{-1}$, because $(A^T A)^{-1} = A^{-1}(A^{-1})^T$. \qed
+
+\medskip
+\noindent\textbf{Answer - Part 2:}
+\medskip
+
+
+Show that $A^{-1} = (A^T A)^{-1} A^T$ by computing the product of $A$ and $(A^T A)^{-1} A^T$.
+
+\begin{align*}
+  (A^T A)^{-1} A^T  & \reason{Given}                                          \\
+  A(A^T A)^{-1} A^T & = A(A^T A)^{-1} A^T \reason{Multiplying by A}           \\
+                    & = A(A^{-1}(A^T)^{-1}) A^T \reason{Evaluating inverse} \\
+                    & = AA^{-1}(A^T)^{-1} A^T \reason{By associativity of matrix multiplication} \\
+                    & = I(A^T)^{-1} A^T \reason{By definition of identity matrix} \\
+                    & = (A^T)^{-1} A^T \reason{By simplification} \\
+                    & = I \reason{By definition of identity matrix} \\
+\end{align*}
+
+But then,
+\begin{align*}
+  A((A^T A)^{-1} A^T) & = I \reason{By the derivation above} \\
+  A^{-1}A((A^T A)^{-1} A^T) & = A^{-1}I \reason{Multiplying by $A^{-1}$} \\
+  I((A^T A)^{-1} A^T) & = A^{-1} \reason{By simplification of $A^{-1}A$ and $A^{-1}I$} \\
+  (A^T A)^{-1} A^T & = A^{-1} \reason{By simplification}
+\end{align*}
+
+Therefore $A^{-1} = (A^T A)^{-1} A^T$. \qed
 
 \pagebreak
 
