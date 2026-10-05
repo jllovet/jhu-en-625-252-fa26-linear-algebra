@@ -1,0 +1,149 @@
+\documentclass[10pt,letterpaper,final]{report}
+\usepackage[margin=.75in]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\renewcommand\qedsymbol{$\blacksquare$}
+\usepackage{enumerate}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{pdfpages}
+\usepackage{graphics}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage{tikz-qtree}
+\usepackage{forest}
+\usepackage{float}
+\usetikzlibrary{automata,arrows}
+\usetikzlibrary{shapes.multipart, positioning}
+\usepackage{mdframed}
+\usepackage[
+  backend=biber,
+  style=numeric-comp,
+  sorting=none
+]{biblatex}
+\addbibresource{references.bib}
+
+\usepackage{minted}
+\usemintedstyle{algol_nu}
+\usepackage{xltabular}
+\usepackage{pdflscape}
+\usepackage{tcolorbox}
+\usepackage{array}
+\usepackage{todonotes}
+\setuptodonotes{inline}  % render \todo notes as full-width blocks in the text flow, not margin boxes
+
+\newcommand{\reason}[1]{&& \text{#1}}
+
+% Based on template from COSC-417 at Towson University, originally authored by Marius Zimand
+
+% To input a script, adapt the following:
+% \inputminted[breaklines, breakanywhere, fontsize=\footnotesize, frame=single, fontsize=\footnotesize]{python}{script.py}
+
+\begin{document}
+\begin{center}
+  \fbox{
+    \vbox{
+      \begin{flushleft}
+        Jonathan Llovet \\  % authors' names
+        EN.625.252.81 \\  %class
+        2026-10-11 \\  % date
+        Module 6 - Homework 6 \\ % ID
+      \end{flushleft}
+      \center{\Large{\textbf{Linear Algebra}}}
+      %\end{mdframed}
+    } % end vbox
+  } % end fbox
+  \vline
+\end{center}
+
+\medskip
+\noindent\textbf{Problem 1:}
+\medskip
+
+Consider the matrix
+
+\begin{align*}
+  \begin{bmatrix}
+    1  & 1 & 1  \\
+    -1 & 1 & -1 \\
+    2  & 0 & 2
+  \end{bmatrix}
+\end{align*}
+
+
+\begin{enumerate}[label=(\alph*)]
+  \item Compute its rank.
+  \item Find a basis for $Col(A)$
+  \item Find a basis for $Nul(A)$
+  \item State the Rank Theorem from the text.
+  \item Show your answers to the previous parts of this question satisfy the Rank Theorem.
+\end{enumerate}
+
+\medskip
+\noindent\textbf{Answer:}
+
+\pagebreak
+
+\noindent\textbf{Problem 2:}
+\medskip
+
+Let $S$ be a subspace of $\mathbb{R}^4$ spanned by the set of vectors
+
+\begin{align*}
+  S = \begin{Bmatrix}
+        \begin{bmatrix}
+          1  \\
+          -1 \\
+          0  \\
+          1  \\
+        \end{bmatrix},
+        \begin{bmatrix}
+          -2 \\
+          1  \\
+          1  \\
+          1  \\
+        \end{bmatrix},
+        \begin{bmatrix}
+          0 \\
+          0 \\
+          0 \\
+          0 \\
+        \end{bmatrix},
+        \begin{bmatrix}
+          -1 \\
+          0  \\
+          1  \\
+          2  \\
+        \end{bmatrix},
+        \begin{bmatrix}
+          1  \\
+          1  \\
+          -2 \\
+          -5 \\
+        \end{bmatrix}
+      \end{Bmatrix}
+\end{align*}
+
+\begin{enumerate}[label=(\alph*)]
+  \item Find a basis for Span $S$. Perform all row reduction by hand, showing all your steps. (\emph{Hint:} before you start to row reduce, can you remove any obviously linearly dependent vectors in $S$ to simplify the row reduction?)
+  \item State the dimension of Span $S$.
+\end{enumerate}
+
+\medskip
+\noindent\textbf{Answer:}
+\medskip
+
+\pagebreak
+
+\section*{Source Code}
+The full source code, including LaTeX, tooling, other artifacts, and git history is available on my Github repository for the class here:
+\begin{center}
+  \url{https://github.com/jllovet/jhu-en-625-252-fa26-linear-algebra}
+\end{center}
+
+\printbibliography
+
+\end{document}
