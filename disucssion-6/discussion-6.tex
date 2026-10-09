@@ -1,0 +1,221 @@
+\documentclass[10pt,letterpaper,final]{report}
+\usepackage[margin=.75in]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\renewcommand\qedsymbol{$\blacksquare$}
+\usepackage{enumerate}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{pdfpages}
+\usepackage{graphics}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage{tikz-qtree}
+\usepackage{forest}
+\usepackage{float}
+\usetikzlibrary{automata,arrows}
+\usetikzlibrary{shapes.multipart, positioning}
+\usepackage{mdframed}
+\usepackage[
+  backend=biber,
+  style=numeric-comp,
+  sorting=none
+]{biblatex}
+\addbibresource{references.bib}
+
+\usepackage{minted}
+\usemintedstyle{algol_nu}
+\usepackage{xltabular}
+\usepackage{pdflscape}
+\usepackage{tcolorbox}
+\usepackage{array}
+\usepackage{todonotes}
+\setuptodonotes{inline}  % render \todo notes as full-width blocks in the text flow, not margin boxes
+
+\newcommand{\reason}[1]{&& \text{#1}}
+
+% Based on template from COSC-417 at Towson University, originally authored by Marius Zimand
+
+% To input a script, adapt the following:
+% \inputminted[breaklines, breakanywhere, fontsize=\footnotesize, frame=single, fontsize=\footnotesize]{python}{script.py}
+
+\begin{document}
+\begin{center}
+  \fbox{
+    \vbox{
+      \begin{flushleft}
+        Jonathan Llovet \\  % authors' names
+        EN.625.252.81 \\  %class
+        2026-10-11 \\  % date
+        Module 6 - Homework 6 \\ % ID
+      \end{flushleft}
+      \center{\Large{\textbf{Linear Algebra}}}
+      %\end{mdframed}
+    } % end vbox
+  } % end fbox
+  \vline
+\end{center}
+
+\medskip
+\noindent\textbf{Prompt 1:}
+\medskip
+
+Let $S_1$ and $S_2$ be subspaces of $R^n$. Define the union $S_1 \cup S_2$, the intersection $S_1 \cap S_2$, and the direct sum $S_1$ and $S_2$, denoted $S_1 \oplus S_2$. Of these new sets, which are and which are not subspaces of $R^n$? Give an argument or counterexample to justify your answer.
+
+\medskip
+\noindent\textbf{Answer:}
+\medskip
+
+
+
+\medskip
+\noindent\textbf{Prompt 2:}
+\medskip
+
+Is the set containing just the zero vector, $S = \{\mathbf{0}\}$ is a subspace of any $R^n$? If so, find a basis and clearly argue why that basis is linearly independent. What is its dimension?
+
+\medskip
+\noindent\textbf{Answer:}
+\medskip
+
+There are some helpful sections from our textbook to help with answering this.
+
+See \textcite[Ch. 2.9, p. 164]{LayEtAl2020LinearAlgebraAndItsApplications},
+
+\begin{tcolorbox}[colback=blue!10!white, colframe=blue!10!black, title=Definition - Dimension of a Subspace]
+  The \textbf{dimension} of a nonzero subspace $H$, denoted by $\dim H$, is the number of vectors in any basis for $H$. The dimension of the zero subspace $\{\mathbf{0}\}$ is defined to be zero.
+\end{tcolorbox}
+
+The note on this reads: ``The zero subspace has \emph{no} basis (because the zero vector by itself forms a linearly dependent set).''
+
+There is an argument for this \textcite[Ch. 1.7, p. 61]{LayEtAl2020LinearAlgebraAndItsApplications}, "The zero vector is linearly dependent because $x_1\mathbf{0} = \mathbf{0}$ has many nontrivial solutions." In fact, there are infinitely many such solutions in $R^n, n \ge 1$.
+
+Armed with this, we should see whether the set we are interested in can satisfy the conditions for being a subspace on \textcite[Ch. 2.8, p. 155]{LayEtAl2020LinearAlgebraAndItsApplications}
+
+\begin{tcolorbox}[colback=blue!10!white, colframe=blue!10!black, title=Definition - Subspace]
+  A \textbf{subspace} of $R^n$ is any set $H$ in $R^n$ that has three properties:
+  \begin{enumerate}[label=\alph*.]
+    \item The zero vector is in $H$.
+    \item For each $\mathbf{u}$ and $\mathbf{v}$ in $H$, the sum $\mathbf{u} + \mathbf{v}$ is in $H$.
+    \item For each $\mathbf{u}$ in $H$ and each scalar $c$, the vector $c\mathbf{u}$ is in $H$.
+  \end{enumerate}
+\end{tcolorbox}
+
+By the preceding, the set $S = \{\mathbf{0}\}$ can form a subspace of any $R^n$, though by definition there is no basis, and the dimension is zero by definition. Let $H = S$.
+
+The first condition is satisfied by the definition of $S$, i.e. $\mathbf{0} \in S$, because $S = \{\mathbf{0}\}$.
+
+For the second condition, let $\mathbf{u} = \mathbf{0}$ and let $\mathbf{v} = \mathbf{0}$. Then $\mathbf{u} + \mathbf{v} = \mathbf{0} + \mathbf{0} = \mathbf{0} \in S$.
+
+For the third condition, let $c$ be any scalar. Because $c0 = 0,\ \forall c$, therefore $c\mathbf{0} = \mathbf{0} \in S$.
+
+\pagebreak
+\noindent\textbf{Prompt 3:}
+\medskip
+
+List the standard basis of $R$, $R^2$, and $R^3$.  Then list two other bases for $R$, $R^2$, and $R^3$ each. Give a reason why another basis besides the standard basis might be used.  How many bases does $R$, $R^2$, and $R^3$ have?
+
+\medskip
+\noindent\textbf{Answer:}
+\medskip
+
+Standard basis vectors:
+
+$R: \mathcal{B}_1 = \left\{\begin{bmatrix}
+    1
+  \end{bmatrix}\right\}$
+\medskip
+$R^2: \mathcal{B}_2 = \left\{\begin{bmatrix}
+    1 \\
+    0
+  \end{bmatrix}, \begin{bmatrix}
+    0 \\
+    1
+  \end{bmatrix}\right\}$
+\medskip
+$R^3: \mathcal{B}_3 = \left\{\begin{bmatrix}
+    1 \\
+    0 \\
+    0
+  \end{bmatrix}, \begin{bmatrix}
+    0 \\
+    1 \\
+    0
+  \end{bmatrix},\begin{bmatrix}
+    0 \\
+    0 \\
+    1
+  \end{bmatrix}\right\}$
+
+Alternates:
+
+$R: \mathcal{B}_1 = \left\{\begin{bmatrix}
+    -1
+  \end{bmatrix}\right\}$
+\medskip
+$R^2: \mathcal{B}_2 = \left\{\begin{bmatrix}
+    1 \\
+    2
+  \end{bmatrix}, \begin{bmatrix}
+    4 \\
+    3
+  \end{bmatrix}\right\}$
+\medskip
+$R^3: \mathcal{B}_3 = \left\{\begin{bmatrix}
+    1 \\
+    5 \\
+    3
+  \end{bmatrix}, \begin{bmatrix}
+    2 \\
+    6 \\
+    1
+  \end{bmatrix},\begin{bmatrix}
+    1 \\
+    1 \\
+    1
+  \end{bmatrix}\right\}$
+
+$R: \mathcal{B}_1 = \left\{\begin{bmatrix}
+    2
+  \end{bmatrix}\right\}$
+\medskip
+$R^2: \mathcal{B}_2 = \left\{\begin{bmatrix}
+    3 \\
+    1
+  \end{bmatrix}, \begin{bmatrix}
+    1 \\
+    4
+  \end{bmatrix}\right\}$
+\medskip
+$R^3: \mathcal{B}_3 = \left\{\begin{bmatrix}
+    2  \\
+    10 \\
+    8
+  \end{bmatrix}, \begin{bmatrix}
+    1 \\
+    6 \\
+    0
+  \end{bmatrix},\begin{bmatrix}
+    2 \\
+    2 \\
+    2
+  \end{bmatrix}\right\}$
+
+It might be reasonable to use a nonstandard set of basis vectors to have the frame of reference that you use for analysis match the way that a problem domain presents data, for example, so that elementary operations are simpler, and so that transformations are easier to represent.
+
+For each of $R$, $R^2$, and $R^3$, there are infinitely many bases, because it is possible to find infinitely many linearly independent vectors for each.
+
+\pagebreak
+
+\section*{Source Code}
+The full source code, including LaTeX, tooling, other artifacts, and git history is available on my Github repository for the class here:
+\begin{center}
+  \url{https://github.com/jllovet/jhu-en-625-252-fa26-linear-algebra}
+\end{center}
+
+\printbibliography
+
+\end{document}
