@@ -66,7 +66,7 @@
 Consider the matrix
 
 \begin{align*}
-  \begin{bmatrix}
+  A = \begin{bmatrix}
     1  & 1 & 1  \\
     -1 & 1 & -1 \\
     2  & 0 & 2
@@ -84,6 +84,117 @@ Consider the matrix
 
 \medskip
 \noindent\textbf{Answer:}
+
+\begin{enumerate}[label=(\alph*)]
+  \item Given a matrix $A$, $\text{rank } A = \dim \text{Col } A$. The dimension of $\text{Col } A$ is the number of vectors in the basis for $\text{Col } A$. But ``[t]he pivot columns of a matrix $A$ form a basis for the column space of $A$.'' by \cite[Theorem 2.13, p. 159]{LayEtAl2020LinearAlgebraAndItsApplications}. So, to compute $\text{rank } A$, we should identify the pivot columns of $A$ by performing row reduction and finding the pivot columns of $EA$, where $E$ is a composition of elementary row operations.
+
+        \begin{align*}
+          A & = \begin{bmatrix}
+                  1  & 1 & 1  \\
+                  -1 & 1 & -1 \\
+                  2  & 0 & 2
+                \end{bmatrix} \reason{Given}                        \\[1ex]
+            & \sim \begin{bmatrix}
+                     1 & 1 & 1 \\
+                     0 & 2 & 0 \\
+                     2 & 0 & 2
+                   \end{bmatrix} \reason{$R_1 + R_2 \to R_2$}       \\[1ex]
+            & \sim \begin{bmatrix}
+                     1 & 1 & 1 \\
+                     0 & 1 & 0 \\
+                     2 & 0 & 2
+                   \end{bmatrix} \reason{$\frac{1}{2} R_2 \to R_2$} \\[1ex]
+            & \sim \begin{bmatrix}
+                     1 & 1  & 1 \\
+                     0 & 1  & 0 \\
+                     0 & -2 & 0
+                   \end{bmatrix} \reason{$R_3 - 2R_1 \to R_3$}      \\[1ex]
+            & \sim \begin{bmatrix}
+                     \boxed{1} & 1         & 1 \\
+                     0         & \boxed{1} & 0 \\
+                     0         & 0         & 0
+                   \end{bmatrix} \reason{$2R_2 - R_3 \to R_3$}      \\[1ex]
+        \end{align*}
+
+        The two boxed positions are the pivot positions, and columns $\mathbf{v}_1$ and $\mathbf{v}_2$ are pivot columns. Therefore, there are 2 pivot columns for $A$, and thence $\text{rank } A = \dim \text{Col } A = 2$.
+
+  \item To find a basis for $\text{Col } A$, we can note where the pivot positions of the matrix were from above. There we found $\mathbf{v}_1$ and $\mathbf{v}_2$ are pivot columns of the echelon form matrix $EA$. Therefore, by \cite[Theorem 2.13, p. 159]{LayEtAl2020LinearAlgebraAndItsApplications}, columns $\mathbf{v}_1$ and $\mathbf{v}_2$ of matrix $A$ form a basis for $\text{Col } A$. In particular, $\left\{\begin{bmatrix} 1 \\ -1 \\ 2 \end{bmatrix}, \begin{bmatrix} 1 \\ 1 \\ 0 \end{bmatrix}\right\}$ forms a basis for $\text{Col } A$.
+  \item For the more general case, we should consider the definition of a \textbf{basis} of a subspace $H$ of $R^n$, which says that it is ``a linearly independent set in $H$ that spans $H$.'' \cite[Definition of basis, p. 157]{LayEtAl2020LinearAlgebraAndItsApplications}.
+
+        The subspace $Nul(A)$ is the set of all solutions to $A\mathbf{x} = \mathbf{0}$. \cite[Definition of null space, p. 157]{LayEtAl2020LinearAlgebraAndItsApplications}. To find an explicit expression of $Nul(A)$, we will solve the homogeneous equation and then express that solution set in parametric vector form, as modeled by \cite[Example 6, p. 158]{LayEtAl2020LinearAlgebraAndItsApplications}.
+
+        First, we will find \texttt{rref}($\left[A \ \mathbf{0}\right]$).
+
+        \begin{align*}
+          A & = \left[\begin{array}{rrr|r}
+                    1  & 1 & 1  & 0 \\
+                    -1 & 1 & -1 & 0 \\
+                    2  & 0 & 2  & 0
+                  \end{array}\right] \reason{Given}                      \\[1ex]
+            & \sim \left[\begin{array}{rrr|r}
+                       1 & 1 & 1 & 0 \\
+                       0 & 1 & 0 & 0 \\
+                       0 & 0 & 0 & 0
+                     \end{array}\right] \reason{Derivation from part a)} \\[1ex]
+            & \sim \left[\begin{array}{rrr|r}
+                       1 & 0 & 1 & 0 \\
+                       0 & 1 & 0 & 0 \\
+                       0 & 0 & 0 & 0
+                     \end{array}\right] \reason{$R_1 - R_2 \to R_1$}     \\[1ex]
+        \end{align*}
+
+        The solution to the corresponding system of equations is:
+
+        \begin{align*}
+          \mathbf{x}_1 + \mathbf{x}_3 & = 0 \\
+          \mathbf{x}_2                & = 0 \\
+          0                           & = 0
+        \end{align*}
+
+        From this we can say,
+
+        \begin{align*}
+          {x}_1 & = - {x}_3 \\
+          {x}_2 & = 0       \\
+          {x}_3 & = {x}_3
+        \end{align*}
+
+        Expressing this in parametric form,
+        \begin{align*}
+          \begin{bmatrix}
+            {x}_1 \\
+            {x}_2 \\
+            {x}_3
+          \end{bmatrix} = \begin{bmatrix}
+                            - {x}_3 \\
+                            0       \\
+                            {x}_3
+                          \end{bmatrix} = {x}_3 \underbrace{\begin{bmatrix}
+                                                    - 1 \\
+                                                    0   \\
+                                                    1
+                                                  \end{bmatrix}}_{\mathbf{v}}
+        \end{align*}
+
+        Therefore, ${x}_3\mathbf{v}$ describes each of the solutions $\mathbf{x}$ for the equation $A\textbf{x} = \textbf{0}$. This solution is linearly independent, since ${x}_3\mathbf{v} = \mathbf{0}$ only when ${x}_3 = 0$. Because ${x}_3\mathbf{v}$ is a solution to $A\textbf{x} = \textbf{0}$ and ${x}_3\mathbf{v}$ is linearly independent, the vector $\mathbf{v}$ is a basis for $\text{Nul } A$.
+
+  \item The Rank Theorem from the textbook is:
+        \begin{tcolorbox}[colback=blue!10!white, colframe=blue!10!black, title={Theorem 2.14 - Rank Theorem, \textcite[p. 165]{LayEtAl2020LinearAlgebraAndItsApplications}}]
+          If a matrix $A$ has $n$ columns, then $\text{rank } A + \dim \text{Nul } A = n$
+        \end{tcolorbox}
+
+  \item Let $\mathbf{u} = \mathbf{v}_1$ from matrix $A$ and let $\mathbf{w} = \mathbf{v}_2$ from matrix $A$.
+
+        \begin{align*}
+          3 & = \text{rank } A + \dim \text{Nul } A                               \reason{By Rank Theorem, since $A$ has 3 columns} \\
+            & = \dim \text{Col } A + \dim \text{Nul } A                           \reason{By definition of rank}                    \\
+            & = \dim \left\{\mathbf{u}, \mathbf{w}\right\} + \dim {x}_3\mathbf{v} \reason{By solutions above}                       \\
+            & = 2 + 1                                                             \reason{By definition of dimension}               \\
+            & = 3                                                                 \reason{By simplification}                        \\
+        \end{align*}
+
+        This matches what we expected. \qed
+\end{enumerate}
 
 \pagebreak
 
