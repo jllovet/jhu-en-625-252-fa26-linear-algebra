@@ -36,6 +36,8 @@
 \usepackage{todonotes}
 \setuptodonotes{inline}  % render \todo notes as full-width blocks in the text flow, not margin boxes
 
+\newcommand{\reason}[1]{&& \text{#1}}
+
 % Based on template from COSC-417 at Towson University, originally authored by Marius Zimand
 
 % To input a script, adapt the following:
@@ -67,11 +69,11 @@ Complete the following 4 problems showing all your work. You may use a calculato
 In the problems below, let
 \begin{align*}
   A & =
-  \left[\begin{array}{rrr}
-      1 & 1 & 0 \\
-      1 & 2 & 1 \\
-      0 & 1 & 1
-    \end{array}\right]
+  \begin{bmatrix}
+    1 & 1 & 0 \\
+    1 & 2 & 1 \\
+    0 & 1 & 1
+  \end{bmatrix}
 \end{align*}
 
 \medskip
@@ -84,16 +86,115 @@ Calculate rref($A$) by hand showing all the steps of your row reduction.
 \noindent\textbf{Answer:}
 \medskip
 
+\begin{align*}
+  A & =
+  \begin{bmatrix}
+    1 & 1 & 0 \\
+    1 & 2 & 1 \\
+    0 & 1 & 1
+  \end{bmatrix}                           \\[1ex]
+    & \sim
+  \begin{bmatrix}
+    1 & 1 & 0 \\
+    0 & 1 & 1 \\
+    0 & 1 & 1
+  \end{bmatrix} \reason{$R_2 - R_1 \to R_2$} \\[1ex]
+    & \sim
+  \begin{bmatrix}
+    1 & 1 & 0 \\
+    0 & 1 & 1 \\
+    0 & 0 & 0
+  \end{bmatrix} \reason{$R_3 - R_2 \to R_3$} \\[1ex]
+    & \sim
+  \begin{bmatrix}
+    1 & 0 & -1 \\
+    0 & 1 & 1  \\
+    0 & 0 & 0
+  \end{bmatrix} \reason{$R_1 - R_2 \to R_1$}
+\end{align*}
+
+
 \pagebreak
 
 \noindent\textbf{Problem 2:}
 \medskip
 
-Using your answer to Problem 1, determine the general solution of $Ax = 0$.
+Using your answer to Problem 1, determine the general solution of $A\vec{x} = \vec{0}$.
 
 \medskip
 \noindent\textbf{Answer:}
 \medskip
+
+\begin{align*}
+  A\vec{x}                       & = \vec{0} \reason{Given}                                     \\[1ex]
+                                 & \equiv                                                       \\
+  \text{rref}(A)\vec{x}          & = \vec{0} \reason{By similarity of $A$ and rref($A$)}        \\[1ex]
+                                 & \equiv                                                       \\
+  \begin{bmatrix}
+    1 & 0 & -1 \\
+    0 & 1 & 1  \\
+    0 & 0 & 0
+  \end{bmatrix}\begin{bmatrix}
+                 x_1 \\
+                 x_2 \\
+                 x_3
+               \end{bmatrix} & = \vec{0}  \reason{By definition of homogeneous matrix equation} \\[1ex]
+\end{align*}
+
+This matrix equation has the same solution set as the augmented matrix below:
+
+\begin{align*}
+  \left[\text{rref}(A)\ \mid\ \vec{0}\ \right] & =
+  \left[\begin{array}{rrr|r}
+      1 & 0 & -1 & 0 \\
+      0 & 1 & 1  & 0 \\
+      0 & 0 & 0  & 0
+    \end{array}\right] \reason{By \cite[Theorem 1.3, p.38]{LayEtAl2020LinearAlgebraAndItsApplications}}
+\end{align*}
+
+Again by \cite[Theorem 1.3, p.38]{LayEtAl2020LinearAlgebraAndItsApplications}:
+
+\begin{align*}
+   & \left[\begin{array}{rrr|r}
+         1 & 0 & -1 & 0 \\
+         0 & 1 & 1  & 0 \\
+         0 & 0 & 0  & 0
+       \end{array}\right] \implies \begin{aligned}
+                                     x_1 + 0x_2 - x_3   & = 0 \\
+                                     0x_1 + x_2 + x_3   & = 0 \\
+                                     0x_1 + 0x_2 + 0x_3 & = 0
+                                   \end{aligned}
+\end{align*}
+
+Solving each equation, this gives us the solution set.
+\begin{align*}
+  x_1 & = x_3                               \\
+  x_2 & = - x_3                             \\
+  x_3 & = x_3   & \text{i.e. $x_3$ is free}
+\end{align*}
+
+From here, we can express the solution set in parametric form as follows:
+
+\begin{align*}
+  \vec{x} & = \begin{bmatrix}
+                x_1 \\
+                x_2 \\
+                x_3
+              \end{bmatrix} = \begin{bmatrix}
+                                x_3   \\
+                                - x_3 \\
+                                x_3
+                              \end{bmatrix} = x_3\begin{bmatrix}
+                                                   1  \\
+                                                   -1 \\
+                                                   1
+                                                 \end{bmatrix}  \\[1ex]
+          & = x_3\vec{v}, \text{ where }\vec{v} = \begin{bmatrix}
+                                                    1  \\
+                                                    -1 \\
+                                                    1
+                                                  \end{bmatrix}
+\end{align*}
 
 \pagebreak
 
