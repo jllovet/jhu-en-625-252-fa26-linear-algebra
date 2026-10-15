@@ -1,0 +1,110 @@
+\documentclass[10pt,letterpaper,final]{report}
+\usepackage[margin=.75in]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\renewcommand\qedsymbol{$\blacksquare$}
+\usepackage{enumerate}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{pdfpages}
+\usepackage{graphics}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage{tikz-qtree}
+\usepackage{forest}
+\usepackage{float}
+\usetikzlibrary{automata,arrows}
+\usetikzlibrary{shapes.multipart, positioning}
+\usepackage{mdframed}
+\usepackage[
+  backend=biber,
+  style=numeric-comp,
+  sorting=none
+]{biblatex}
+\addbibresource{references.bib}
+
+\usepackage{minted}
+\usemintedstyle{algol_nu}
+\usepackage{xltabular}
+\usepackage{pdflscape}
+\usepackage{tcolorbox}
+\usepackage{array}
+\usepackage{todonotes}
+\setuptodonotes{inline}  % render \todo notes as full-width blocks in the text flow, not margin boxes
+
+\newcommand{\reason}[1]{&& \text{#1}}
+
+% Based on template from COSC-417 at Towson University, originally authored by Marius Zimand
+
+% To input a script, adapt the following:
+% \inputminted[breaklines, breakanywhere, fontsize=\footnotesize, frame=single, fontsize=\footnotesize]{python}{script.py}
+
+\begin{document}
+\begin{center}
+  \fbox{
+    \vbox{
+      \begin{flushleft}
+        Jonathan Llovet \\  % authors' names
+        EN.625.252.81 \\  %class
+        2026-10-18 \\  % date
+        Module 3 - Homework 3 \\ % ID
+      \end{flushleft}
+      \center{\Large{\textbf{Linear Algebra}}}
+      %\end{mdframed}
+    } % end vbox
+  } % end fbox
+  \vline
+\end{center}
+
+\medskip
+\noindent\textbf{Problem 1:}
+\medskip
+
+Which of the following are linear transformations? For each problem below, first determine if the transformation is linear or not. Then, for each linear transformation, write the standard matrix of the transformation. When showing a transformation is not linear, provide a specific reason or counterexample.
+
+\begin{enumerate}[label=(\alph*)]
+  \item Reflection about the $x$-axis in $\mathbb{R}^2$.
+  \item Reflection about the line $x=1$ in $\mathbb{R}^2$.
+  \item Translation $T_{\vec{v}}: \mathbb{R}^2 \to \mathbb{R}^2$ by a nonzero vector $\vec{v}$ in $\mathbb{R}^2$. (i.e., $T(\vec{x}) = \vec{x} + \vec{v}$)
+  \item $T(x) = x^2$ in $\mathbb{R}$
+  \item For each vector $\vec{v} = \begin{bmatrix}a\\b\\c\\d\end{bmatrix} \in \mathbb{R}^4$, associate it to the cubic polynomial $f(x) = ax^3 + bx^2 + cx + d$. Then consider the transformation $T(f) = f'$, where $f'(x)$ is the derivative.
+\end{enumerate}
+
+\medskip
+\noindent\textbf{Answer:}
+
+\pagebreak
+
+\noindent\textbf{Problem 2:}
+\medskip
+
+In the (sadly fictitious) suspense movie, \emph{The Linear Combination}, our three main characters, ur three main characters Adam, Bob and Carl have each been mailed a mysterious letter directing them to a combination safe and promising that its contents are of extreme value. They were told that there is a linear transformation $T: \mathbb{R}^3 \to \mathbb{R}^3$ and that the combination to the safe is a three-digut number corresponding to the vector $T\begin{pmatrix}4\\4\\15\end{pmatrix}$. In their letters, each was given partial information about $T$.
+
+\begin{align*}
+  \text{Adam knows }T\begin{pmatrix}1\\0\\1\end{pmatrix} = \begin{pmatrix}2\\1\\0\end{pmatrix}\text{, Bob knows }T\begin{pmatrix}1\\2\\3\end{pmatrix} = \begin{pmatrix}0\\1\\1\end{pmatrix} \text{, and Carl knows }T\begin{pmatrix}0\\0\\7\end{pmatrix} = \begin{pmatrix}1\\1\\0\end{pmatrix}.
+\end{align*}
+
+\begin{enumerate}[label=(\alph*)]
+  \item Explain why, if Adam, Bob, and Carl work together, they can determine the combination to the safe. Also, determine the combination to the safe.
+  \item Explain why, if Bob and Carl work together but they \emph{don't} work with Adam, they won't have enough information to determine the combination.
+  \item Explain why, if the combination to the safe was the vector $T\begin{pmatrix}2\\4\\-1\end{pmatrix}$, Bob and Carl could have determined the combination without Adam's help.
+\end{enumerate}
+
+
+\medskip
+\noindent\textbf{Answer:}
+
+\pagebreak
+
+\section*{Source Code}
+The full source code, including LaTeX, tooling, other artifacts, and git history is available on my Github repository for the class here:
+\begin{center}
+  \url{https://github.com/jllovet/jhu-en-625-252-fa26-linear-algebra}
+\end{center}
+
+\printbibliography
+
+\end{document}
