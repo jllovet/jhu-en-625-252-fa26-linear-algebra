@@ -105,6 +105,41 @@ Define a \emph{Group} as used in abstract algebra. Then look up what the General
 \noindent\textbf{Answer:}
 \medskip
 
+\begin{tcolorbox}[colback=blue!10!white, colframe=blue!10!black, title={The Definition of Groups \citetitle[Ch. 3, p. 25]{Pinter2010BookOfAbstractAlgebra}}]
+  A group is defined to be a set with an operation (let us call it $*$) which is associative, has a neutral element, and for which each element has an inverse. More formally,
+  \par
+  \begingroup
+  \leftskip=2em \parindent=0pt
+  By a \textbf{group} we mean a set $G$ with an operation $*$ which satisfies the axioms:
+  \begin{enumerate}[label=(G\arabic*)]
+    \item $*$ is associative
+    \item There is an element $e$ in $G$ such that $a * e = a$ and $e * a = a$ for every element $a$ in $G$.
+    \item For every element $a$ in $G$, there is an element $a^{-1}$ in $G$ such that $a*a^{-1} = e$ and $a^{-1}a = e$
+  \end{enumerate}
+  \par
+  \endgroup
+
+  The group that we have just defined may be represented by the symbol $\langle G, * \rangle$. This notation makes it explicit that the group conssists of the set $G$ and the \emph{operation} $*$.
+\end{tcolorbox}
+
+There are other definitions of groups that build from simpler algebraic structures. A delightful one from \citetitle[Ch. 11 - Small mathematical structures, p. 130]{Cheng2022JoyOfAbstraction} "A \emph{group} is a monoid in which every element has an inverse.", A monoid is in turn defined as "A category with only one object is called a \emph{monoid}" \cite[p.126]{Cheng2022JoyOfAbstraction}. I won't define a category here, since that gets too far down that tangent. I bring this up, because when I first started studying math recreationally, I was sometimes bewildered by definitions such as this, but I found after exploring that structures like this are built up from simpler constructions that add constraints or data to deal with special cases or isolate and guarantee certain properties. The same thing happens when considering data structures like arrays, linked lists, trees, and so forth, which are all special cases of graphs with particular constraints added to create invariant properties across the structure, properties that provide ways of manipulating the structure in algorithms and proofs and the like.
+
+In \cite{BeachyBlair2006AbstractAlgebra} there is a definition of the General Linear Group.
+
+\begin{tcolorbox}[colback=blue!10!white, colframe=blue!10!black, title={3.1.11 - Definition of the General Linear Group \citetitle[Ch. 3, p. 100]{BeachyBlair2006AbstractAlgebra}}]
+  The set of all invertible $n \times n$ matrices with entries in $\mathbb{R}$ is called the \textbf{general linear group of degree } $n$ \textbf{ over the real numbers}, and is denoted by $GL_n(R)$.
+\end{tcolorbox}
+
+In \textcite[Ch. 1.4 Matrix Groups, pp. 34-5]{Dummit2004AbstractAlgebra}, this is extended from $\mathbb{R}$ to all fields $\mathbb{F}$ generally. There is a more general discussion there of the General Linear Group $GL_n(F)$, but it requires defining Abelian groups and fields, so I will save that for a follow-up. The discussion in \textcite{Dummit2004AbstractAlgebra} is interesting for our purposes, because it frames its argument around the determinant, whereas the argument in \textcite{BeachyBlair2006AbstractAlgebra} is straightforwardly using characteristics of invertible matrices we have seen in \citeauthor{LayEtAl2020LinearAlgebraAndItsApplications}'s Invertible Matrix Theorem.
+
+Paraphrasing \textcite[Ch. 3.1, p. 89]{BeachyBlair2006AbstractAlgebra}'s definition of binary operation: In the following I will mean a binary operation $*$ as a function on a set $G$ such that $*: G \times G \to G$. Since the codomain is the same as the two elements of the Cartesian product in the domain, this means that $G$ is closed under the function $*$.
+
+\begin{tcolorbox}[colback=blue!10!white, colframe=blue!10!black, title={3.1.12 - Proposition. The set $GL_n(R)$ forms a group under matrix multiplication. \citetitle[Ch. 3, p. 100]{BeachyBlair2006AbstractAlgebra}}]
+  \emph{Proof.} If $A$ and $B$ are invertible matrices, then the formulas $(A^{-1})^{-1} = A$ and $(AB)^{-1} = B^{-1}A^{-1}$ show that $GL_n(R)$ has inverses for each element and is closed under matrix multiplication. The identity matrix (with 1 in each entry on the main diagonal and 0 in every other entry) is the identity element of the group. [\citeauthor{BeachyBlair2006AbstractAlgebra} omit the proof of associativity, but there is one in \textcite[Ch. 2.1, pp. 103-4]{LayEtAl2020LinearAlgebraAndItsApplications}.]
+\end{tcolorbox}
+
+In a previous discussion, we saw that there are cycles of rotations produced by certain elementary matrix operations. Since there are inverses for each matrix in $GL_n(R)$, using this group should give us a tool for studying those the cycles of linear transformations that can be performed within $R^n$. In particular, since by \cite[Theorem 3.4, p.181]{LayEtAl2020LinearAlgebraAndItsApplications} and \textcite[Ch. 1.4 Matrix Groups, pp. 34-5]{Dummit2004AbstractAlgebra}, a matrix $A$ is invertible if and only if $\det A \ne 0$, and since we know from studying linear independence and the nullity (i.e. the dimension of the null space of a matrix $A$) in \textcite[Ch. 2.9, p.165]{LayEtAl2020LinearAlgebraAndItsApplications} that the dimension of the null space of $A = 0$ when the matrix is invertible, we can say more specifically that the group $GL_n(R)$ will help us study the cases where we can perform linear transformations on vector spaces that do not have any portions that collapse (i.e. go to $\vec{0}$).
+
 
 \pagebreak
 \noindent\textbf{Prompt 4:}
