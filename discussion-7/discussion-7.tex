@@ -1,0 +1,120 @@
+\documentclass[10pt,letterpaper,final]{report}
+\usepackage[margin=.75in]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\renewcommand\qedsymbol{$\blacksquare$}
+\usepackage{enumerate}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{pdfpages}
+\usepackage{graphics}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage{tikz-qtree}
+\usepackage{forest}
+\usepackage{float}
+\usetikzlibrary{automata,arrows}
+\usetikzlibrary{shapes.multipart, positioning}
+\usepackage{mdframed}
+\usepackage[
+  backend=biber,
+  style=numeric-comp,
+  sorting=none
+]{biblatex}
+\addbibresource{references.bib}
+
+\usepackage{minted}
+\usemintedstyle{algol_nu}
+\usepackage{xltabular}
+\usepackage{pdflscape}
+\usepackage{tcolorbox}
+\usepackage{array}
+\usepackage{todonotes}
+\setuptodonotes{inline}  % render \todo notes as full-width blocks in the text flow, not margin boxes
+
+\newcommand{\reason}[1]{&& \text{#1}}
+
+% Based on template from COSC-417 at Towson University, originally authored by Marius Zimand
+
+% To input a script, adapt the following:
+% \inputminted[breaklines, breakanywhere, fontsize=\footnotesize, frame=single, fontsize=\footnotesize]{python}{script.py}
+
+\begin{document}
+\begin{center}
+  \fbox{
+    \vbox{
+      \begin{flushleft}
+        Jonathan Llovet \\  % authors' names
+        EN.625.252.81 \\  %class
+        2026-10-15 \\  % date
+        Module 7 - Homework 7 \\ % ID
+      \end{flushleft}
+      \center{\Large{\textbf{Linear Algebra}}}
+      %\end{mdframed}
+    } % end vbox
+  } % end fbox
+  \vline
+\end{center}
+
+\medskip
+\noindent\textbf{Prompt 1:}
+\medskip
+
+Properties of determinants: Justify your answers with specific arguments or counterexamples.
+
+\begin{enumerate}
+  \item Is it true that $\det(AB) = \det(A)*\det(B)$?
+  \item Is it true that $\det(A+B) = \det(A) + \det(B)$?
+  \item Is it true that $\det(A) = \det(AT)$?
+\end{enumerate}
+
+\medskip
+\noindent\textbf{Answer:}
+\medskip
+
+\pagebreak
+\noindent\textbf{Prompt 2:}
+\medskip
+
+Define the following matrices: \emph{nilpotent}, \emph{skew-symmetric}, \emph{orthogonal}, and \emph{unitary}.  For each type of matrix, provide the definition, an example, and an application.  If possible, give a property or formula for the determinant of each matrix.
+
+\medskip
+\noindent\textbf{Answer:}
+\medskip
+
+
+\pagebreak
+\noindent\textbf{Prompt 3:}
+\medskip
+
+Define a \emph{Group} as used in abstract algebra. Then look up what the General Linear Group $GL_n(R)$ is as well as the Special Linear Group $SL_n(R)$.  Provide a brief summary of some properties or uses of these groups.
+
+\medskip
+\noindent\textbf{Answer:}
+\medskip
+
+
+\pagebreak
+\noindent\textbf{Prompt 4:}
+\medskip
+
+What is the complexity, or run-time, for matrix products? Does there exist an algorithm that can compute the product of two $n \times n$ matrices with complexity $O(n^2)$?
+
+\medskip
+\noindent\textbf{Answer:}
+\medskip
+
+\pagebreak
+
+\section*{Source Code}
+The full source code, including LaTeX, tooling, other artifacts, and git history is available on my Github repository for the class here:
+\begin{center}
+  \url{https://github.com/jllovet/jhu-en-625-252-fa26-linear-algebra}
+\end{center}
+
+\printbibliography
+
+\end{document}
