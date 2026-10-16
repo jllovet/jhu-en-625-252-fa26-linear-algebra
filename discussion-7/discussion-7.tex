@@ -28,6 +28,7 @@
 
 \usepackage{minted}
 \usemintedstyle{algol_nu}
+\usepackage{clrscode3e}
 \usepackage{xltabular}
 \usepackage{pdflscape}
 \usepackage{tcolorbox}
@@ -36,6 +37,14 @@
 \setuptodonotes{inline}  % render \todo notes as full-width blocks in the text flow, not margin boxes
 
 \newcommand{\reason}[1]{&& \text{#1}}
+
+% clrscode3e comments that are pushed to the right and left-aligned with
+% each other. The box is flush-right and fixed-width, so its left edge --
+% where the "//" begins -- sits at the same column on every line. Size
+% \cmtwidth to the widest comment so the longest one just reaches the margin.
+\newlength{\cmtwidth}
+\settowidth{\cmtwidth}{................................................}
+\newcommand{\cmt}[1]{\`\makebox[\cmtwidth][l]{\CommentSymbol\ #1}}
 
 % Based on template from COSC-417 at Towson University, originally authored by Marius Zimand
 
@@ -106,6 +115,30 @@ What is the complexity, or run-time, for matrix products? Does there exist an al
 \medskip
 \noindent\textbf{Answer:}
 \medskip
+
+The time complexity of naive matrix multiplication is $\Theta(n^3)$ \cite[Ch. 4.1 Multiplying square matrices, pp.80-90]{CormenEtAl2022IntroductionToAlgorithms}. While it's true that there are $n^2$ output elements, which admittedly makes it tempting to think that there might be a way to get the result in $O(n^2)$ steps, it actually takes $\Theta(n^3)$ time (meaning that it grows exactly as $n^3$). From CLRS:
+
+\begin{tcolorbox}[colback=blue!10!white, colframe=blue!10!black, title={Naive Matrix Multiplication - \citetitle[p. 81]{CormenEtAl2022IntroductionToAlgorithms}}, top=-10pt]
+  \begin{codebox}\Procname{$\proc{MATRIX-MULTIPLY}(A,B,C,n)$}
+    \li \For $i = 1$ \To $n$                \cmt{compute entries in each of $n$ rows}
+    \li     \Do \For $j = 1$ \To $n$        \cmt{compute $n$ entries in row $i$}
+    \li         \Do \For $k = 1$ \To $n$
+    \li             \Do $c_{ij} = c_{ij} + a_{ik} \cdot b_{kj}$ \cmt{add in another term of equation~(4.1)}
+                    \End
+                \End
+            \End
+  \end{codebox}
+\end{tcolorbox}
+
+Where equation (4.1) describes the value of each entry of the resulting matrix $C$ and is given as \[
+c_{ij} = \sum_{k=1}^{n}a_{ik} \cdot b_{kj}
+\]
+
+It's worth noting that this naive form of the algorithm is framed as $C = C + A \cdot B$ rather than $C = A \cdot B$. This is a more general form of the problem, and although it may require some additional steps, it does not affect the asymptotic time complexity of the algorithm, since initializing the elements of $C$ takes $\Theta(n^2)$, which is dominated by $\Theta(n^3)$.
+
+Surprisingly, there is an algorithm for matrix multiplication that has a better runtime complexity. As is discussed in CLRS \cite[Ch. 4.2, pp. 85-89]{CormenEtAl2022IntroductionToAlgorithms}, Strassen's algorithm exploits clever algebraic manipulations and a divide and conquer approach that breaks up the given matrices into submatrices to achieve a runtime of $\Theta(n^{\lg7}) = O(n^{2.81})$.
+
+There is a lecture here \citeurl{AbdulBari2018StrassensMatrix} about the details of Strassen's algorithm, and CLRS \cite{CormenEtAl2022IntroductionToAlgorithms} contains a discussion as well.
 
 \pagebreak
 
