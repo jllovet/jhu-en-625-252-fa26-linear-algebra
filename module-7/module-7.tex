@@ -150,6 +150,58 @@ Compute the determinants of the following matrices. \emph{Note:} See Appendix B 
 \medskip
 \noindent\textbf{Answer:}
 
+In the previous assignment, we took advantage of the argument in \textcite[Ch. 2.2, p.~117]{LayEtAl2020LinearAlgebraAndItsApplications}, which says that row reduction $r: A \to I$ can be viewed as concurrently solving the equation $A\vec{x} = \vec{b}$ for multiple values of $\vec{b}$, where the value of each $\vec{b}$ corresponds to a column of the identity matrix $I$. When we used that method, we found the solution to $A\mathbf{x} = \mathbf{e}_2$ is $\mathbf{x} = \begin{bmatrix}
+    2 \\0\\3
+  \end{bmatrix}$, and consequently $b = 0$.
+
+Using Cramer's rule will give us a formula for $b$ directly, though it will require calculating several determinants. In Cramer's rule, where the matrix $A$ is an $n \times n$ matrix, \begin{align*}
+  x_i & = \frac{\det A_i(\vec{b})}{\det A},\text{ for } i = 1,2,\dots n
+\end{align*}
+
+Applying Cramer's rule to find the value of $b$, we need to replace an appropriate column of $A$ with a corresponding column from the identity matrix $I$. Since we want to find $b$, which is in position $B_{2,2}$, we need to set $\vec{b}$ to the second column of $I$ and replace the second column of $A$ in Cramer's rule. Concretely,
+
+\begin{align*}
+  x_2 = b & = \frac{\det A_2(\vec{b})}{\det A} \reason{where $\vec{b} = \begin{bmatrix}
+                                                     0 \\ 1 \\ 0
+                                                   \end{bmatrix}$}
+\end{align*}
+
+\noindent Let's first calculate $\det A$, the denominator.
+
+\begin{align*}
+  \det A & = \det \begin{bmatrix}
+                    3  & -2 & -2 \\
+                    -1 & 1  & 1  \\
+                    3  & -1 & -2
+                  \end{bmatrix}                                                                                                                                                                                                                       \\[1ex]
+         & = \underbrace{a_{11}C_{11}} + \underbrace{a_{12}C_{12}} + \underbrace{a_{13}C_{13}} \reason{By def of determinant \cite[Ch. 3.1, p.173]{LayEtAl2020LinearAlgebraAndItsApplications}}                                                          \\[1ex]
+         & = \underbrace{3(-1)^2\begin{vmatrix}1 & 1 \\ -1 & -2\end{vmatrix}} + \underbrace{-2 (-1)^3 \begin{vmatrix}-1 & 1 \\ 3 & -2\end{vmatrix}} + \underbrace{-2 (-1)^4 \begin{vmatrix}-1 & 1 \\ 3 & -1\end{vmatrix}} \reason{By cofactor expansion} \\[1ex]
+         & = \underbrace{3(1)(-2 - (-1))} + \underbrace{-2 (-1) (2 - 3) } + \underbrace{-2 (1) (1 - 3) } \reason{By evaluation of determinants}                                                                                                          \\[1ex]
+         & = \underbrace{3(-1)} + \underbrace{-2} + \underbrace{4} \reason{By simplification}                                                                                                                                                            \\[1ex]
+         & = -3 -2 + 4 \reason{By simplification}                                                                                                                                                                                                        \\[1ex]
+         & = -1 \reason{By addition}                                                                                                                                                                                                                     \\[1ex]
+\end{align*}
+
+\noindent Now we can calculate the numerator,
+
+\begin{align*}
+  \det A_2(\vec{b}) & = \begin{vmatrix}
+                          3  & 0 & -2 \\
+                          -1 & 1 & 1  \\
+                          3  & 0 & -2
+                        \end{vmatrix} \reason{By definition of $A_{i}(\vec{b})$ and since $\vec{b} = \vec{e_2}$} \\[1ex]
+\end{align*}
+
+Fortunately for us, we do not need to do cofactor expansion to evaluate this determinant. Note that in $A_2(\vec{b})$, $R_1 = R_3$. Hence, the rows are linearly dependent, and $\det A_2(\vec{b}) = 0$ by the Invertible Matrix Theorem (or alternatively by row reduction and then \cite[Theorem 3.2, p. 175]{LayEtAl2020LinearAlgebraAndItsApplications} that says that in a triangular matrix, the determinant is the product of the diagonal entries, since here here the diagonal entries will be [3,1,0]). This provides us with what we need to find the value of $b$.
+
+\begin{align*}
+  x_2 = b & = \frac{\det A_2(\vec{b})}{\det A} \reason{By Cramer's Rule} \\[1ex]
+          & = \frac{0}{-1} \reason{By substitution}                      \\
+          & = 0 \reason{By division}
+\end{align*}
+
+This corresponds to the solution that we found previously by the row reduction method in module 5.
+
 \pagebreak
 \noindent\textbf{Problem 3:}
 \medskip
