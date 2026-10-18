@@ -84,19 +84,36 @@ Compute the determinants of the following matrices. \emph{Note:} See Appendix B 
 \medskip
 \noindent\textbf{Answer:}
 
+\begin{enumerate}[label=(\alph*)]
+  \item The definition of the determinant of a $2 \times 2$ matrix $A = \begin{bmatrix}
+            a & b \\
+            c & d
+          \end{bmatrix}$ is $\det A = ad - bc$.
+
+        Here then we can calculate: \begin{align*}
+          \det\begin{bmatrix}
+                8 & 0  \\
+                3 & -1
+              \end{bmatrix} & = (8)(-1) - (0)(3) \\[1ex]
+                                & = -8 - 0       \\
+                                & = -8
+        \end{align*}
+\end{enumerate}
+
+
 \pagebreak
 \noindent\textbf{Problem 2:}
 \medskip
 
 (Continuation of the prior assignment.) Let the matrices $A = \begin{bmatrix}
-  3 & -2 & -2 \\
-  -1 & 1 & 1 \\
-  3 & -1 & -2
-\end{bmatrix}$ and $B = \begin{bmatrix}
-  1 & a & 0 \\
-  -1 & b & 1 \\
-  2 & c & -1
-\end{bmatrix}$ be inverses of each other. Find the value of $b$ using Cramer's Rule. Compare your answer to your prior assignment.
+    3  & -2 & -2 \\
+    -1 & 1  & 1  \\
+    3  & -1 & -2
+  \end{bmatrix}$ and $B = \begin{bmatrix}
+    1  & a & 0  \\
+    -1 & b & 1  \\
+    2  & c & -1
+  \end{bmatrix}$ be inverses of each other. Find the value of $b$ using Cramer's Rule. Compare your answer to your prior assignment.
 
 \medskip
 \noindent\textbf{Answer:}
@@ -106,10 +123,10 @@ Compute the determinants of the following matrices. \emph{Note:} See Appendix B 
 \medskip
 
 Let $T: R^3 \to R^3$ be the linear transformation determined by the matrix $A = \begin{bmatrix}
-  a & 0 & 0 \\
-  0 & b & 0 \\
-  0 & 0 & c
-\end{bmatrix}$, where $a$, $b$, and $c$ are positive real numbers. Let $B$ be the unit sphere defined by $x^{2}_{1} + x^{2}_{2} + x^{2}_{3} = 1$
+    a & 0 & 0 \\
+    0 & b & 0 \\
+    0 & 0 & c
+  \end{bmatrix}$, where $a$, $b$, and $c$ are positive real numbers. Let $B$ be the unit sphere defined by $x^{2}_{1} + x^{2}_{2} + x^{2}_{3} = 1$
 
 \begin{enumerate}[label=(\alph*)]
   \item Show that the image $T(B)$ is the ellipsoid with the equation $\frac{x^{2}_{1}}{a^2} + \frac{x^{2}_{2}}{b^2} + \frac{x^{2}_{3}}{c^2} = 1$
