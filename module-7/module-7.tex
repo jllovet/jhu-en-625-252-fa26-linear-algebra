@@ -302,7 +302,7 @@ Compute the determinants of the following matrices. \emph{Note:} See Appendix B 
                  & = \underbrace{i\det \begin{bmatrix}3 & 2i \\-1 & 1-i\end{bmatrix}} + \underbrace{(2 + i)(-1)\det \begin{bmatrix}-1 & 2i \\0 & 1-i\end{bmatrix}} \reason{By simplification}                  \\[1ex]
                  & = \underbrace{i(3(1-i) - (-1(2i)))} + \underbrace{(2 + i)(-1)(-1(1-i)-2i(0))} \reason{By evaluation of the determinants}                                                                    \\[1ex]
                  & = \underbrace{i(3 - 3i + 2i)} + \underbrace{(2 + i)(-1)(-1 + i)} \reason{By simplification}                                                                                                 \\[1ex]
-                 & = \underbrace{i(3 - i)} + \underbrace{(2 + i)(1 - i)} \reason{By simplification}                                                                                                              \\[1ex]
+                 & = \underbrace{i(3 - i)} + \underbrace{(2 + i)(1 - i)} \reason{By simplification}                                                                                                            \\[1ex]
                  & = \underbrace{3i - i^2} + \underbrace{2 - 2i + i - i^2} \reason{By multiplication}                                                                                                          \\[1ex]
                  & = \underbrace{3i - (-1)} + \underbrace{2 - i - (-1)} \reason{By evaluation of $i^2$}                                                                                                        \\[1ex]
                  & = \underbrace{3i + 1} + \underbrace{2 - i + 1} \reason{By multiplication by $-1$}                                                                                                           \\[1ex]
@@ -329,12 +329,12 @@ Compute the determinants of the following matrices. \emph{Note:} See Appendix B 
 \medskip
 \noindent\textbf{Answer:}
 
-In the previous assignment, we took advantage of the argument in \textcite[Ch. 2.2, p.~117]{LayEtAl2020LinearAlgebraAndItsApplications}, which says that row reduction $r: A \to I$ can be viewed as concurrently solving the equation $A\vec{x} = \vec{b}$ for multiple values of $\vec{b}$, where the value of each $\vec{b}$ corresponds to a column of the identity matrix $I$. When we used that method, we found the solution to $A\mathbf{x} = \mathbf{e}_2$ is $\mathbf{x} = \begin{bmatrix}
+In the previous assignment, we took advantage of the argument in \textcite[Ch. 2.2, p.~117]{LayEtAl2020LinearAlgebraAndItsApplications}, which says that row reduction $r: A \to I$ can be viewed as concurrently solving the equation $A\vec{x} = \vec{b}$ for multiple values of $\vec{b}$, where the value of each $\vec{b}$ corresponds to a column of the identity matrix $I$. When we used that method, we found that the solution to $A\mathbf{x} = \mathbf{e}_2$ is $\mathbf{x} = \begin{bmatrix}
     2 \\0\\3
   \end{bmatrix}$, and consequently $b = 0$.
 
 Using Cramer's rule will give us a formula for $b$ directly, though it will require calculating several determinants. In Cramer's rule, where the matrix $A$ is an $n \times n$ matrix, \begin{align*}
-  x_i & = \frac{\det A_i(\vec{b})}{\det A},\text{ for } i = 1,2,\dots n
+  x_i & = \frac{\det A_i(\vec{b})}{\det A},\text{ for } i = 1,2,\dots, n
 \end{align*}
 
 Applying Cramer's rule to find the value of $b$, we need to replace an appropriate column of $A$ with a corresponding column from the identity matrix $I$. Since we want to find $b$, which is in position $B_{2,2}$, we need to set $\vec{b}$ to the second column of $I$ and replace the second column of $A$ in Cramer's rule. Concretely,
@@ -358,7 +358,7 @@ Applying Cramer's rule to find the value of $b$, we need to replace an appropria
          & = \underbrace{3(1)(-2 - (-1))} + \underbrace{-2 (-1) (2 - 3) } + \underbrace{-2 (1) (1 - 3) } \reason{By evaluation of determinants}                                                                                                          \\[1ex]
          & = \underbrace{3(-1)} + \underbrace{-2} + \underbrace{4} \reason{By simplification}                                                                                                                                                            \\[1ex]
          & = -3 -2 + 4 \reason{By simplification}                                                                                                                                                                                                        \\[1ex]
-         & = -1 \reason{By addition}                                                                                                                                                                                                                     \\[1ex]
+         & = -1 \reason{By addition}
 \end{align*}
 
 \noindent Now we can calculate the numerator,
@@ -368,10 +368,10 @@ Applying Cramer's rule to find the value of $b$, we need to replace an appropria
                           3  & 0 & -2 \\
                           -1 & 1 & 1  \\
                           3  & 0 & -2
-                        \end{vmatrix} \reason{By definition of $A_{i}(\vec{b})$ and since $\vec{b} = \vec{e_2}$} \\[1ex]
+                        \end{vmatrix} \reason{By definition of $A_{i}(\vec{b})$ and since $\vec{b} = \vec{e_2}$}
 \end{align*}
 
-Fortunately for us, we do not need to do cofactor expansion to evaluate this determinant. Note that in $A_2(\vec{b})$, $R_1 = R_3$. Hence, the rows are linearly dependent, and $\det A_2(\vec{b}) = 0$ by the Invertible Matrix Theorem (or alternatively by row reduction and then \cite[Theorem 3.2, p. 175]{LayEtAl2020LinearAlgebraAndItsApplications} that says that in a triangular matrix, the determinant is the product of the diagonal entries, since here the diagonal entries will be [3,1,0]). This provides us with what we need to find the value of $b$.
+Fortunately for us, we do not need to do cofactor expansion to evaluate this determinant. Note that in $A_2(\vec{b})$, $R_1 = R_3$. Hence, the rows are linearly dependent, and $\det A_2(\vec{b}) = 0$ by the Invertible Matrix Theorem (or alternatively by row reduction and then \cite[Theorem 3.2, p.~175]{LayEtAl2020LinearAlgebraAndItsApplications} that says that in a triangular matrix, the determinant is the product of the diagonal entries, since here the diagonal entries will be [3,1,0]). This provides us with what we need to find the value of $b$.
 
 \begin{align*}
   x_2 = b & = \frac{\det A_2(\vec{b})}{\det A} \reason{By Cramer's Rule} \\[1ex]
@@ -385,7 +385,7 @@ This corresponds to the solution that we found previously by the row reduction m
 \noindent\textbf{Problem 3:}
 \medskip
 
-Let $T: R^3 \to R^3$ be the linear transformation determined by the matrix $A = \begin{bmatrix}
+Let $T: \mathbb{R}^3 \to \mathbb{R}^3$ be the linear transformation determined by the matrix $A = \begin{bmatrix}
     a & 0 & 0 \\
     0 & b & 0 \\
     0 & 0 & c
@@ -399,10 +399,10 @@ Let $T: R^3 \to R^3$ be the linear transformation determined by the matrix $A = 
 \medskip
 \noindent\textbf{Answer:}
 
-This holds for similar reasons to those in \cite[Example 5, Ch. 3.3, p. 195]{LayEtAl2020LinearAlgebraAndItsApplications} that deals with an ellipse's being the image of the unit disk under the transformation $T$ whose corresponding matrix is $A_{\text{Ex}5} = \begin{bmatrix}
+This holds for similar reasons to those in \cite[Example 5, Ch. 3.3, p.~195]{LayEtAl2020LinearAlgebraAndItsApplications} that deals with an ellipse's being the image of the unit disk under the transformation $T$ whose corresponding matrix is $A_{\text{Ex}5} = \begin{bmatrix}
     a & 0 \\
     0 & b
-  \end{bmatrix}$. There, the unit disk $D$ consists of the region bounded by the unit circle. The unit circle is described by $u_1^2 + u_2^2 = 1$. Hence, the unit disk, which is the region bounded by the unit circle, is described by $u_1^2 + u_2^2 \le 1$. See Figure \ref{fig:unit-disk}.
+  \end{bmatrix}$. There, the unit disk $D$ consists of the region bounded by the unit circle. The unit circle is described by $u_1^2 + u_2^2 = 1$. Hence, the unit disk, which is the region bounded by the unit circle, is described by $u_1^2 + u_2^2 \le 1$. See Figure \ref{fig:unit-disk}.\footnote{To create these diagrams, I had Claude \cite*{Anthropic2026ClaudeOpus55} generate parameterized macros using TikZ, which can be found in the source code repository I keep for this class here \url{https://github.com/jllovet/jhu-en-625-252-fa26-linear-algebra}.}
 
 \begin{figure}[H]
   \centering
@@ -410,13 +410,11 @@ This holds for similar reasons to those in \cite[Example 5, Ch. 3.3, p. 195]{Lay
   \caption{Unit Disk}\label{fig:unit-disk}
 \end{figure}
 
-\footnote{To create these diagrams, I had Claude \cite*{Anthropic2026ClaudeOpus55} generate parameterized macros using TikZ, which can be found in the source code repository I keep for this class here \url{https://github.com/jllovet/jhu-en-625-252-fa26-linear-algebra}.}
-
-It's worth spelling out some of the argument from \cite[Example 5, Ch. 3.3, p. 195]{LayEtAl2020LinearAlgebraAndItsApplications} more explicitly than the book's treatment of it, so that we can see more clearly how to generalize to the sphere $\to$ ellipsoid case.
+It's worth spelling out some of the argument from \cite[Example 5, Ch. 3.3, p.~195]{LayEtAl2020LinearAlgebraAndItsApplications} more explicitly than the book's treatment of it, so that we can see more clearly how to generalize to the sphere $\to$ ellipsoid case.
 
 Each point in the unit disk is described by a vector $\vec{u} = \begin{bmatrix}u_1\\u_2\end{bmatrix}$. Each corresponding point of the region bound by the ellipse is described by $A\vec{u} = \vec{x} = \begin{bmatrix}x_1\\x_2\end{bmatrix}$.
 
-Computing the matrix-vector product $A\vec{u}$ explicitly.
+Computing the matrix-vector product $A\vec{u}$ explicitly,
 
 \begin{align*}
   A\vec{u} & = \begin{bmatrix}a & 0\\0 & b\end{bmatrix}\begin{bmatrix}u_1 \\ u_2\end{bmatrix} = \begin{bmatrix}au_1 + 0u_2\\0u_1 + bu_2\end{bmatrix} = \begin{bmatrix}au_1\\bu_2\end{bmatrix} \\
@@ -434,7 +432,7 @@ Therefore, we can calculate componentwise:
   x_2 = bu_2 & \iff \frac{x_2}{b} = u_2
 \end{align*}
 
-The preceding shows that the ellipse $E$ is the result of applying the linear transformation $T$ that corresponds to the matrix $A$ to the unit disk $D$. This is illustrated by Figure \ref*{fig:unit-disk-to-ellipse} below.
+The preceding shows that the ellipse $E$ is the result of applying the linear transformation $T$ that corresponds to the matrix $A$ to the unit disk $D$. This is illustrated by Figure \ref{fig:unit-disk-to-ellipse} below.
 
 \begin{figure}[H]
   \centering
@@ -451,7 +449,7 @@ This amounts to a dilation of space by $a$ along $u_1$ to $x_1$ and by $b$ along
   u_1^2 + u_2^2 \le 1 \iff \left(\frac{x_1}{a}\right)^2 + \left(\frac{x_2}{b}\right)^2 \le 1
 \end{align*}
 
-From here it is straightforward to extend to the case of $R^3$, where we are considering the unit sphere and an ellipsoid.
+From here it is straightforward to extend to the case of $\mathbb{R}^3$, where we are considering the unit sphere and an ellipsoid.
 
 \begin{figure}[H]
   \centering
@@ -489,25 +487,25 @@ This represents a similar dilation of space along each of the three components o
 
 Therefore, the region described by $T(B)$ is circumscribed by the ellipsoid whose equation is $\frac{x_1^2}{a^2} + \frac{x_2^2}{b^2} + \frac{x_3^2}{c^2} = 1$, and this is the image of $B$ under $T$, which was what we wanted.
 
-In light of this, let's find the volume formula for the ellipsoid $T(B)$. Two observations will help here. First, the matrix $A$ is a triangular matrix. By \cite[Theorem 3.2, Ch. 3.1, p. 175]{LayEtAl2020LinearAlgebraAndItsApplications}, the determinant of each is the product of the elements along its diagonal.
+In light of this, let's find the volume formula for the ellipsoid $T(B)$. Two observations will help here. First, the matrix $A$ is a triangular matrix. By \cite[Theorem 3.2, Ch. 3.1, p.~175]{LayEtAl2020LinearAlgebraAndItsApplications}, the determinant of each is the product of the elements along its diagonal.
 
 \begin{align*}
   \det A & = \begin{vmatrix}
                a & 0 & 0 \\
                0 & b & 0 \\
                0 & 0 & c
-             \end{vmatrix} = a \cdot b \cdot c = abc \\[1ex]
+             \end{vmatrix} = a \cdot b \cdot c = abc
 \end{align*}
 
-Second, by \cite[Theorem 3.10, Ch. 3.3, p. 193]{LayEtAl2020LinearAlgebraAndItsApplications} and the extension thereof \cite[Ch. 3.3, p.195]{LayEtAl2020LinearAlgebraAndItsApplications}, because a unit sphere $B$ bounds a finite region in $\mathbb{R}^3$ and the ellipsoid $T(B)$ similarly bounds a finite region in $\mathbb{R}^3$, where $T$ is defined by the matrix $A$, therefore the volume of $T(B)$ is equal to $\mid \det A \mid \cdot \text{ volume of B}$. Let $V(a)$ denote the volume of an object $a$. Then,
+Second, by \cite[Theorem 3.10, Ch. 3.3, p.~193]{LayEtAl2020LinearAlgebraAndItsApplications} and the extension thereof \cite[Ch. 3.3, p.~195]{LayEtAl2020LinearAlgebraAndItsApplications}, because a unit sphere $B$ bounds a finite region in $\mathbb{R}^3$ and the ellipsoid $T(B)$ similarly bounds a finite region in $\mathbb{R}^3$, where $T$ is defined by the matrix $A$, therefore the volume of $T(B)$ is equal to $\mid \det A \mid \cdot \text{ volume of } B$. Let $V(a)$ denote the volume of an object $a$. Then,
 
 \begin{align*}
-  V(T(B)) & = \mid \det A \mid \cdot V(B) \reason{By \cite[Theorem 3.10, Ch. 3.3, p. 193]{LayEtAl2020LinearAlgebraAndItsApplications}} \\[1ex]
-               & = \mid \det \mid A \cdot \frac{4}{3}\pi \reason{By volume of sphere}                                                       \\[1ex]
-               & = \mid abc \mid \cdot \frac{4}{3}\pi \reason{By substitution}                                                              \\[1ex]
+  V(T(B)) & = \mid \det A \mid \cdot V(B) \reason{By \cite[Theorem 3.10, Ch. 3.3, p.~193]{LayEtAl2020LinearAlgebraAndItsApplications}} \\[1ex]
+          & = \mid \det A \mid \cdot \frac{4}{3}\pi \reason{By volume of sphere}                                                       \\[1ex]
+          & = \mid abc \mid \cdot \frac{4}{3}\pi \reason{By substitution}
 \end{align*}
 
-Therefore, the volume of the ellipsoid is given by the formula $v = \mid abc \mid \cdot \frac{4}{3}\pi$.
+Therefore, the volume of the ellipsoid is given by the formula $V(T(B)) = \mid abc \mid \cdot \frac{4}{3}\pi$.
 
 \pagebreak
 
