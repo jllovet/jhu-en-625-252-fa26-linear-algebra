@@ -419,7 +419,7 @@ Each point in the unit disk is described by a vector $\vec{u} = \begin{bmatrix}u
 Computing the matrix-vector product $A\vec{u}$ explicitly.
 
 \begin{align*}
-  A\vec{u} & = \begin{bmatrix}a & 0\\0 & b\end{bmatrix}\begin{bmatrix}u_1 \\ u_2\end{bmatrix} = \begin{bmatrix}au_1 + 0u_2\\0u_2 + bu_2\end{bmatrix} = \begin{bmatrix}au_1\\bu_2\end{bmatrix} \\
+  A\vec{u} & = \begin{bmatrix}a & 0\\0 & b\end{bmatrix}\begin{bmatrix}u_1 \\ u_2\end{bmatrix} = \begin{bmatrix}au_1 + 0u_2\\0u_1 + bu_2\end{bmatrix} = \begin{bmatrix}au_1\\bu_2\end{bmatrix} \\
 \end{align*}
 
 But then, by the equation $A\vec{u} = \vec{x}$,
@@ -466,7 +466,7 @@ From here it is straightforward to extend to the case of $R^3$, where we are con
                  a & 0 & 0 \\
                  0 & b & 0 \\
                  0 & 0 & c
-               \end{bmatrix}\begin{bmatrix}u_1 \\ u_2\\u_3\end{bmatrix} = \begin{bmatrix}au_1 + 0u_2 + 0u_3\\0u_2 + bu_2 + 0u_2\\0u_3 + 0u_3 + cu_3\end{bmatrix} = \begin{bmatrix}au_1\\bu_2\\cu_3\end{bmatrix} \\
+               \end{bmatrix}\begin{bmatrix}u_1 \\ u_2\\u_3\end{bmatrix} = \begin{bmatrix}au_1 + 0u_2 + 0u_3\\0u_1 + bu_2 + 0u_3\\0u_1 + 0u_2 + cu_3\end{bmatrix} = \begin{bmatrix}au_1\\bu_2\\cu_3\end{bmatrix} \\
 \end{align*}
 
 As before, consider the equation $A\vec{u} = \vec{x}$, here for $A$ and $\vec{u}$ in $\mathbb{R}^3$.
