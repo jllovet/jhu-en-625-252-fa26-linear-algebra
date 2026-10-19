@@ -371,7 +371,7 @@ Applying Cramer's rule to find the value of $b$, we need to replace an appropria
                         \end{vmatrix} \reason{By definition of $A_{i}(\vec{b})$ and since $\vec{b} = \vec{e_2}$} \\[1ex]
 \end{align*}
 
-Fortunately for us, we do not need to do cofactor expansion to evaluate this determinant. Note that in $A_2(\vec{b})$, $R_1 = R_3$. Hence, the rows are linearly dependent, and $\det A_2(\vec{b}) = 0$ by the Invertible Matrix Theorem (or alternatively by row reduction and then \cite[Theorem 3.2, p. 175]{LayEtAl2020LinearAlgebraAndItsApplications} that says that in a triangular matrix, the determinant is the product of the diagonal entries, since here here the diagonal entries will be [3,1,0]). This provides us with what we need to find the value of $b$.
+Fortunately for us, we do not need to do cofactor expansion to evaluate this determinant. Note that in $A_2(\vec{b})$, $R_1 = R_3$. Hence, the rows are linearly dependent, and $\det A_2(\vec{b}) = 0$ by the Invertible Matrix Theorem (or alternatively by row reduction and then \cite[Theorem 3.2, p. 175]{LayEtAl2020LinearAlgebraAndItsApplications} that says that in a triangular matrix, the determinant is the product of the diagonal entries, since here the diagonal entries will be [3,1,0]). This provides us with what we need to find the value of $b$.
 
 \begin{align*}
   x_2 = b & = \frac{\det A_2(\vec{b})}{\det A} \reason{By Cramer's Rule} \\[1ex]
