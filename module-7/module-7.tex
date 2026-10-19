@@ -489,7 +489,7 @@ This represents a similar dilation of space along each of the three components o
 
 Therefore, the region described by $T(B)$ is circumscribed by the ellipsoid whose equation is $\frac{x_1^2}{a^2} + \frac{x_2^2}{b^2} + \frac{x_3^2}{c^2} = 1$, and this is the image of $B$ under $T$, which what what we wanted.
 
-In light of this, let's find the volume formula for the ellipsoid $T(B)$. Two observations will help here. First, each of the matrices we were given, $A$ and $B$, are triangular matrices. By \cite[Theorem 3.2, Ch. 3.1, p. 175]{LayEtAl2020LinearAlgebraAndItsApplications}, the determinant of each is the product of the elements along its diagonal.
+In light of this, let's find the volume formula for the ellipsoid $T(B)$. Two observations will help here. First, the matrix $A$ is a triangular matrix. By \cite[Theorem 3.2, Ch. 3.1, p. 175]{LayEtAl2020LinearAlgebraAndItsApplications}, the determinant of each is the product of the elements along its diagonal.
 
 \begin{align*}
   \det A & = \begin{vmatrix}
@@ -499,7 +499,7 @@ In light of this, let's find the volume formula for the ellipsoid $T(B)$. Two ob
              \end{vmatrix} = a \cdot b \cdot c = abc \\[1ex]
 \end{align*}
 
-But then, by \cite[Theorem 3.10, Ch. 3.3, p. 193]{LayEtAl2020LinearAlgebraAndItsApplications} and the extension thereof \cite[Ch. 3.3, p.195]{LayEtAl2020LinearAlgebraAndItsApplications}, because a unit sphere $B$ bounds a finite region in $\mathbb{R}^3$ and the ellipsoid $T(B)$ similarly bounds a finite region in $\mathbb{R}^3$, where $T$ is defined by the matrix $A$, therefore the volume of $T(B)$ is equal to $\mid \det A \mid \cdot \text{ volume of B}$. Let $V(a)$ denote the volume of an object $a$. Then,
+Second, by \cite[Theorem 3.10, Ch. 3.3, p. 193]{LayEtAl2020LinearAlgebraAndItsApplications} and the extension thereof \cite[Ch. 3.3, p.195]{LayEtAl2020LinearAlgebraAndItsApplications}, because a unit sphere $B$ bounds a finite region in $\mathbb{R}^3$ and the ellipsoid $T(B)$ similarly bounds a finite region in $\mathbb{R}^3$, where $T$ is defined by the matrix $A$, therefore the volume of $T(B)$ is equal to $\mid \det A \mid \cdot \text{ volume of B}$. Let $V(a)$ denote the volume of an object $a$. Then,
 
 \begin{align*}
   V \circ T(B) & = \det A \cdot V(B) \reason{By \cite[Theorem 3.10, Ch. 3.3, p. 193]{LayEtAl2020LinearAlgebraAndItsApplications}} \\[1ex]
