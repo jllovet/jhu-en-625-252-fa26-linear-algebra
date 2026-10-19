@@ -502,12 +502,12 @@ In light of this, let's find the volume formula for the ellipsoid $T(B)$. Two ob
 Second, by \cite[Theorem 3.10, Ch. 3.3, p. 193]{LayEtAl2020LinearAlgebraAndItsApplications} and the extension thereof \cite[Ch. 3.3, p.195]{LayEtAl2020LinearAlgebraAndItsApplications}, because a unit sphere $B$ bounds a finite region in $\mathbb{R}^3$ and the ellipsoid $T(B)$ similarly bounds a finite region in $\mathbb{R}^3$, where $T$ is defined by the matrix $A$, therefore the volume of $T(B)$ is equal to $\mid \det A \mid \cdot \text{ volume of B}$. Let $V(a)$ denote the volume of an object $a$. Then,
 
 \begin{align*}
-  V \circ T(B) & = \det A \cdot V(B) \reason{By \cite[Theorem 3.10, Ch. 3.3, p. 193]{LayEtAl2020LinearAlgebraAndItsApplications}} \\[1ex]
-               & = \det A \cdot \frac{4}{3}\pi \reason{By volume of sphere}                                                       \\[1ex]
-               & = abc \cdot \frac{4}{3}\pi \reason{By substitution}                                                              \\[1ex]
+  V(T(B)) & = \mid \det A \mid \cdot V(B) \reason{By \cite[Theorem 3.10, Ch. 3.3, p. 193]{LayEtAl2020LinearAlgebraAndItsApplications}} \\[1ex]
+               & = \mid \det \mid A \cdot \frac{4}{3}\pi \reason{By volume of sphere}                                                       \\[1ex]
+               & = \mid abc \mid \cdot \frac{4}{3}\pi \reason{By substitution}                                                              \\[1ex]
 \end{align*}
 
-Therefore, the volume of the ellipsoid is given by the formula $v = abc \cdot \frac{4}{3}\pi$.
+Therefore, the volume of the ellipsoid is given by the formula $v = \mid abc \mid \cdot \frac{4}{3}\pi$.
 
 \pagebreak
 
