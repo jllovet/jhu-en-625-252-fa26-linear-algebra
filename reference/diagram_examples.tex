@@ -31,7 +31,8 @@ figures can be combined with each other and with ordinary TikZ.
 
 Two things to remember:
 \begin{itemize}
-  \item A key value that contains a comma must be wrapped in braces, e.g.
+  \item A key value that contains a comma or an equals sign must be
+        wrapped in braces, e.g.
         \verb|u={2,1}| or \verb|name={$\{a,b\}$}|.
   \item To enlarge a picture that contains pics, use
         \verb|llfig scale=1.5| rather than \verb|scale=1.5|: like nodes,
@@ -370,6 +371,96 @@ $\mathbf{x} \mapsto A\mathbf{x}$.
   \pic {axes 3d={max=3}};
   \pic {vector={to={1,0,-0.5}, label=$\mathbf{u}$}};
   \pic {vector={to={0,1,-0.75}, label=$\mathbf{v}$}};
+\end{tikzpicture}
+\end{tcblisting}
+
+\section*{Transforming space by a matrix}
+
+\verb|llfig matrix={a,b}{c,d}| (rows of $A$) on a scope or picture sends
+every coordinate $\mathbf{x}$ to $A\mathbf{x}$: grids, axes, vectors,
+curves and pics all move together, while text and arrowheads keep their
+shape. \verb|\MatrixMapFig| takes the two rows of $A$ and then some TikZ
+content, and draws the content before and after. Draw closed shapes with \verb|-- cycle|, not
+\verb|rectangle|, and grids with the \texttt{basis grid} pic, not the
+\texttt{grid} operation: those two are always page-aligned.
+
+\begin{tcblisting}{example, title={\textbackslash MatrixMapFig: a shear
+    moves the whole plane --- grid, axes, disk and vector}}
+\MatrixMapFig[before label=$D$, after label=$T(D)$]{1,1}{0,1}{
+  \pic {basis grid={xmin=-2, xmax=2, ymin=-2, ymax=2}};
+  \pic {axes 2d={xmin=-2, xmax=2, ymin=-2, ymax=2}};
+  \filldraw[fill=blue!20, fill opacity=0.6] (0,0) circle (1);
+  \pic {vector={to={1,1}, label=$\mathbf{x}$, color=red}};
+}
+\end{tcblisting}
+
+\begin{tcblisting}{example, title={Fixed axes, transformed content: the
+    unit circle and eigenvectors of $A = \left[\begin{smallmatrix} 2 & 1\\
+    1 & 2\end{smallmatrix}\right]$ ($\lambda = 3, 1$)}}
+\begin{tikzpicture}
+  \pic {axes 2d={xmin=-3, xmax=3, ymin=-2.5, ymax=2.5}};
+  \draw[thin] (0,0) circle (1);
+  \begin{scope}[llfig matrix={2,1}{1,2}]
+    \draw[thick, blue] (0,0) circle (1);
+    \pic {vector={to={0.707,0.707}, label=$A\mathbf{v}_1$, color=red}};
+    \pic {vector={to={-0.707,0.707}, label=$A\mathbf{v}_2$, color=red}};
+  \end{scope}
+  \node[blue, anchor=west] at (1.6,-1.2) {$A(\text{unit circle})$};
+  \node[anchor=west] at (1.6,-1.8) {$A\mathbf{v}_1 = 3\mathbf{v}_1,\
+                                     A\mathbf{v}_2 = \mathbf{v}_2$};
+\end{tikzpicture}
+\end{tcblisting}
+
+\begin{tcblisting}{example, title={Matrix entries can be expressions: a
+    rotation by $30^\circ$ of a letter F (orientation preserved)}}
+\MatrixMapFig[label={rotate $30^\circ$}, scale=0.8]
+    {cos(30),-sin(30)}{sin(30),cos(30)}{
+  \pic {basis grid={xmin=-1, xmax=3, ymin=-1, ymax=3}};
+  \filldraw[fill=orange!40] (0,0) -- (0.6,0) -- (0.6,1.2) -- (1.4,1.2)
+    -- (1.4,1.7) -- (0.6,1.7) -- (0.6,2.4) -- (1.8,2.4) -- (1.8,3)
+    -- (0,3) -- cycle;
+}
+\end{tcblisting}
+
+\begin{tcblisting}{example, title={A reflection: $\det A = -1$, so the F
+    comes out mirrored}}
+\MatrixMapFig[label={$\left[\begin{smallmatrix} -1 & 0\\ 0 & 1
+    \end{smallmatrix}\right]$}, scale=0.8]{-1,0}{0,1}{
+  \pic {axes 2d={xmin=-2, xmax=2, ymin=0, ymax=3, x1 label=, x2 label=}};
+  \filldraw[fill=orange!40] (0.2,0) -- (0.8,0) -- (0.8,1.2) -- (1.6,1.2)
+    -- (1.6,1.7) -- (0.8,1.7) -- (0.8,2.4) -- (2,2.4) -- (2,3)
+    -- (0.2,3) -- cycle;
+}
+\end{tcblisting}
+
+\begin{tcblisting}{example, title={Nested scopes compose: shear $S$ first,
+    then rotate by $90^\circ$ with $R$ (the inner matrix applies first)}}
+\begin{tikzpicture}
+  \pic {axes 2d={xmin=-2, xmax=2, ymin=-1, ymax=2}};
+  \draw[dashed] (0,0) -- (1,0) -- (1,1) -- (0,1) -- cycle;
+  \begin{scope}[llfig matrix={0,-1}{1,0}]   % rotate
+    \begin{scope}[llfig matrix={1,1}{0,1}] % shear
+      \filldraw[fill=blue!20] (0,0) -- (1,0) -- (1,1) -- (0,1) -- cycle;
+      \pic {vector={to={0,1}, label=$RS\mathbf{e}_2$, label pos=left}};
+    \end{scope}
+  \end{scope}
+\end{tikzpicture}
+\end{tcblisting}
+
+\begin{tcblisting}{example, title={3D: \texttt{llfig matrix 3d} applies a
+    $3\times3$ matrix (here a shear in $x_1$ by $x_3$) to a cube and a grid}}
+\begin{tikzpicture}[llfig view]
+  \pic {axes 3d={max=2.2}};
+  \pic {parallelepiped={u={1,0,0}, v={0,1,0}, w={0,0,1}, vectors=false,
+                        fill=gray!20}};
+\end{tikzpicture}
+\quad $\xrightarrow{\;A\;}$ \quad
+\begin{tikzpicture}[llfig view]
+  \pic {axes 3d={max=2.2}};
+  \begin{scope}[llfig matrix 3d={1,0,0.8}{0,1,0}{0,0,1}]
+    \pic {parallelepiped={u={1,0,0}, v={0,1,0}, w={0,0,1},
+                          vectors=false}};
+  \end{scope}
 \end{tikzpicture}
 \end{tcblisting}
 

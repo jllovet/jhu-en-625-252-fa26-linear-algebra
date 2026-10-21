@@ -48,6 +48,22 @@
 % \draw commands would drift apart. llfig scale multiplies the coordinate
 % units instead, which pics do follow; text keeps its size.
 %
+% Linear maps: transform everything drawn in a scope by a matrix A,
+% given by rows. Coordinates x land at A x; grids, axes, vectors, pics,
+% curves and circles (which become ellipses) all follow, while text,
+% dots, arrowheads and line widths keep their shape.
+%   \begin{scope}[llfig matrix={2,-1}{1,1}] ... \end{scope}        2x2
+%   \begin{scope}[llfig matrix 3d={1,0,0.5}{0,1,0}{0,0,1}] ... \end{scope}
+% Entries may be expressions, e.g. {cos(30),-sin(30)}{sin(30),cos(30)}.
+% Nested scopes compose: the inner matrix is applied first. Not
+% transformed: the `rectangle' and `grid' path operations (they always
+% draw page-aligned shapes; use -- cycle and the basis grid pic instead)
+% and the ellipsoid pic.
+%   \MatrixMapFig[keys]{row 1}{row 2}{content}
+% draws the TikZ content, an arrow, and the content again under A.
+% Keys: label (over the arrow, default $T$), before label, after label
+% (captions under the two pictures), scale. Needs amsmath (\xrightarrow).
+%
 % Stand-alone shortcuts (each is its own tikzpicture, baseline at the
 % origin so side-by-side figures line up along the x1-axis):
 %   \EllipseFig[keys]     \UnitDiskFig[keys]    (a = b = 1, intercepts labeled 1)
@@ -161,6 +177,8 @@
   from/.store in=\llfig@from,        to/.store in=\llfig@to,
   label/.store in=\llfig@label,
   label pos/.store in=\llfig@lpos,
+  before label/.store in=\llfig@beforelabel,
+  after label/.store in=\llfig@afterlabel,
   u/.store in=\llfig@u,  v/.store in=\llfig@v,  w/.store in=\llfig@w,
   u label/.store in=\llfig@ulabel,   v label/.store in=\llfig@vlabel,
   w label/.store in=\llfig@wlabel,   sum label/.store in=\llfig@sumlabel,
@@ -219,6 +237,56 @@
 \def\llfig@splitxy@i#1,#2\relax#3{%
   \expandafter\def\csname llfig@#3x\endcsname{#1}%
   \expandafter\def\csname llfig@#3y\endcsname{#2}}
+% Linear maps, by changing the unit vectors: afterwards the coordinate x
+% lands where A x used to. Both (all three) new units are computed from
+% the old ones before any is set, so nested maps compose correctly.
+% The combined 3x3 matrix in effect, M (identity outside any llfig
+% matrix scope), is tracked so that pics needing true 3D directions (the
+% parallelepiped's hidden-edge test) can use M u instead of u.
+\def\llfig@Maa{1}\def\llfig@Mab{0}\def\llfig@Mac{0}
+\def\llfig@Mba{0}\def\llfig@Mbb{1}\def\llfig@Mbc{0}
+\def\llfig@Mca{0}\def\llfig@Mcb{0}\def\llfig@Mcc{1}
+% \llfig@composeM: M := M * A, A's entries in \llfig@r<row><col> (rows a,
+% b, c; columns x, y, z). Plain local definitions, so M stays inside
+% the scope that set it.
+\def\llfig@composeM{%
+  \pgfmathsetmacro\llfig@Naa{\llfig@Maa*\llfig@rax + \llfig@Mab*\llfig@rbx + \llfig@Mac*\llfig@rcx}%
+  \pgfmathsetmacro\llfig@Nab{\llfig@Maa*\llfig@ray + \llfig@Mab*\llfig@rby + \llfig@Mac*\llfig@rcy}%
+  \pgfmathsetmacro\llfig@Nac{\llfig@Maa*\llfig@raz + \llfig@Mab*\llfig@rbz + \llfig@Mac*\llfig@rcz}%
+  \pgfmathsetmacro\llfig@Nba{\llfig@Mba*\llfig@rax + \llfig@Mbb*\llfig@rbx + \llfig@Mbc*\llfig@rcx}%
+  \pgfmathsetmacro\llfig@Nbb{\llfig@Mba*\llfig@ray + \llfig@Mbb*\llfig@rby + \llfig@Mbc*\llfig@rcy}%
+  \pgfmathsetmacro\llfig@Nbc{\llfig@Mba*\llfig@raz + \llfig@Mbb*\llfig@rbz + \llfig@Mbc*\llfig@rcz}%
+  \pgfmathsetmacro\llfig@Nca{\llfig@Mca*\llfig@rax + \llfig@Mcb*\llfig@rbx + \llfig@Mcc*\llfig@rcx}%
+  \pgfmathsetmacro\llfig@Ncb{\llfig@Mca*\llfig@ray + \llfig@Mcb*\llfig@rby + \llfig@Mcc*\llfig@rcy}%
+  \pgfmathsetmacro\llfig@Ncc{\llfig@Mca*\llfig@raz + \llfig@Mcb*\llfig@rbz + \llfig@Mcc*\llfig@rcz}%
+  \let\llfig@Maa\llfig@Naa\let\llfig@Mab\llfig@Nab\let\llfig@Mac\llfig@Nac%
+  \let\llfig@Mba\llfig@Nba\let\llfig@Mbb\llfig@Nbb\let\llfig@Mbc\llfig@Nbc%
+  \let\llfig@Mca\llfig@Nca\let\llfig@Mcb\llfig@Ncb\let\llfig@Mcc\llfig@Ncc}
+% \llfig@setmatrix{a,b}{c,d}: A = [a b; c d], given by rows
+\def\llfig@setmatrix#1#2{%
+  \llfig@splitxy{#1}{ra}\llfig@splitxy{#2}{rb}%
+  \def\llfig@raz{0}\def\llfig@rbz{0}%
+  \def\llfig@rcx{0}\def\llfig@rcy{0}\def\llfig@rcz{1}%
+  \llfig@composeM
+  \pgfpointxy{\llfig@rax}{\llfig@rbx}% A e1 = (a, c)
+  \edef\llfig@ex{\the\pgf@x}\edef\llfig@ey{\the\pgf@y}%
+  \pgfpointxy{\llfig@ray}{\llfig@rby}% A e2 = (b, d)
+  \edef\llfig@fx{\the\pgf@x}\edef\llfig@fy{\the\pgf@y}%
+  \pgfsetxvec{\pgfpoint{\llfig@ex}{\llfig@ey}}%
+  \pgfsetyvec{\pgfpoint{\llfig@fx}{\llfig@fy}}}
+% \llfig@setmatrixiii{row 1}{row 2}{row 3}: 3x3 A, rows like {a,b,c}
+\def\llfig@setmatrixiii#1#2#3{%
+  \llfig@splitxyz{#1}{ra}\llfig@splitxyz{#2}{rb}\llfig@splitxyz{#3}{rc}%
+  \llfig@composeM
+  \pgfpointxyz{\llfig@rax}{\llfig@rbx}{\llfig@rcx}% A e1
+  \edef\llfig@ex{\the\pgf@x}\edef\llfig@ey{\the\pgf@y}%
+  \pgfpointxyz{\llfig@ray}{\llfig@rby}{\llfig@rcy}% A e2
+  \edef\llfig@fx{\the\pgf@x}\edef\llfig@fy{\the\pgf@y}%
+  \pgfpointxyz{\llfig@raz}{\llfig@rbz}{\llfig@rcz}% A e3
+  \edef\llfig@gx{\the\pgf@x}\edef\llfig@gy{\the\pgf@y}%
+  \pgfsetxvec{\pgfpoint{\llfig@ex}{\llfig@ey}}%
+  \pgfsetyvec{\pgfpoint{\llfig@fx}{\llfig@fy}}%
+  \pgfsetzvec{\pgfpoint{\llfig@gx}{\llfig@gy}}}
 % Inside an llfig view picture, ellipsoids default to that view at scale 1.
 \newcommand{\llfig@useview}{%
   \ifdefined\llfig@viewaz
@@ -239,6 +307,9 @@
   llfig view/.default={30}{20},
   % scale the coordinate units (2D or 3D); pics follow, text does not
   llfig scale/.style={x={(#1,0,0)}, y={(0,#1,0)}, z={(0,0,#1)}},
+  % apply x -> A x to everything drawn in the scope (rows of A)
+  llfig matrix/.code 2 args={\llfig@setmatrix{#1}{#2}},
+  llfig matrix 3d/.code n args={3}{\llfig@setmatrixiii{#1}{#2}{#3}},
   % ---------------- 2D: number line ----------------
   pics/number line/.style={code={%
     \pgfkeys{/llfig, reset, scale=1, x1 label=, color=blue,
@@ -452,22 +523,34 @@
     \ifdefined\rcarot\else\tdplotsetmaincoords{70}{120}\fi
     \llfig@splitxyz\llfig@u{u}\llfig@splitxyz\llfig@v{v}%
     \llfig@splitxyz\llfig@w{w}%
+    % The test needs the true directions: M u, M v, M w, where M is the
+    % combined llfig matrix in effect (identity if none). Drawing still
+    % uses u, v, w, which the matrix then maps.
+    \pgfmathsetmacro\llfig@Wux{\llfig@Maa*\llfig@ux + \llfig@Mab*\llfig@uy + \llfig@Mac*\llfig@uz}%
+    \pgfmathsetmacro\llfig@Wuy{\llfig@Mba*\llfig@ux + \llfig@Mbb*\llfig@uy + \llfig@Mbc*\llfig@uz}%
+    \pgfmathsetmacro\llfig@Wuz{\llfig@Mca*\llfig@ux + \llfig@Mcb*\llfig@uy + \llfig@Mcc*\llfig@uz}%
+    \pgfmathsetmacro\llfig@Wvx{\llfig@Maa*\llfig@vx + \llfig@Mab*\llfig@vy + \llfig@Mac*\llfig@vz}%
+    \pgfmathsetmacro\llfig@Wvy{\llfig@Mba*\llfig@vx + \llfig@Mbb*\llfig@vy + \llfig@Mbc*\llfig@vz}%
+    \pgfmathsetmacro\llfig@Wvz{\llfig@Mca*\llfig@vx + \llfig@Mcb*\llfig@vy + \llfig@Mcc*\llfig@vz}%
+    \pgfmathsetmacro\llfig@Wwx{\llfig@Maa*\llfig@wx + \llfig@Mab*\llfig@wy + \llfig@Mac*\llfig@wz}%
+    \pgfmathsetmacro\llfig@Wwy{\llfig@Mba*\llfig@wx + \llfig@Mbb*\llfig@wy + \llfig@Mbc*\llfig@wz}%
+    \pgfmathsetmacro\llfig@Wwz{\llfig@Mca*\llfig@wx + \llfig@Mcb*\llfig@wy + \llfig@Mcc*\llfig@wz}%
     % sign tests: (d . (v x w)) * det[u v w] < 0  <=>  alpha < 0, etc.
-    \pgfmathsetmacro\llfig@det{\llfig@ux*(\llfig@vy*\llfig@wz - \llfig@vz*\llfig@wy)
-      + \llfig@uy*(\llfig@vz*\llfig@wx - \llfig@vx*\llfig@wz)
-      + \llfig@uz*(\llfig@vx*\llfig@wy - \llfig@vy*\llfig@wx)}%
+    \pgfmathsetmacro\llfig@det{\llfig@Wux*(\llfig@Wvy*\llfig@Wwz - \llfig@Wvz*\llfig@Wwy)
+      + \llfig@Wuy*(\llfig@Wvz*\llfig@Wwx - \llfig@Wvx*\llfig@Wwz)
+      + \llfig@Wuz*(\llfig@Wvx*\llfig@Wwy - \llfig@Wvy*\llfig@Wwx)}%
     \pgfmathtruncatemacro\llfig@bu{\llfig@det*(
-        \rcarot*(\llfig@vy*\llfig@wz - \llfig@vz*\llfig@wy)
-      + \rcbrot*(\llfig@vz*\llfig@wx - \llfig@vx*\llfig@wz)
-      + \rccrot*(\llfig@vx*\llfig@wy - \llfig@vy*\llfig@wx)) < 0}%
+        \rcarot*(\llfig@Wvy*\llfig@Wwz - \llfig@Wvz*\llfig@Wwy)
+      + \rcbrot*(\llfig@Wvz*\llfig@Wwx - \llfig@Wvx*\llfig@Wwz)
+      + \rccrot*(\llfig@Wvx*\llfig@Wwy - \llfig@Wvy*\llfig@Wwx)) < 0}%
     \pgfmathtruncatemacro\llfig@bv{\llfig@det*(
-        \rcarot*(\llfig@wy*\llfig@uz - \llfig@wz*\llfig@uy)
-      + \rcbrot*(\llfig@wz*\llfig@ux - \llfig@wx*\llfig@uz)
-      + \rccrot*(\llfig@wx*\llfig@uy - \llfig@wy*\llfig@ux)) < 0}%
+        \rcarot*(\llfig@Wwy*\llfig@Wuz - \llfig@Wwz*\llfig@Wuy)
+      + \rcbrot*(\llfig@Wwz*\llfig@Wux - \llfig@Wwx*\llfig@Wuz)
+      + \rccrot*(\llfig@Wwx*\llfig@Wuy - \llfig@Wwy*\llfig@Wux)) < 0}%
     \pgfmathtruncatemacro\llfig@bw{\llfig@det*(
-        \rcarot*(\llfig@uy*\llfig@vz - \llfig@uz*\llfig@vy)
-      + \rcbrot*(\llfig@uz*\llfig@vx - \llfig@ux*\llfig@vz)
-      + \rccrot*(\llfig@ux*\llfig@vy - \llfig@uy*\llfig@vx)) < 0}%
+        \rcarot*(\llfig@Wuy*\llfig@Wvz - \llfig@Wuz*\llfig@Wvy)
+      + \rcbrot*(\llfig@Wuz*\llfig@Wvx - \llfig@Wux*\llfig@Wvz)
+      + \rccrot*(\llfig@Wux*\llfig@Wvy - \llfig@Wuy*\llfig@Wvx)) < 0}%
     \pgfmathtruncatemacro\llfig@fu{1 - \llfig@bu}%
     \pgfmathtruncatemacro\llfig@fv{1 - \llfig@bv}%
     \pgfmathtruncatemacro\llfig@fw{1 - \llfig@bw}%
@@ -681,6 +764,24 @@
       \pic {parallelepiped={#1, label above=, label below=}};
     \end{scope}
     \def\llfig@captionx{llfig@whole.center}%
+    \llfig@captions[llfig@whole]
+  \end{tikzpicture}%
+  \endgroup}
+% Content, an arrow, and the same content under the matrix with rows
+% #2 and #3. Both pictures have their baseline at the origin.
+\newcommand{\MatrixMapFig}[4][]{%
+  \begingroup
+  \pgfkeys{/llfig, reset, scale=1, label=$T$, before label=, after label=, #1}%
+  \begin{tikzpicture}[baseline, llfig scale=\llfig@scale]
+    \begin{scope}[local bounding box=llfig@whole]#4\end{scope}
+    \let\llfig@below\llfig@beforelabel
+    \llfig@captions[llfig@whole]
+  \end{tikzpicture}%
+  \quad$\xrightarrow{\;\text{\llfig@label}\;}$\quad
+  \begin{tikzpicture}[baseline, llfig scale=\llfig@scale,
+                      llfig matrix={#2}{#3}]
+    \begin{scope}[local bounding box=llfig@whole]#4\end{scope}
+    \let\llfig@below\llfig@afterlabel
     \llfig@captions[llfig@whole]
   \end{tikzpicture}%
   \endgroup}
