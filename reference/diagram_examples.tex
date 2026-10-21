@@ -1,0 +1,376 @@
+% Example invocations of the figures in diagram_macros.tex.
+% Each box shows the source and, below the dashed line, what that exact
+% source renders.
+\documentclass[11pt]{article}
+\usepackage[margin=.75in]{geometry}
+\usepackage{amsmath, amssymb}
+\usepackage{tikz}
+\usepackage[most]{tcolorbox}  % tcblisting: show code and its output together
+\input{diagram_macros}
+
+\tcbset{
+  example/.style={listing and text, segmentation style={dashed}, colback=white, colframe=black!40,
+    fonttitle=\bfseries, center lower,
+    listing options={basicstyle=\ttfamily\small, columns=fullflexible,
+                     breaklines=true, keepspaces=true}},
+}
+\setlength{\parindent}{0pt}
+
+\title{Diagram Macro Examples}
+\date{}
+
+\begin{document}
+\maketitle
+
+All figures come from \texttt{diagram\_macros.tex}; see the comment block at
+its top for the full list of keys. The stand-alone commands
+(\verb|\UnitDiskFig|, \verb|\NumberLineFig|, \ldots) each make their own
+\texttt{tikzpicture}. The pics (\texttt{ellipse}, \texttt{vector},
+\texttt{plane}, \ldots) go inside a \texttt{tikzpicture}, so several
+figures can be combined with each other and with ordinary TikZ.
+
+Two things to remember:
+\begin{itemize}
+  \item A key value that contains a comma must be wrapped in braces, e.g.
+        \verb|u={2,1}| or \verb|name={$\{a,b\}$}|.
+  \item To enlarge a picture that contains pics, use
+        \verb|llfig scale=1.5| rather than \verb|scale=1.5|: like nodes,
+        pics ignore a picture's \verb|scale|.
+  \item 3D pics (\texttt{axes 3d}, \texttt{plane}, \texttt{parallelepiped},
+        and \texttt{vector} with three coordinates) need the option
+        \verb|llfig view| on the \texttt{tikzpicture}, optionally with a view:
+        \verb|llfig view={azimuth}{elevation}|. They then share one view
+        with each other and with any plain \verb|\draw (x,y,z) ...|.
+\end{itemize}
+
+\section*{Ellipses in 2D: stand-alone commands}
+
+\begin{tcblisting}{example, title={\textbackslash UnitDiskFig: defaults}}
+\UnitDiskFig
+\end{tcblisting}
+
+\begin{tcblisting}{example, title={\textbackslash EllipseFig: semi-axes,
+    intercept labels and a region name}}
+\EllipseFig[a=2, b=1, a label=$a$, b label=$b$, name=$E$]
+\end{tcblisting}
+
+\begin{tcblisting}{example, title={\textbackslash EllipseFig: custom axis
+    labels, colour, longer axes, caption above}}
+\EllipseFig[a=1.5, b=.75, x1 label=$u_1$, x2 label=$u_2$,
+            fill=blue!25, overhang=1, label above={$x_1^2/a^2 + x_2^2/b^2 \le 1$}]
+\end{tcblisting}
+
+\begin{tcblisting}{example, title={\textbackslash EllipseFig: no axis labels}}
+\EllipseFig[a=1.5, b=.75, x1 label=, x2 label=]
+\end{tcblisting}
+
+\begin{tcblisting}{example, title={Side by side: matching \texttt{y extent}
+    keeps axes and captions level}}
+\UnitDiskFig[label below=$D$, y extent=1.6, scale=.75]
+\quad $\xrightarrow{\;T\;}$ \quad
+\EllipseFig[a=2, b=.75, a label=$a$, b label=$b$,
+            label below=$E$, y extent=1.6, scale=.75]
+\end{tcblisting}
+
+\section*{Ellipsoids in 3D: stand-alone commands}
+
+\begin{tcblisting}{example, title={\textbackslash UnitSphereFig: defaults}}
+\UnitSphereFig
+\end{tcblisting}
+
+\begin{tcblisting}{example, title={\textbackslash EllipsoidFig: three
+    semi-axes, colour, caption below}}
+\EllipsoidFig[a=1.2, b=1.6, c=1, a label=$a$, b label=$b$, c label=$c$,
+              fill=blue!25, label below=$T(B)$, scale=1]
+\end{tcblisting}
+
+\begin{tcblisting}{example, title={\textbackslash SpheroidFig: oblate
+    (\texttt{c < a}) and prolate (\texttt{c > a})}}
+\SpheroidFig[a=1.4, c=0.8, a label=$a$, b label=$a$, c label=$c$, scale=1]
+\qquad
+\SpheroidFig[a=0.7, c=1.4, scale=1]
+\end{tcblisting}
+
+\begin{tcblisting}{example, title={Changing the view: \texttt{azimuth},
+    \texttt{elevation}, \texttt{equator}}}
+\EllipsoidFig[a=2, b=.75, scale=1, azimuth=-20, elevation=35]
+\qquad
+\SpheroidFig[a=0.7, c=1.4, azimuth=45, elevation=30,
+             equator=false, scale=1]
+\end{tcblisting}
+
+\section*{Ellipses and ellipsoids: several figures in one picture}
+
+\begin{tcblisting}{example, title={Unit disk to ellipse with a straight
+    arrow}}
+\begin{tikzpicture}
+  \pic at (0,0) {ellipse={a label=$1$, b label=$1$,
+                          label below=$D$, y extent=1.6, scale=.75}};
+  \pic at (5,0) {ellipse={a=2, b=.75, a label=$a$, b label=$b$,
+                          label below=$E$, y extent=1.6, scale=.75}};
+  \draw[->] (1.9,0) -- node[above] {$T$} (2.8,0);
+\end{tikzpicture}
+\end{tcblisting}
+
+\begin{tcblisting}{example, title={Unit sphere to ellipsoid with a curved
+    arrow}}
+\begin{tikzpicture}
+  \pic at (0,0) {ellipsoid={x1 label=$u_1$, x2 label=$u_2$,
+      x3 label=$u_3$, a label=$1$, b label=$1$, c label=$1$,
+      label below=$B$, scale=1}};
+  \pic at (5.5,0) {ellipsoid={a=1.2, b=1.6, c=1, a label=$a$,
+      b label=$b$, c label=$c$, fill=blue!25,
+      label below=$T(B)$, scale=1}};
+  \draw[->, thick] (1.8,0.3) to[bend left]
+    node[above] {$T(\vec{u}) = A\vec{u}$} (3.6,0.3);
+\end{tikzpicture}
+\end{tcblisting}
+
+\begin{tcblisting}{example, title={Mixing 2D and 3D, with ordinary TikZ
+    drawn on top}}
+\begin{tikzpicture}
+  \pic at (0,0) {ellipse={a label=$1$, b label=$1$,
+                          label below=$D \subset \mathbb{R}^2$, scale=1}};
+  \pic at (6,0) {ellipsoid={a label=$1$, b label=$1$, c label=$1$,
+      label below=$B \subset \mathbb{R}^3$, scale=1}};
+  \draw[->, dashed] (2.5,0.4) -- node[above] {extend} (4.3,0.4);
+  \fill[red] (0.3,0.35) circle (1.5pt)
+    node[above right, red] {$\vec{u}$};
+\end{tikzpicture}
+\end{tcblisting}
+
+\section*{Number lines}
+
+\begin{tcblisting}{example, title={\textbackslash NumberLineFig: defaults}}
+\NumberLineFig
+\end{tcblisting}
+
+\begin{tcblisting}{example, title={Labelled points, an open point, a
+    highlighted interval and an axis label}}
+\NumberLineFig[points={-1/$a$, 2.5/$b$}, open points={1/$c$},
+               interval={-1}{1}, x1 label=$\mathbb{R}$]
+\end{tcblisting}
+
+\begin{tcblisting}{example, title={The half-open interval $(-1, 2]$:
+    unlabelled endpoints with \texttt{/\{\}}}}
+\NumberLineFig[interval={-1}{2}, open points={-1/{}}, points={2/{}},
+               color=red]
+\end{tcblisting}
+
+\begin{tcblisting}{example, title={Custom range and step, no tick labels,
+    caption below}}
+\NumberLineFig[min=0, max=1, step=0.25, tick labels=false, scale=4,
+               points={0.5/$\tfrac12$}, label below={$[0,1]$}]
+\end{tcblisting}
+
+\section*{Vectors and parallelograms in 2D}
+
+\begin{tcblisting}{example, title={Axes with grid and tick labels; vectors
+    with labels beside (\texttt{label pos}) or at the tip, colours and a
+    dashed style}}
+\begin{tikzpicture}
+  \pic {axes 2d={xmin=-2, xmax=4, ymin=-1, ymax=4,
+                 grid, tick labels}};
+  \pic {vector={to={3,1}, label=$\mathbf{u}$, label pos=right,
+                color=blue}};
+  \pic {vector={to={1,2}, label=$\mathbf{v}$, label pos=left,
+                color=red}};
+  \pic {vector={to={4,3}, label=$\mathbf{u}+\mathbf{v}$}};
+  \pic {vector={from={3,1}, to={4,3}, color=red, style=dashed}};
+  \pic {vector={from={1,2}, to={4,3}, color=blue, style=dashed}};
+\end{tikzpicture}
+\end{tcblisting}
+
+\begin{tcblisting}{example, title={\textbackslash ParallelogramFig: on axes
+    sized to fit}}
+\ParallelogramFig[u={3,1}, v={1,2}, u label=$\mathbf{u}$,
+                  v label=$\mathbf{v}$, sum label=$\mathbf{u}+\mathbf{v}$,
+                  label below={area $= |\det[\,\mathbf{u}\;\mathbf{v}\,]| = 5$}]
+\end{tcblisting}
+
+\begin{tcblisting}{example, title={Negative entries, a region name and a
+    different fill}}
+\ParallelogramFig[u={2,-1}, v={-1,2}, fill=orange!25, name=$P$,
+                  u label=$\mathbf{a}_1$, v label=$\mathbf{a}_2$]
+\end{tcblisting}
+
+\begin{tcblisting}{example, title={The unit square and its image under $A$,
+    as one picture (\texttt{parallelogram} and \texttt{axes 2d} pics)}}
+\begin{tikzpicture}
+  \pic {axes 2d={xmin=0, xmax=1.5, ymin=0, ymax=1.5}};
+  \pic {parallelogram={u={1,0}, v={0,1}, u label=$\mathbf{e}_1$,
+                       v label=$\mathbf{e}_2$, name=$S$}};
+  \pic at (5,0) {axes 2d={xmin=0, xmax=3.5, ymin=0, ymax=3.5}};
+  \pic at (5,0) {parallelogram={u={2,1}, v={1,3}, u label=$A\mathbf{e}_1$,
+                                v label=$A\mathbf{e}_2$, name=$T(S)$}};
+  \draw[->] (2.2,0.8) -- node[above] {$T(\mathbf{x}) = A\mathbf{x}$} (4.3,0.8);
+\end{tikzpicture}
+\end{tcblisting}
+
+\section*{Vectors, planes and parallelepipeds in 3D}
+
+\begin{tcblisting}{example, title={3D axes and vectors in the default view}}
+\begin{tikzpicture}[llfig view]
+  \pic {axes 3d};
+  \pic {vector={to={1.5,1.5,1.5}, label=$\mathbf{v}$, color=blue}};
+  \pic {vector={to={2,-0.5,1}, label=$\mathbf{w}$, color=red}};
+  \draw[dashed] (0,0,0) -- (1.5,1.5,0) -- (1.5,1.5,1.5);
+\end{tikzpicture}
+\end{tcblisting}
+
+\begin{tcblisting}{example, title={A plane through the origin: its
+    spanning vectors and a normal vector}}
+\begin{tikzpicture}[llfig view]
+  \pic {axes 3d};
+  \pic {plane={u={1.5,0,-0.75}, v={0,1.4,-1.05}, vectors, extent=1.2,
+               u label=$\mathbf{u}$, v label=$\mathbf{v}$,
+               name={$\mathrm{Span}\{\mathbf{u},\mathbf{v}\}$},
+               name pos={0.75}{0.75}}};
+  \pic {vector={to={0.6,0.9,1.2}, label=$\mathbf{n}$, color=red}};
+\end{tikzpicture}
+\end{tcblisting}
+
+\begin{tcblisting}{example, title={A plane through the point $\mathbf{p}$
+    (\texttt{\textbackslash pic at (p)}), and a line $\mathrm{Span}\{\mathbf{d}\}$
+    in plain TikZ}}
+\begin{tikzpicture}[llfig view={40}{25}]
+  \pic {axes 3d={max=3}};
+  \pic at (0.3,1,1.5) {plane={u={1,0,0}, v={0,1,0}, fill=green!30,
+                              name=$\mathbf{p} + W$, name pos={-1.35}{1.35}}};
+  \pic {vector={to={0.3,1,1.5}, label=$\mathbf{p}$}};
+  \draw[thick, red] (-1.2,0.96,-0.36) -- (1.6,-1.28,0.48);
+  \pic {vector={to={1,-0.8,0.3}, label=$\mathbf{d}$, label pos=right,
+                color=red}};
+\end{tikzpicture}
+\end{tcblisting}
+
+\begin{tcblisting}{example, title={\textbackslash ParallelepipedFig: hidden
+    edges are dashed}}
+\ParallelepipedFig[u={1.8,0.3,-0.5}, v={-0.3,1.6,0.6}, w={0.6,-0.4,1.3},
+                   u label=$\mathbf{a}_1$, v label=$\mathbf{a}_2$,
+                   w label=$\mathbf{a}_3$,
+                   label below={volume $= |\det A|$}]
+\end{tcblisting}
+
+\begin{tcblisting}{example, title={The same parallelepiped from three views
+    (hidden edges follow the view)}}
+\ParallelepipedFig[u={1.8,0.3,-0.5}, v={-0.3,1.6,0.6}, w={0.6,-0.4,1.3},
+                   scale=.7]
+\quad
+\ParallelepipedFig[u={1.8,0.3,-0.5}, v={-0.3,1.6,0.6}, w={0.6,-0.4,1.3},
+                   scale=.7, azimuth=55, elevation=30]
+\quad
+\ParallelepipedFig[u={1.8,0.3,-0.5}, v={-0.3,1.6,0.6}, w={0.6,-0.4,1.3},
+                   scale=.7, azimuth=45, elevation=-20]
+\end{tcblisting}
+
+\begin{tcblisting}{example, title={A parallelogram in 3D (area
+    $\|\mathbf{u}\times\mathbf{v}\|$) and the unit cube, as pics}}
+\begin{tikzpicture}[llfig view]
+  \pic {axes 3d};
+  \pic {parallelogram={u={1.2,-0.2,-0.9}, v={-0.5,1.3,0.8}, opacity=0.6,
+                       u label=$\mathbf{u}$, v label=$\mathbf{v}$}};
+\end{tikzpicture}
+\qquad
+\begin{tikzpicture}[llfig view]
+  \pic {axes 3d={max=1.6}};
+  \pic {parallelepiped={u={1,0,0}, v={0,1,0}, w={0,0,1},
+                        fill=gray!30, vectors=false}};
+\end{tikzpicture}
+\end{tcblisting}
+
+\begin{tcblisting}{example, title={Mixing: an ellipsoid pic picks up the
+    picture's view, so vectors land on its surface}}
+\begin{tikzpicture}[llfig view]
+  \pic {ellipsoid={a=1.5, b=1.2, c=0.8, a label=$a$, b label=$b$,
+                   c label=$c$, overhang=0.9}};
+  % (0.9/1.5)^2 + (-0.6/1.2)^2 + (0.45/0.8)^2 = 0.93, just under the surface
+  \pic {vector={to={0.9,-0.6,0.45}, label=$\mathbf{x}$, label pos=right,
+                color=red}};
+\end{tikzpicture}
+\end{tcblisting}
+
+\section*{Grids at angles and images of grids}
+
+The \texttt{basis grid} pic draws grid lines along any two vectors
+$\mathbf{u}, \mathbf{v}$. With $\mathbf{u} = A\mathbf{e}_1$ and
+$\mathbf{v} = A\mathbf{e}_2$ it is the image of the standard grid under
+$\mathbf{x} \mapsto A\mathbf{x}$.
+
+\begin{tcblisting}{example, title={A grid rotated by $30^\circ$, with its
+    basis vectors}}
+\begin{tikzpicture}
+  \pic {basis grid={u={0.866,0.5}, v={-0.5,0.866}, vectors,
+                    u label=$\mathbf{b}_1$, v label=$\mathbf{b}_2$}};
+  \pic {axes 2d={xmin=-2.5, xmax=2.5, ymin=-2.5, ymax=2.5}};
+\end{tikzpicture}
+\end{tcblisting}
+
+\begin{tcblisting}{example, title={A skewed $\mathcal{B}$-grid over the
+    standard grid (clipped with plain TikZ): $\mathbf{x} = \mathbf{b}_1 +
+    2\mathbf{b}_2$}}
+\begin{tikzpicture}
+  \pic {axes 2d={xmin=-3, xmax=4, ymin=-2, ymax=4, grid}};
+  \begin{scope}
+    \clip (-3,-2) rectangle (4,4);
+    \pic {basis grid={u={2,1}, v={-1,1}, xmin=-3, xmax=3,
+                      ymin=-3, ymax=5, color=blue!50, style=thick}};
+  \end{scope}
+  \pic {basis grid={u={2,1}, v={-1,1}, xmin=0, xmax=0, ymin=0, ymax=0,
+                    vectors, u label=$\mathbf{b}_1$, v label=$\mathbf{b}_2$}};
+  \fill (0,3) circle (2pt)
+    node[above right=1pt, fill=white, inner sep=1pt] {$\mathbf{x}$};
+  \node[below=6pt] at (0.5,-2.4)
+    {$\mathbf{x} = (0,3)$, \quad $[\mathbf{x}]_{\mathcal{B}} = (1,2)$};
+\end{tikzpicture}
+\end{tcblisting}
+
+\begin{tcblisting}{example, title={A shear $A = \left[\begin{smallmatrix}
+    1 & 1\\ 0 & 1\end{smallmatrix}\right]$: the standard grid and unit
+    square, and their images (enlarged with \texttt{llfig scale})}}
+\begin{tikzpicture}[llfig scale=1.25]
+  \pic {basis grid={xmin=-1, xmax=2, ymin=-1, ymax=2}};
+  \pic {parallelogram={u={1,0}, v={0,1}, name=$S$,
+                       u label=$\mathbf{e}_1$, v label=$\mathbf{e}_2$}};
+  \pic {axes 2d={xmin=-1, xmax=2, ymin=-1, ymax=2}};
+  \draw[->, thick] (2.7,0.5) -- node[above] {$T(\mathbf{x}) = A\mathbf{x}$}
+    (4.2,0.5);
+  \begin{scope}[shift={(6.6,0)}]
+    \pic {basis grid={u={1,0}, v={1,1}, xmin=-1, xmax=2,
+                      ymin=-1, ymax=2}};
+    \pic {parallelogram={u={1,0}, v={1,1}, name=$T(S)$,
+                         u label=$A\mathbf{e}_1$, v label=$A\mathbf{e}_2$}};
+    \pic {axes 2d={xmin=-2, xmax=4, ymin=-1, ymax=2}};
+  \end{scope}
+\end{tikzpicture}
+\end{tcblisting}
+
+\begin{tcblisting}{example, title={A general $A = \left[\begin{smallmatrix}
+    2 & -1\\ 1 & 1\end{smallmatrix}\right]$: $\mathbf{x}$ and
+    $A\mathbf{x}$ sit at the same place in their grids}}
+\begin{tikzpicture}
+  \pic {basis grid={xmin=0, xmax=3, ymin=0, ymax=2}};
+  \pic {axes 2d={xmin=0, xmax=3, ymin=0, ymax=2}};
+  \pic {vector={to={2,1}, label=$\mathbf{x}$, color=red}};
+  \draw[->, thick] (3.8,1) -- node[above] {$T$} (5.2,1);
+  \begin{scope}[shift={(8,0)}]
+    \pic {basis grid={u={2,1}, v={-1,1}, xmin=0, xmax=3, ymin=0, ymax=2}};
+    \pic {axes 2d={xmin=-2, xmax=6, ymin=0, ymax=4}};
+    \pic {vector={to={3,3}, label=$A\mathbf{x}$, color=red}};
+  \end{scope}
+\end{tikzpicture}
+\end{tcblisting}
+
+\begin{tcblisting}{example, title={A grid on a tilted plane in 3D}}
+\begin{tikzpicture}[llfig view]
+  \pic {plane={u={1,0,-0.5}, v={0,1,-0.75}, extent=1.5, fill=blue!15}};
+  % grid steps of u/2 and v/2: 6 x 6 cells over the patch
+  \pic {basis grid={u={0.5,0,-0.25}, v={0,0.5,-0.375}, xmin=-3, xmax=3,
+                    ymin=-3, ymax=3, color=blue!40}};
+  \pic {axes 3d={max=3}};
+  \pic {vector={to={1,0,-0.5}, label=$\mathbf{u}$}};
+  \pic {vector={to={0,1,-0.75}, label=$\mathbf{v}$}};
+\end{tikzpicture}
+\end{tcblisting}
+
+\end{document}

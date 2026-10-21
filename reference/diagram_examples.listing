@@ -1,0 +1,9 @@
+\begin{tikzpicture}[llfig view]
+  \pic {plane={u={1,0,-0.5}, v={0,1,-0.75}, extent=1.5, fill=blue!15}};
+  % grid steps of u/2 and v/2: 6 x 6 cells over the patch
+  \pic {basis grid={u={0.5,0,-0.25}, v={0,0.5,-0.375}, xmin=-3, xmax=3,
+                    ymin=-3, ymax=3, color=blue!40}};
+  \pic {axes 3d={max=3}};
+  \pic {vector={to={1,0,-0.5}, label=$\mathbf{u}$}};
+  \pic {vector={to={0,1,-0.75}, label=$\mathbf{v}$}};
+\end{tikzpicture}
