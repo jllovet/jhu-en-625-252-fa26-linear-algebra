@@ -1,13 +1,1 @@
-\begin{tikzpicture}[llfig view]
-  \pic {axes 3d={max=2.2}};
-  \pic {parallelepiped={u={1,0,0}, v={0,1,0}, w={0,0,1}, vectors=false,
-                        fill=gray!20}};
-\end{tikzpicture}
-\quad $\xrightarrow{\;A\;}$ \quad
-\begin{tikzpicture}[llfig view]
-  \pic {axes 3d={max=2.2}};
-  \begin{scope}[llfig matrix 3d={1,0,0.8}{0,1,0}{0,0,1}]
-    \pic {parallelepiped={u={1,0,0}, v={0,1,0}, w={0,0,1},
-                          vectors=false}};
-  \end{scope}
-\end{tikzpicture}
+\NulColFig{{1,0},{0,1},{1,1}}

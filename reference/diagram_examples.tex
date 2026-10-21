@@ -464,4 +464,103 @@ content, and draws the content before and after. Draw closed shapes with \verb|-
 \end{tikzpicture}
 \end{tcblisting}
 
+\section*{Subspaces from basis columns}
+
+\verb|\SubspaceFig| takes a list of columns, such as \verb|{{1,2},{0,1}}|,
+and draws their span in $\mathbb{R}^1$, $\mathbb{R}^2$ or $\mathbb{R}^3$
+(set by the number of entries per column). It computes the dimension
+itself, so a dependent set is drawn as what it really spans, and the
+caption reports it.
+
+\begin{tcblisting}{example, title={$\mathbb{R}^1$: a nonzero vector spans
+    the line; the zero subspace is a point}}
+\SubspaceFig{{2}}
+\qquad
+\SubspaceFig[ambient=1]{}
+\end{tcblisting}
+
+\begin{tcblisting}{example, title={$\mathbb{R}^2$: one column spans a
+    line; two independent columns span the plane}}
+\SubspaceFig[name=$W$, window=2]{{2,1}}
+\quad
+\SubspaceFig[name=$\mathbb{R}^2$, window=2]{{2,1},{-1,1}}
+\end{tcblisting}
+
+\begin{tcblisting}{example, title={$\mathbb{R}^2$: two dependent columns
+    still span only a line}}
+\SubspaceFig[window=2.5]{{2,1},{-2,-1}}
+\end{tcblisting}
+
+\begin{tcblisting}{example, title={$\mathbb{R}^3$: a line and a plane
+    through the origin}}
+\SubspaceFig[name=$L$, window=2]{{1,2,1}}
+\quad
+\SubspaceFig[name=$W$, window=2]{{1,0,1},{0,1,1}}
+\end{tcblisting}
+
+\begin{tcblisting}{example, title={$\operatorname{Col} A$ for
+    $A = \left[\begin{smallmatrix} 1&0&1\\ 0&1&1\\ 1&1&2
+    \end{smallmatrix}\right]$: three columns, but
+    $\mathbf{a}_3 = \mathbf{a}_1 + \mathbf{a}_2$, so a plane}}
+\SubspaceFig[name=$\operatorname{Col} A$, vector name=a, window=2]
+  {{1,0,1},{0,1,1},{1,1,2}}
+\end{tcblisting}
+
+\begin{tcblisting}{example, title={$\operatorname{Nul} A$ for the same
+    $A$ (basis $(-1,-1,1)$), and three independent columns span all of
+    $\mathbb{R}^3$}}
+\SubspaceFig[name=$\operatorname{Nul} A$, window=1.5, azimuth=-50]{{-1,-1,1}}
+\quad
+\SubspaceFig[name=$\mathbb{R}^3$, window=1.2]{{1,0,0},{0,1,0},{1,1,1}}
+\end{tcblisting}
+
+\section*{Null space and column space}
+
+Two Lay-style schematics, and \verb|\NulColFig|, which draws the actual
+$\operatorname{Nul} A$ and $\operatorname{Col} A$ of a matrix given by
+rows (at most $3 \times 3$). $\operatorname{Nul} A$ is computed as
+$(\operatorname{Row} A)^\perp$, and the two captions show the
+rank--nullity theorem, $\dim \operatorname{Nul} A + \dim
+\operatorname{Col} A = n$.
+
+\begin{tcblisting}{example, title={\textbackslash KernelRangeFig:
+    $\operatorname{Nul} A \subseteq \mathbb{R}^n$ and
+    $\operatorname{Col} A \subseteq \mathbb{R}^m$ (after Lay, Sec.~4.2)}}
+\KernelRangeFig
+\end{tcblisting}
+
+\begin{tcblisting}{example, title={The same schematic for a linear
+    transformation $T \colon V \to W$}}
+\KernelRangeFig[domain=$V$, codomain=$W$, kernel={$\ker T$},
+                range={$\operatorname{range} T$}, map label={$T$},
+                image={$T(\mathbf{x})$}]
+\end{tcblisting}
+
+\begin{tcblisting}{example, title={\textbackslash FundamentalSubspacesFig:
+    $\operatorname{Row} A \perp \operatorname{Nul} A$ and
+    $\operatorname{Col} A \perp \operatorname{Nul} A^T$ (after Lay,
+    Sec.~6.1), with dimensions}}
+\FundamentalSubspacesFig[dims]
+\end{tcblisting}
+
+\begin{tcblisting}{example, title={\textbackslash NulColFig for
+    $A = \left[\begin{smallmatrix} 1&0&-1\\ 0&1&1\\ 1&1&0
+    \end{smallmatrix}\right]$ (row 3 = row 1 + row 2): a line and a
+    plane in $\mathbb{R}^3$ ($1 + 2 = 3$)}}
+\NulColFig{{1,0,-1},{0,1,1},{1,1,0}}
+\end{tcblisting}
+
+\begin{tcblisting}{example, title={$A = \left[\begin{smallmatrix} 1&2&3\\
+    2&4&6 \end{smallmatrix}\right]$: $\operatorname{Nul} A$ is a plane in
+    $\mathbb{R}^3$, $\operatorname{Col} A$ a line in $\mathbb{R}^2$
+    ($2 + 1 = 3$)}}
+\NulColFig{{1,2,3},{2,4,6}}
+\end{tcblisting}
+
+\begin{tcblisting}{example, title={$A = \left[\begin{smallmatrix} 1&0\\
+    0&1\\ 1&1 \end{smallmatrix}\right]$: independent columns, so
+    $\operatorname{Nul} A = \{\mathbf{0}\}$ ($0 + 2 = 2$)}}
+\NulColFig{{1,0},{0,1},{1,1}}
+\end{tcblisting}
+
 \end{document}
