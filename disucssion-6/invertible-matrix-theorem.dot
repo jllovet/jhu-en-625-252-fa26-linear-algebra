@@ -84,5 +84,6 @@ digraph G {
     prop_s -> prop_r
 
     prop_d -> prop_r
+    prop_r -> prop_d
 
 }
