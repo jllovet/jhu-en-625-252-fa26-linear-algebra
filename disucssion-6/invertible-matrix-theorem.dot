@@ -5,41 +5,66 @@ digraph G {
     // layout=neato
     // overlap=false
 
+    // dot2tex: LaTeX preamble for the standalone document
+    d2tdocpreamble="\usepackage{amsmath}\usepackage{amssymb}"
+
     label="Invertible Matrix Theorem Implication Structure"
+    texlbl="\textbf{Invertible Matrix Theorem Implication Structure}"
     labelloc="t"
 
     // Nodes
+    // `label` is used by plain Graphviz (dot -Tpng); `texlbl` is used by dot2tex.
     subgraph cluster_imt {
         label=""
+        texlbl=""
         style=rounded
         style=filled
         pencolor="#AEB6BE"
         bgcolor="#E5F5FD"
-        prop_a [label="a) A is an\ninvertible\nmatrix"]
-        prop_b [label="b) A is row\nequivalent to\nthe n x n\nidentity matrix"]
-        prop_c [label="c) A has n\npivot\npositions"]
-        prop_d [label="d) The equation Ax=0\nhas only the\ntrivial solution"]
-        prop_e [label="e) The columns\nof A form\na linearly\nindependent set"]
-        prop_f [label="f) The linear\ntransformation\nx -> Ax is\none-to-one"]
-        prop_g [label="g) The equation Ax=b\nhas at least one\nsolution for each\nb in R^n"]
-        prop_h [label="h) The columns of A\nspan R^n"]
-        prop_i [label="i) The linear transformation\nx -> Ax\nmaps R^n to R^n"]
-        prop_j [label="j) There is an\nn x n matrix\nC such that\nCA=I"]
-        prop_k [label="k) There is an\nn x n matrix\nD such that\nAD=I"]
-        prop_l [label="l) A^T is an\ninvertible\nmatrix"]
-        prop_m [label="m) The columns of A\nform a basis\nof R^n"]
-        prop_n [label="n) Col A = R^n"]
-        prop_o [label="o) rank A = dim Col A = n"]
-        prop_p [label="p) dim Nul A = nullity A = 0"]
-        prop_q [label="q) Nul A = {0}"]
-        prop_r [label="r) The number 0\nis not an\neigenvalue of A"]
-        prop_s [label="s) det A is\nnot equal to 0"]
+        prop_a [label="a) A is an\ninvertible\nmatrix"
+                texlbl="\shortstack{a) $A$ is an\\invertible\\matrix}"]
+        prop_b [label="b) A is row\nequivalent to\nthe n x n\nidentity matrix"
+                texlbl="\shortstack{b) $A$ is row\\equivalent to\\the $n \times n$\\identity matrix}"]
+        prop_c [label="c) A has n\npivot\npositions"
+                texlbl="\shortstack{c) $A$ has $n$\\pivot\\positions}"]
+        prop_d [label="d) The equation Ax=0\nhas only the\ntrivial solution"
+                texlbl="\shortstack{d) The equation $A\mathbf{x}=\mathbf{0}$\\has only the\\trivial solution}"]
+        prop_e [label="e) The columns\nof A form\na linearly\nindependent set"
+                texlbl="\shortstack{e) The columns\\of $A$ form\\a linearly\\independent set}"]
+        prop_f [label="f) The linear\ntransformation\nx -> Ax is\none-to-one"
+                texlbl="\shortstack{f) The linear\\transformation\\$\mathbf{x} \mapsto A\mathbf{x}$ is\\one-to-one}"]
+        prop_g [label="g) The equation Ax=b\nhas at least one\nsolution for each\nb in R^n"
+                texlbl="\shortstack{g) The equation $A\mathbf{x}=\mathbf{b}$\\has at least one\\solution for each\\$\mathbf{b} \in \mathbb{R}^n$}"]
+        prop_h [label="h) The columns of A\nspan R^n"
+                texlbl="\shortstack{h) The columns of $A$\\span $\mathbb{R}^n$}"]
+        prop_i [label="i) The linear transformation\nx -> Ax\nmaps R^n onto R^n"
+                texlbl="\shortstack{i) The linear transformation\\$\mathbf{x} \mapsto A\mathbf{x}$\\maps $\mathbb{R}^n$ onto $\mathbb{R}^n$}"]
+        prop_j [label="j) There is an\nn x n matrix\nC such that\nCA=I"
+                texlbl="\shortstack{j) There is an\\$n \times n$ matrix\\$C$ such that\\$CA=I$}"]
+        prop_k [label="k) There is an\nn x n matrix\nD such that\nAD=I"
+                texlbl="\shortstack{k) There is an\\$n \times n$ matrix\\$D$ such that\\$AD=I$}"]
+        prop_l [label="l) A^T is an\ninvertible\nmatrix"
+                texlbl="\shortstack{l) $A^T$ is an\\invertible\\matrix}"]
+        prop_m [label="m) The columns of A\nform a basis\nof R^n"
+                texlbl="\shortstack{m) The columns of $A$\\form a basis\\of $\mathbb{R}^n$}"]
+        prop_n [label="n) Col A = R^n"
+                texlbl="n) $\operatorname{Col} A = \mathbb{R}^n$"]
+        prop_o [label="o) rank A = dim Col A = n"
+                texlbl="o) $\operatorname{rank} A = \dim \operatorname{Col} A = n$"]
+        prop_p [label="p) dim Nul A = nullity A = 0"
+                texlbl="p) $\dim \operatorname{Nul} A = \operatorname{nullity} A = 0$"]
+        prop_q [label="q) Nul A = {0}"
+                texlbl="q) $\operatorname{Nul} A = \{\mathbf{0}\}$"]
+        prop_r [label="r) The number 0\nis not an\neigenvalue of A"
+                texlbl="\shortstack{r) The number $0$\\is not an\\eigenvalue of $A$}"]
+        prop_s [label="s) det A is\nnot equal to 0"
+                texlbl="s) $\det A \neq 0$"]
     }
 
     // Edges
 
     prop_a -> prop_j -> prop_d -> prop_c -> prop_b -> prop_a
-    
+
     prop_a -> prop_l
     prop_l -> prop_a
 
