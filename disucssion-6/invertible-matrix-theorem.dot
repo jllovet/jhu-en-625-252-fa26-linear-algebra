@@ -32,6 +32,8 @@ digraph G {
         prop_o [label="o) rank A = dim Col A = n"]
         prop_p [label="p) dim Nul A = nullity A = 0"]
         prop_q [label="q) Nul A = {0}"]
+        prop_r [label="r) The number 0\nis not an\neigenvalue of A"]
+        prop_s [label="s) det A is\nnot equal to 0"]
     }
 
     // Edges
@@ -52,5 +54,10 @@ digraph G {
     prop_m -> prop_e -> prop_m
 
     prop_m -> prop_h -> prop_m
+
+    prop_r -> prop_s
+    prop_s -> prop_r
+
+    prop_d -> prop_r
 
 }
