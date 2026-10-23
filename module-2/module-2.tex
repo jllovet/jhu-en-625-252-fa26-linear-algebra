@@ -201,17 +201,40 @@ From here, we can express the solution set in parametric form as follows:
 \noindent\textbf{Problem 3:}
 \medskip
 
-Solve the matrix equation
-$Ax =
-  \left[\begin{array}{r}
-      1 \\
-      0 \\
-      1
-    \end{array}\right]$, or show that no solution exists.
+Solve the matrix equation $A\vec{x} = \begin{bmatrix}1 \\0 \\1\end{bmatrix}$, or show that no solution exists.
 
 \medskip
 \noindent\textbf{Answer:}
 \medskip
+
+Let $\vec{v} = \begin{bmatrix}1\\0\\1\end{bmatrix}$. We can examine whether there is a solution by performing row reductions on the augmented matrix below.
+
+\begin{align*}
+  \left[A \mid \vec{v}\ \right] & = \left[\begin{array}{rrr|r}
+                                        1 & 1 & 0 & 1 \\
+                                        1 & 2 & 1 & 0 \\
+                                        0 & 1 & 1 & 1
+                                      \end{array}\right] \reason{By construction}        \\[1ex]
+                                & \sim \left[\begin{array}{rrr|r}
+                                           1 & 1 & 0 & 1  \\
+                                           0 & 1 & 1 & -1 \\
+                                           0 & 1 & 1 & 1
+                                         \end{array}\right] \reason{$R_2 - R_1 \to R_2$} \\[1ex]
+                                & \sim \left[\begin{array}{rrr|r}
+                                           1 & 1 & 0 & 1  \\
+                                           0 & 1 & 1 & -1 \\
+                                           0 & 0 & 0 & 2
+                                         \end{array}\right] \reason{$R_3 - R_2 \to R_3$} \\[1ex]
+\end{align*}
+
+From here, it is clear that the system is inconsistent, by \cite[Theorem~2, Ch.~1, p.~22]{LayEtAl2020LinearAlgebraAndItsApplications}, because there is a pivot in the final position of the row, with all entries in that row otherwise equal to $0$. Row 3 in the matrix is is equivalent to 
+\begin{align*}
+  0x_1 + 0x_2 + 0x_3 & = 2 \\
+  0 + 0 + 0          & = 2 \\
+  0                  & = 2 \\
+\end{align*}
+
+\noindent which is a contradiction. Because the system of linear equations $\left[A \mid \vec{v}\ \right]$ is inconsistent, therefore there is no solution to the corresponding matrix equation $A\vec{x} = \begin{bmatrix}1 \\0 \\1\end{bmatrix}$.
 
 \pagebreak
 
