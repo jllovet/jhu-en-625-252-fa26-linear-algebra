@@ -130,7 +130,7 @@ Using your answer to Problem 1, determine the general solution of $A\vec{x} = \v
 \begin{align*}
   A\vec{x}                       & = \vec{0} \reason{Given}                                     \\[1ex]
                                  & \equiv                                                       \\
-  \text{rref}(A)\vec{x}          & = \vec{0} \reason{Because $A \sim$ rref($A$)}        \\[1ex]
+  \text{rref}(A)\vec{x}          & = \vec{0} \reason{Because $A \sim$ rref($A$)}                \\[1ex]
                                  & \equiv                                                       \\
   \begin{bmatrix}
     1 & 0 & -1 \\
@@ -258,7 +258,7 @@ The diagrams below illustrate that geometrically, since $\vec{n} \not\in \mathrm
   \begin{tikzpicture}[llfig view, llfig scale=1.5]
     \pic {axes 3d};
     \draw[thick, blue] (1.5,-1.5,1.5) -- (-1.5,1.5,-1.5)
-      node[at start, anchor=east, inner sep=2pt] {$\mathrm{Span}\{\vec{v}\}$};
+    node[at start, anchor=east, inner sep=2pt] {$\mathrm{Span}\{\vec{v}\}$};
     \pic {vector={to={1,-1,1}, label=$\vec{v}$, label pos = left, color=blue}};
     \pic {vector={to={-1.2,1.2,-1.2}, label={$\vec{w} = -1.2 \vec{v}$}, label pos=right, color=blue}};
     \pic {vector={to={1,0,1}, label=$\vec{n}$, color=red}};
@@ -270,7 +270,7 @@ The diagrams below illustrate that geometrically, since $\vec{n} \not\in \mathrm
 \begin{figure}[H]
   \centering
   \includegraphics[width=\textwidth,page=1]{no-intersections.png}
-  \caption{Desmos Plot Showing Same Relation \cite{Desmos3DGraphingCalculator}}
+  \caption{Desmos Plot: $\vec{n} \not\in \mathrm{Span}\{\vec{v}\}$. Hence there is no solution such that $A\vec{x} = \vec{n}$ \cite{Desmos3DGraphingCalculator}}
   \label{fig:desmos-plot-showing-n-not-in-span}
 \end{figure}
 
