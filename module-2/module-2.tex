@@ -151,10 +151,10 @@ This matrix equation has the same solution set as the augmented matrix below:
       1 & 0 & -1 & 0 \\
       0 & 1 & 1  & 0 \\
       0 & 0 & 0  & 0
-    \end{array}\right] \reason{By \cite[Theorem 1.3, p.38]{LayEtAl2020LinearAlgebraAndItsApplications}}
+    \end{array}\right] \reason{By \cite[Theorem~1.3, p.~38]{LayEtAl2020LinearAlgebraAndItsApplications}}
 \end{align*}
 
-Again by \cite[Theorem 1.3, p.38]{LayEtAl2020LinearAlgebraAndItsApplications}:
+Again by \cite[Theorem~1.3, p.~38]{LayEtAl2020LinearAlgebraAndItsApplications}:
 
 \begin{align*}
    & \left[\begin{array}{rrr|r}
@@ -229,7 +229,7 @@ Let $\vec{v} = \begin{bmatrix}1\\0\\1\end{bmatrix}$. We can examine whether ther
                                          \end{array}\right] \reason{$R_3 - R_2 \to R_3$} \\[1ex]
 \end{align*}
 
-From here, it is clear that the system is inconsistent, by \cite[Theorem~2, Ch.~1, p.~22]{LayEtAl2020LinearAlgebraAndItsApplications}, because there is a pivot in the final position of the row, with all entries in that row otherwise equal to $0$. Row 3 in the matrix is is equivalent to
+From here, it is clear that the system is inconsistent, by \cite[Theorem~1.2, p.~22]{LayEtAl2020LinearAlgebraAndItsApplications}, because there is a pivot in the final position of the row, with all entries in that row otherwise equal to $0$. Row 3 in the matrix is is equivalent to
 \begin{align*}
   0x_1 + 0x_2 + 0x_3 & = 2 \\
   0 + 0 + 0          & = 2 \\
@@ -251,6 +251,7 @@ Use 3D graphing software (e.g. Geogebra or Desmos) to give a geometric descripti
 
 Let the solution to problem 2 be denoted $c\vec{v}, \text{ where }\vec{v} = \begin{bmatrix}1 \\-1 \\1\end{bmatrix}$ and $c$ is the free variable $x_3$ from the matrix $A$. The solution from problem 2 is Span$\left\{\vec{v}\right\}$, which is the set of all vectors that are scalar multiples of $\vec{v}$. Let one such vector $\vec{w}$ with $c = -1.2$, so that $\vec{w} = -1.2\vec{v} = \begin{bmatrix}-1.2\\1.2\\-1.2\end{bmatrix}$. Finally, let the vector $\begin{bmatrix}1 \\0 \\1\end{bmatrix}$ from problem 3 be denoted by $\vec{n}$.
 
+The diagrams below illustrate that geometrically, since $\vec{n} \not\in \mathrm{Span}\{\vec{v}\}$, the vector $\vec{n}$ does not lie on the line created by the intersection of the planes in the first two rows of $A$ once $A$ has been reduced to reduced row echelon form. That line where the planes intersect is the solution to the matrix equation $A\vec{x} = 0$. Because $\vec{n}$ does not lie on that line $\mathrm{Span}\{\vec{v}\}$, $\vec{n}$ does not satisfy the equation $A\vec{x} = \vec{n}$.
 
 \begin{figure}[H]
   \centering
@@ -262,7 +263,15 @@ Let the solution to problem 2 be denoted $c\vec{v}, \text{ where }\vec{v} = \beg
     \pic {vector={to={-1.2,1.2,-1.2}, label={$\vec{w} = -1.2 \vec{v}$}, label pos=right, color=blue}};
     \pic {vector={to={1,0,1}, label=$\vec{n}$, color=red}};
   \end{tikzpicture}
-  \caption{$\vec{v}, \vec{w} \in \mathrm{Span}\{\vec{v}\}$ and $\vec{n} \not\in \mathrm{Span}\{\vec{v}\}$}\label{fig:Vector Comparisons}
+  \caption{$\vec{v}, \vec{w} \in \mathrm{Span}\{\vec{v}\}$. $\mathrm{Span}\{\vec{v}\}$ is the solution to $A\vec{x} = \vec{0}$. Also shows that $\vec{n} \not\in \mathrm{Span}\{\vec{v}\}$, and hence there is no solution such that $A\vec{x} = \vec{n}$}\label{fig:Vector Comparisons}
+\end{figure}
+
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth,page=1]{no-intersections.png}
+  \caption{Desmos Plot Showing Same Relation \cite{Desmos3DGraphingCalculator}}
+  \label{fig:desmos-plot-showing-n-not-in-span}
 \end{figure}
 
 \pagebreak
