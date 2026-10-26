@@ -665,12 +665,34 @@ How does the linear transformation $T: \mathbb{R}^3 \to \mathbb{R}^3$ change the
                                                          3 & 0 & 0 \\
                                                          2 & 2 & 0 \\
                                                          0 & 1 & 1
-                                                       \end{bmatrix}
+                                                       \end{bmatrix} = A
         \end{align*}
 
         Therefore, $A$ is the standard matrix for $T$.
 
   \item Find the characteristic polynomial of $A$ and find the eigenvalues $\lambda_i$ of $A$.
+        By definition, the characteristic polynomial is given by $\det (A - \lambda I)$. Since $A$ is already a lower triangular matrix, we can take advantage of \cite[Theorem~3.2, p.~175]{LayEtAl2020LinearAlgebraAndItsApplications}, which says that $\det A$ is equal to the product of the entries on the diagonal if $A$ is triangular.
+
+        \begin{align*}
+          A - \lambda I = \begin{bmatrix}
+                            3 - \lambda & 0           & 0           \\
+                            2           & 2 - \lambda & 0           \\
+                            0           & 1           & 1 - \lambda
+                          \end{bmatrix}
+        \end{align*}
+
+        Therefore,
+
+        \begin{align*}
+          \det  (A - \lambda I) = (3 - \lambda)(2 - \lambda)(1 - \lambda)
+        \end{align*}
+
+        Since the eigenvalues are the roots of this polynomial, therefore
+        \begin{enumerate}
+          \item $\lambda_1 = 3$
+          \item $\lambda_2 = 2$
+          \item $\lambda_1 = 1$
+        \end{enumerate}
   \item Find a basis for each eigenspace $E_{\lambda_i}$
   \item For each eigenspace $E_{\lambda_i}$, choose a random vector $\vec{v} \in E_{\lambda_i}$. For that particular choice of $\vec{v}$, write the corresponding polynomial $p(x)$ associated to $\vec{v}$. For that $p(x)$, verify by working through the calculations that $T(p(x)) = p(x) + (x+1)p'(x) = \lambda p(x)$.
 \end{enumerate}
