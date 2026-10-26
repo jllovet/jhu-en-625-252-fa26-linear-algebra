@@ -512,11 +512,11 @@ What are the corresponding elements for the characteristic polynomial?
 From here, we can consider what the general, parameterized form of the determinant of this matrix $A - \lambda I$ equals.
 
 \begin{align*}
-  \det (A - \lambda I) & = (a - \lambda) (d - \lambda) - bc \reason{By definition of determinant ($ad - bc$)}\\
-  & = ad - a \lambda - d \lambda + \lambda^2 - bc \reason{By multiplication of the first two terms}\\
-  & = \lambda^2 - a \lambda - d \lambda + ad - bc \reason{By commutativity}\\
-  & = \lambda^2 - \underbrace{(a + d)}_{tr(A)} \lambda + \underbrace{ad - bc}_{\det(A)} \reason{By factoring out $-\lambda$}\\
-  & = \lambda^2 - tr(A) \lambda + \det(A) \reason{By substitution based on the identities noted}\\
+  \det (A - \lambda I) & = (a - \lambda) (d - \lambda) - bc \reason{By definition of determinant ($ad - bc$)}                                     \\
+                       & = ad - a \lambda - d \lambda + \lambda^2 - bc \reason{By multiplication of the first two terms}                          \\
+                       & = \lambda^2 - a \lambda - d \lambda + ad - bc \reason{By commutativity}                                                  \\
+                       & = \lambda^2 - \underbrace{(a + d)}_{tr(A)} \lambda + \underbrace{ad - bc}_{\det(A)} \reason{By factoring out $-\lambda$} \\
+                       & = \lambda^2 - tr(A) \lambda + \det(A) \reason{By substitution based on the identities noted}                             \\
 \end{align*}
 
 Therefore, $\det (A - \lambda I) = \lambda^2 - tr(A) \lambda + \det(A)$. Since $\det (A - \lambda I)$ gives the characteristic polynomial of $A$, by definition, therefore $\lambda^2 - tr(A) \lambda + \det(A)$ also gives the characteristic polynomial of $A$. \qed
