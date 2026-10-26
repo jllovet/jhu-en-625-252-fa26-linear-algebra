@@ -59,6 +59,38 @@
 % transformed: the `rectangle' and `grid' path operations (they always
 % draw page-aligned shapes; use -- cycle and the basis grid pic instead)
 % and the ellipsoid pic.
+%   \SubspaceFig[keys]{{1,2},{0,1}}
+% draws Span of the given columns in R^1, R^2 or R^3 (the number of
+% entries per column). The dimension is computed (rank of the columns),
+% so a dependent set is drawn as what it really spans: a point, a line
+% through 0, a plane (a square patch from a Gram-Schmidt orthonormal
+% basis of the span in R^3; the whole window in R^2), or all of R^3.
+% The columns are drawn as arrows v_1, v_2, ... Keys: name (e.g. $W$),
+% name pos (where a plane's name goes, as for the plane pic),
+% vector name (default v), window (half-width shown, default 2.5),
+% color (default blue), dim caption=true|false (caption "dim W = r"
+% below; default true; label below overrides it), ambient=1|2|3 (needed
+% only for the zero subspace, given as {}), azimuth, elevation, scale.
+%
+%   \KernelRangeFig[keys]
+% Lay-style schematic (Sec. 4.2): blobs for R^n and R^m, Nul A inside the
+% first and Col A inside the second, x |-> Ax, and Nul A |-> 0. Keys:
+% domain, codomain, kernel, range, map label, point, image (the labels
+% x and Ax); e.g. domain=$V$, codomain=$W$, kernel={$\ker T$},
+% range={$\operatorname{range} T$}, map label={$T$},
+% image={$T(\mathbf{x})$} for a general linear transformation.
+%   \FundamentalSubspacesFig[keys]
+% Lay-style schematic (Sec. 6.1): Row A with the perpendicular Nul A in
+% R^n, Col A with the perpendicular Nul A^T in R^m. Keys: domain,
+% codomain, row space, kernel, range, left null, map label, dims=true
+% (adds dim r, n - r, r, m - r), rank (the symbol for r, default r).
+%   \NulColFig[keys]{{rows of A}}
+% The actual Nul A (in R^n) and Col A (in R^m) of a matrix given by rows,
+% m, n <= 3, e.g. \NulColFig{{1,0,1},{0,1,1}}. Nul A is computed as
+% (Row A)^perp: with row rank 2 in R^3 it is spanned by the cross product
+% of two independent rows, with rank 1 by two vectors perpendicular to
+% the row. Keys: matrix name (default A), window, azimuth, elevation.
+%
 %   \MatrixMapFig[keys]{row 1}{row 2}{content}
 % draws the TikZ content, an arrow, and the content again under A.
 % Keys: label (over the arrow, default $T$), before label, after label
@@ -147,6 +179,9 @@
 \newif\ifllfig@ticks
 \newif\ifllfig@grid
 \newif\ifllfig@vectors
+\newif\ifllfig@dimcap
+\newif\ifllfig@dims
+\newcount\llfig@k
 \pgfkeys{
   /llfig/.is family, /llfig,
   a/.store in=\llfig@a,              b/.store in=\llfig@b,
@@ -184,6 +219,18 @@
   w label/.store in=\llfig@wlabel,   sum label/.store in=\llfig@sumlabel,
   vectors/.is if=llfig@vectors,
   extent/.store in=\llfig@extent,
+  window/.store in=\llfig@window,
+  ambient/.store in=\llfig@ambient,
+  vector name/.store in=\llfig@vname,
+  dim caption/.is if=llfig@dimcap,
+  domain/.store in=\llfig@domain,     codomain/.store in=\llfig@codomain,
+  kernel/.store in=\llfig@kernel,     range/.store in=\llfig@range,
+  map label/.store in=\llfig@maplabel,
+  point/.store in=\llfig@ptlabel,     image/.store in=\llfig@imlabel,
+  row space/.store in=\llfig@rowsp,   left null/.store in=\llfig@leftnul,
+  dims/.is if=llfig@dims,
+  rank/.store in=\llfig@rk,
+  matrix name/.store in=\llfig@mname,
   name pos/.code 2 args={\def\llfig@ns{#1}\def\llfig@nt{#2}},
   reset/.style={a=1, b=1, c=1,
     x1 label=$x_1$, x2 label=$x_2$, x3 label=$x_3$,
@@ -381,6 +428,7 @@
     \coordinate (llfig@from) at (\llfig@from);
     \coordinate (llfig@to) at (\llfig@to);
     \def\llfig@tmp{tip}%
+    \edef\llfig@lpos{\llfig@lpos}% (the value may arrive as a macro)
     \ifx\llfig@lpos\llfig@tmp
       \draw[->, >=stealth, thick, color=\llfig@color, llfig@userstyle]
         (llfig@from) -- (llfig@to);
@@ -784,5 +832,370 @@
     \let\llfig@below\llfig@afterlabel
     \llfig@captions[llfig@whole]
   \end{tikzpicture}%
+  \endgroup}
+
+% ---------------- Span of columns in R^1, R^2 or R^3 ----------------
+% Columns are stored as \llfig@V<i>x, ...y, ...z (missing entries 0).
+\def\llfig@col#1#2{\csname llfig@V#1#2\endcsname}
+\def\llfig@readvec#1,#2,#3,#4\relax{%
+  \expandafter\gdef\csname llfig@V\the\llfig@k x\endcsname{#1}%
+  \if\relax\detokenize{#2}\relax
+    \expandafter\gdef\csname llfig@V\the\llfig@k y\endcsname{0}%
+  \else\expandafter\gdef\csname llfig@V\the\llfig@k y\endcsname{#2}\fi
+  \if\relax\detokenize{#3}\relax
+    \expandafter\gdef\csname llfig@V\the\llfig@k z\endcsname{0}%
+  \else\expandafter\gdef\csname llfig@V\the\llfig@k z\endcsname{#3}\fi
+  \ifnum\llfig@k=1 % ambient dimension from the first column
+    \if\relax\detokenize{#2}\relax \gdef\llfig@n{1}%
+    \else\if\relax\detokenize{#3}\relax \gdef\llfig@n{2}%
+    \else \gdef\llfig@n{3}\fi\fi
+  \fi}
+% Rank of the columns (tolerance 0.0001; pgfmath is fixed point), with witnesses: \llfig@p (a
+% nonzero column; with \llfig@q, an independent pair).
+\def\llfig@findrank{%
+  \gdef\llfig@rank{0}\gdef\llfig@p{0}\gdef\llfig@q{0}%
+  \ifnum\llfig@k>0
+    \foreach \i in {1,...,\the\llfig@k} {%
+      \pgfmathparse{(\llfig@col{\i}{x})^2 + (\llfig@col{\i}{y})^2
+                    + (\llfig@col{\i}{z})^2 > 0.0001}%
+      \ifnum\llfig@rank=0 \ifnum\pgfmathresult=1
+        \gdef\llfig@rank{1}\xdef\llfig@p{\i}\fi\fi}%
+  \fi
+  \ifnum\llfig@k>1
+    \foreach \i in {1,...,\the\llfig@k} {\foreach \j in {1,...,\the\llfig@k} {%
+      \ifnum\i<\j
+        \pgfmathparse{(\llfig@col{\i}{y}*\llfig@col{\j}{z} - \llfig@col{\i}{z}*\llfig@col{\j}{y})^2
+          + (\llfig@col{\i}{z}*\llfig@col{\j}{x} - \llfig@col{\i}{x}*\llfig@col{\j}{z})^2
+          + (\llfig@col{\i}{x}*\llfig@col{\j}{y} - \llfig@col{\i}{y}*\llfig@col{\j}{x})^2 > 0.0001}%
+        \ifnum\llfig@rank<2 \ifnum\pgfmathresult=1
+          \gdef\llfig@rank{2}\xdef\llfig@p{\i}\xdef\llfig@q{\j}\fi\fi
+      \fi}}%
+  \fi
+  \ifnum\llfig@k>2
+    \foreach \i in {1,...,\the\llfig@k} {\foreach \j in {1,...,\the\llfig@k} {%
+      \foreach \l in {1,...,\the\llfig@k} {%
+        \ifnum\i<\j \ifnum\j<\l
+          \pgfmathparse{abs(
+              \llfig@col{\i}{x}*(\llfig@col{\j}{y}*\llfig@col{\l}{z} - \llfig@col{\j}{z}*\llfig@col{\l}{y})
+            + \llfig@col{\i}{y}*(\llfig@col{\j}{z}*\llfig@col{\l}{x} - \llfig@col{\j}{x}*\llfig@col{\l}{z})
+            + \llfig@col{\i}{z}*(\llfig@col{\j}{x}*\llfig@col{\l}{y} - \llfig@col{\j}{y}*\llfig@col{\l}{x}))
+            > 0.0001}%
+          \ifnum\pgfmathresult=1 \gdef\llfig@rank{3}\fi
+        \fi\fi}}}%
+  \fi}
+% The nonzero columns as labelled arrows. When the span is a line (in R^2
+% or R^3), tip labels would sit on the line, so they go beside the arrows.
+\def\llfig@drawcolumns{%
+  \def\llfig@lp{tip}%
+  \ifnum\llfig@rank=1 \ifnum\llfig@n>1 \def\llfig@lp{left}\fi\fi
+  \ifnum\llfig@k>0
+    \foreach \i in {1,...,\the\llfig@k} {%
+      \pgfmathparse{(\llfig@col{\i}{x})^2 + (\llfig@col{\i}{y})^2
+                    + (\llfig@col{\i}{z})^2 > 0.0001}%
+      \ifnum\pgfmathresult=1
+      \ifnum\llfig@n=3
+        \pic {vector={to={\llfig@col{\i}{x},\llfig@col{\i}{y},\llfig@col{\i}{z}},
+                      label=$\mathbf{\llfig@vname}_{\i}$, label pos=\llfig@lp}};
+      \else\ifnum\llfig@n=2
+        \pic {vector={to={\llfig@col{\i}{x},\llfig@col{\i}{y}},
+                      label=$\mathbf{\llfig@vname}_{\i}$, label pos=\llfig@lp}};
+      \else % R^1: arrows stacked just above the line
+        \pic {vector={from={0,0.35*\i}, to={\llfig@col{\i}{x},0.35*\i},
+                      label=$\mathbf{\llfig@vname}_{\i}$}};
+      \fi\fi
+      \fi}%
+  \fi}
+\newcommand{\SubspaceFig}[2][]{%
+  \begingroup
+  \pgfkeys{/llfig, reset, scale=1, color=blue, window=2.5, ambient=,
+           vector name=v, dim caption=true, #1}%
+  \global\llfig@k=0 \gdef\llfig@n{2}%
+  \foreach \llfig@v in {#2} {%
+    \llfig@ifnonempty\llfig@v{%
+      \global\advance\llfig@k by 1
+      \expandafter\llfig@readvec\llfig@v,,,\relax}}%
+  \llfig@ifnonempty\llfig@ambient{\let\llfig@n\llfig@ambient}%
+  \llfig@findrank
+  % caption: dim W = r
+  \ifllfig@dimcap % unless label below was given; the name has its own $s
+    \if\relax\detokenize\expandafter{\llfig@below}\relax
+      \if\relax\detokenize\expandafter{\llfig@name}\relax
+        \def\llfig@below{$\dim = \llfig@rank$}%
+      \else
+        \def\llfig@below{$\dim$\ \llfig@name\ $= \llfig@rank$}%
+      \fi
+    \fi
+  \fi
+  % copies for passing into inner pics, whose own key reset would
+  % otherwise redefine these in terms of themselves
+  \let\llfig@sname\llfig@name \let\llfig@scolor\llfig@color
+  \let\llfig@sns\llfig@ns \let\llfig@snt\llfig@nt
+  \edef\llfig@L{\llfig@window}%
+  \ifnum\llfig@n=1 % ---------------- R^1
+    \begin{tikzpicture}[baseline, llfig scale=\llfig@scale, >=stealth]
+      \begin{scope}[local bounding box=llfig@whole]
+        \pgfmathtruncatemacro\llfig@Li{\llfig@L}%
+        \pic {number line={min=-\llfig@Li, max=\llfig@Li, x1 label=$\mathbb{R}$}};
+        \ifnum\llfig@rank=0
+          \fill[color=\llfig@color] (0,0) circle (2.5pt);
+        \else
+          \draw[line width=3pt, color=\llfig@color, opacity=0.5]
+            ({-\llfig@L-0.5},0) -- ({\llfig@L+0.5},0);
+        \fi
+        \llfig@drawcolumns
+      \end{scope}
+      \def\llfig@captionx{llfig@whole.center}%
+      \llfig@captions[llfig@whole]
+    \end{tikzpicture}%
+  \else\ifnum\llfig@n=2 % ---------------- R^2
+    \begin{tikzpicture}[baseline, llfig scale=\llfig@scale, >=stealth]
+      \begin{scope}[local bounding box=llfig@whole]
+        \ifnum\llfig@rank=2
+          \fill[color=\llfig@color, opacity=0.15]
+            (-\llfig@L,-\llfig@L) rectangle (\llfig@L,\llfig@L);
+          \llfig@ifnonempty\llfig@name{%
+            \node[anchor=north west, text=\llfig@color]
+              at ({-\llfig@L},{\llfig@L}) {\llfig@name};}
+        \fi
+        \pic {axes 2d={xmin=-\llfig@L, xmax=\llfig@L,
+                       ymin=-\llfig@L, ymax=\llfig@L}};
+        \ifnum\llfig@rank=1 % the line s*d, s chosen to run just past the window
+          \pgfmathsetmacro\llfig@s{(\llfig@L + 0.4)/max(abs(\llfig@col{\llfig@p}{x}),
+                                                abs(\llfig@col{\llfig@p}{y}))}%
+          \draw[very thick, color=\llfig@color, opacity=0.6]
+            ({-\llfig@s*\llfig@col{\llfig@p}{x}},{-\llfig@s*\llfig@col{\llfig@p}{y}})
+            -- ({\llfig@s*\llfig@col{\llfig@p}{x}},{\llfig@s*\llfig@col{\llfig@p}{y}})
+            \llfig@ifnonempty\llfig@name{%
+              node[pos=0.92, auto=right, text=\llfig@color] {\llfig@name}};
+        \fi
+        \ifnum\llfig@rank=0 \fill[color=\llfig@color] (0,0) circle (2.5pt); \fi
+        \llfig@drawcolumns
+      \end{scope}
+      \def\llfig@captionx{llfig@whole.center}%
+      \llfig@captions[llfig@whole]
+    \end{tikzpicture}%
+  \else % ---------------- R^3
+    \begin{tikzpicture}[baseline, llfig view={\llfig@az}{\llfig@el},
+                        llfig scale=\llfig@scale, >=stealth]
+      \begin{scope}[local bounding box=llfig@whole]
+        \pic {axes 3d={max={\llfig@L+0.6}}};
+        \ifnum\llfig@rank=3
+          \pic at (-\llfig@L,-\llfig@L,-\llfig@L) {parallelepiped={
+            u={2*\llfig@L,0,0}, v={0,2*\llfig@L,0}, w={0,0,2*\llfig@L},
+            vectors=false, fill=\llfig@scolor!40, opacity=0.25,
+            style={draw=\llfig@scolor!60}}};
+          \llfig@ifnonempty\llfig@name{%
+            \node[text=\llfig@color, anchor=south west]
+              at (\llfig@L,-\llfig@L,\llfig@L) {\llfig@name};}
+        \fi
+        \ifnum\llfig@rank=2 % square patch from an orthonormal basis of the span
+          \pgfmathsetmacro\llfig@na{sqrt((\llfig@col{\llfig@p}{x})^2
+            + (\llfig@col{\llfig@p}{y})^2 + (\llfig@col{\llfig@p}{z})^2)}%
+          \pgfmathsetmacro\llfig@ex{\llfig@col{\llfig@p}{x}/\llfig@na}%
+          \pgfmathsetmacro\llfig@ey{\llfig@col{\llfig@p}{y}/\llfig@na}%
+          \pgfmathsetmacro\llfig@ez{\llfig@col{\llfig@p}{z}/\llfig@na}%
+          \pgfmathsetmacro\llfig@dot{\llfig@col{\llfig@q}{x}*\llfig@ex
+            + \llfig@col{\llfig@q}{y}*\llfig@ey + \llfig@col{\llfig@q}{z}*\llfig@ez}%
+          \pgfmathsetmacro\llfig@fx{\llfig@col{\llfig@q}{x} - \llfig@dot*\llfig@ex}%
+          \pgfmathsetmacro\llfig@fy{\llfig@col{\llfig@q}{y} - \llfig@dot*\llfig@ey}%
+          \pgfmathsetmacro\llfig@fz{\llfig@col{\llfig@q}{z} - \llfig@dot*\llfig@ez}%
+          \pgfmathsetmacro\llfig@nf{sqrt((\llfig@fx)^2 + (\llfig@fy)^2 + (\llfig@fz)^2)}%
+          \pic {plane={u={\llfig@L*\llfig@ex, \llfig@L*\llfig@ey, \llfig@L*\llfig@ez},
+                       v={\llfig@L*\llfig@fx/\llfig@nf, \llfig@L*\llfig@fy/\llfig@nf,
+                          \llfig@L*\llfig@fz/\llfig@nf},
+                       fill=\llfig@scolor!30, name=\llfig@sname,
+                       name pos={\llfig@sns}{\llfig@snt}}};
+        \fi
+        \ifnum\llfig@rank=1
+          \pgfmathsetmacro\llfig@s{(\llfig@L + 0.4)/max(abs(\llfig@col{\llfig@p}{x}),
+            abs(\llfig@col{\llfig@p}{y}), abs(\llfig@col{\llfig@p}{z}))}%
+          \draw[very thick, color=\llfig@color, opacity=0.6]
+            ({-\llfig@s*\llfig@col{\llfig@p}{x}},{-\llfig@s*\llfig@col{\llfig@p}{y}},
+             {-\llfig@s*\llfig@col{\llfig@p}{z}})
+            -- ({\llfig@s*\llfig@col{\llfig@p}{x}},{\llfig@s*\llfig@col{\llfig@p}{y}},
+                {\llfig@s*\llfig@col{\llfig@p}{z}})
+            \llfig@ifnonempty\llfig@name{%
+              node[pos=0.95, auto=right, text=\llfig@color] {\llfig@name}};
+        \fi
+        \ifnum\llfig@rank=0 \fill[color=\llfig@color] (0,0,0) circle (2.5pt); \fi
+        \llfig@drawcolumns
+      \end{scope}
+      \def\llfig@captionx{llfig@whole.center}%
+      \llfig@captions[llfig@whole]
+    \end{tikzpicture}%
+  \fi\fi
+  \endgroup}
+
+% ---------------- Schematics of Nul A, Col A and the fundamental subspaces
+\newcommand{\KernelRangeFig}[1][]{%
+  \begingroup
+  \pgfkeys{/llfig, reset, scale=1,
+    domain=$\mathbb{R}^n$, codomain=$\mathbb{R}^m$,
+    kernel={$\operatorname{Nul} A$}, range={$\operatorname{Col} A$},
+    map label={$\mathbf{x} \mapsto A\mathbf{x}$},
+    point=$\mathbf{x}$, image=$A\mathbf{x}$, #1}%
+  \begin{tikzpicture}[baseline, llfig scale=\llfig@scale, >=stealth]
+    % the two spaces
+    \filldraw[fill=gray!10, draw=gray!70, smooth cycle] plot coordinates
+      {(-1.9,0.2) (-1.2,1.4) (0.4,1.6) (1.7,0.8) (1.6,-0.9) (0.2,-1.6)
+       (-1.4,-1.1)};
+    \filldraw[fill=gray!10, draw=gray!70, smooth cycle, xshift=6cm] plot
+      coordinates {(-1.7,0.4) (-0.8,1.5) (0.9,1.3) (1.8,0.2) (1.2,-1.2)
+       (-0.4,-1.5) (-1.5,-0.8)};
+    \node[anchor=south east] at (-1.3,1.35) {\llfig@domain};
+    \node[anchor=south west] at (6.8,1.3) {\llfig@codomain};
+    % Nul A and Col A, each containing its 0
+    \filldraw[fill=blue!20, draw=blue!60, smooth cycle] plot coordinates
+      {(-0.2,-0.1) (0.5,0.4) (1.1,0.1) (1.0,-0.7) (0.2,-0.9)};
+    \node[blue!70!black, anchor=north] at (0.5,-0.95) {\llfig@kernel};
+    \filldraw[fill=red!15, draw=red!60, smooth cycle] plot coordinates
+      {(5.0,-0.3) (5.4,0.6) (6.4,0.9) (7.1,0.3) (6.7,-0.6) (5.7,-0.8)};
+    \node[red!70!black, anchor=north] at (6.1,-0.85) {\llfig@range};
+    \fill (0.35,-0.35) circle (1.5pt) node[left] {$\mathbf{0}$};
+    \fill (5.6,-0.2) circle (1.5pt) node[above] {$\mathbf{0}$};
+    % x |-> Ax, and a vector of Nul A |-> 0
+    \fill (-1.0,0.6) circle (1.5pt) node[below] {\llfig@ptlabel};
+    \fill (6.4,0.4) circle (1.5pt) node[right] {\llfig@imlabel};
+    \draw[->, thick, shorten <=2pt, shorten >=2pt] (-1.0,0.6)
+      to[out=40, in=150] node[above] {\llfig@maplabel} (6.4,0.4);
+    \fill (0.8,-0.4) circle (1.5pt);
+    \draw[->, dashed, shorten <=2pt, shorten >=2pt] (0.8,-0.4)
+      to[out=-20, in=-150] (5.6,-0.2);
+  \end{tikzpicture}%
+  \endgroup}
+% One side of the fundamental-subspaces picture: a plane (#1) with the
+% perpendicular line (#2) through 0; #3, #4 are optional dimension notes.
+\newcommand{\llfig@perpside}[4]{%
+  \begin{tikzpicture}[baseline, llfig view={30}{25}, llfig scale=\llfig@scale,
+                      >=stealth]
+    % the part of the line below the plane, seen through it
+    \draw[very thick, red!80] (0,0,-1.1) -- (0,0,0);
+    \pic {plane={u={1,0,0}, v={0,1,0}, extent=1.3, fill=blue!20,
+                 opacity=0.7}};
+    \draw[very thick, red!80] (0,0,0) -- (0,0,1.6);
+    \draw (0.25,0,0) -- (0.25,0,0.25) -- (0,0,0.25); % right angle
+    \fill (0,0,0) circle (1.5pt) node[below left=-1pt] {$\mathbf{0}$};
+    % names, with the optional dimension notes as separate nodes
+    \node[text=blue!60!black, inner sep=1pt] (llfig@pn) at (-0.6,0.8,0) {#1};
+    \node[anchor=north, text=blue!60!black, font=\footnotesize, inner sep=1pt]
+      at (llfig@pn.south) {#3};
+    \node[anchor=south, text=red!80!black] (llfig@ln) at (0,0,1.6) {#2};
+    \node[anchor=south, text=red!80!black, font=\footnotesize, inner sep=1pt]
+      at (llfig@ln.north) {#4};
+  \end{tikzpicture}}
+\newcommand{\FundamentalSubspacesFig}[1][]{%
+  \begingroup
+  \pgfkeys{/llfig, reset, scale=1,
+    domain=$\mathbb{R}^n$, codomain=$\mathbb{R}^m$,
+    row space={$\operatorname{Row} A$}, kernel={$\operatorname{Nul} A$},
+    range={$\operatorname{Col} A$}, left null={$\operatorname{Nul} A^T$},
+    map label=$A$, dims=false, rank=r, #1}%
+  \ifllfig@dims
+    \def\llfig@da{$\dim = \llfig@rk$}\def\llfig@db{$\dim = n - \llfig@rk$}%
+    \def\llfig@dc{$\dim = \llfig@rk$}\def\llfig@dd{$\dim = m - \llfig@rk$}%
+  \else
+    \let\llfig@da\empty\let\llfig@db\empty
+    \let\llfig@dc\empty\let\llfig@dd\empty
+  \fi
+  \begin{tabular}{@{}c@{}}
+    \llfig@perpside{\llfig@rowsp}{\llfig@kernel}{\llfig@da}{\llfig@db}\\[3pt]
+    \llfig@domain
+  \end{tabular}%
+  \quad$\xrightarrow{\;\text{\llfig@maplabel}\;}$\quad
+  \begin{tabular}{@{}c@{}}
+    \llfig@perpside{\llfig@range}{\llfig@leftnul}{\llfig@dc}{\llfig@dd}\\[3pt]
+    \llfig@codomain
+  \end{tabular}%
+  \endgroup}
+
+% ---------------- The actual Nul A and Col A of a small matrix
+% Rows are read with \llfig@readvec (so \llfig@k = m rows, \llfig@n = n
+% entries per row) and their rank found with \llfig@findrank.
+% \llfig@addvec{x}{y}{z}: append a vector, scaled to length 1.5, to the
+% Nul A basis list (only the first \llfig@nA entries are kept)
+\def\llfig@addvec#1#2#3{%
+  \pgfmathsetmacro\llfig@len{sqrt((#1)^2 + (#2)^2 + (#3)^2)}%
+  \pgfmathsetmacro\llfig@nvx{1.5*(#1)/\llfig@len}%
+  \pgfmathsetmacro\llfig@nvy{1.5*(#2)/\llfig@len}%
+  \pgfmathsetmacro\llfig@nvz{1.5*(#3)/\llfig@len}%
+  \ifcase\llfig@nA\or
+    \xdef\llfig@nullbasis{\llfig@nullbasis{\llfig@nvx},}%
+  \or
+    \xdef\llfig@nullbasis{\llfig@nullbasis{\llfig@nvx,\llfig@nvy},}%
+  \else
+    \xdef\llfig@nullbasis{\llfig@nullbasis{\llfig@nvx,\llfig@nvy,\llfig@nvz},}%
+  \fi}
+\newcommand{\NulColFig}[2][]{%
+  \begingroup
+  \pgfkeys{/llfig, reset, scale=1, matrix name=A, window=2, #1}%
+  \global\llfig@k=0 \gdef\llfig@n{2}%
+  \foreach \llfig@v in {#2} {%
+    \llfig@ifnonempty\llfig@v{%
+      \global\advance\llfig@k by 1
+      \expandafter\llfig@readvec\llfig@v,,,\relax}}%
+  \edef\llfig@nA{\llfig@n}\edef\llfig@mA{\the\llfig@k}%
+  \llfig@findrank % rank of the rows, with independent rows p (and q)
+  % columns of A, as a list for \SubspaceFig, and the largest entry
+  \gdef\llfig@cols{}\gdef\llfig@big{1}%
+  \foreach \j in {x,y,z} {%
+    \ifnum\if\j x1\else\if\j y2\else3\fi\fi>\llfig@nA\relax\else
+      \gdef\llfig@colj{}%
+      \foreach \i in {1,...,\llfig@mA} {%
+        \xdef\llfig@colj{\llfig@colj\ifnum\i>1 ,\fi\llfig@col{\i}{\j}}%
+        \pgfmathsetmacro\llfig@tmp{max(\llfig@big, abs(\llfig@col{\i}{\j}))}%
+        \global\let\llfig@big\llfig@tmp}%
+      \xdef\llfig@cols{\llfig@cols{\llfig@colj},}%
+    \fi}%
+  % Nul A = (Row A)^perp, by the row rank
+  \gdef\llfig@nullbasis{}%
+  \edef\llfig@px{\llfig@col{\llfig@p}{x}}\edef\llfig@py{\llfig@col{\llfig@p}{y}}%
+  \edef\llfig@pz{\llfig@col{\llfig@p}{z}}%
+  \ifcase\llfig@nA\or % n = 1
+    \ifnum\llfig@rank=0 \llfig@addvec{1}{0}{0}\fi
+  \or % n = 2
+    \ifcase\llfig@rank \llfig@addvec{1}{0}{0}\llfig@addvec{0}{1}{0}%
+    \or \llfig@addvec{-(\llfig@py)}{\llfig@px}{0}\fi
+  \else % n = 3
+    \ifcase\llfig@rank
+      \llfig@addvec{1}{0}{0}\llfig@addvec{0}{1}{0}\llfig@addvec{0}{0}{1}%
+    \or % two vectors perpendicular to the row p: p x e_k, then p x (p x e_k),
+        % with e_k for p's smallest entry so that p x e_k is not 0
+      \pgfmathparse{and(abs(\llfig@px) <= abs(\llfig@py), abs(\llfig@px) <= abs(\llfig@pz))
+        ? 1 : (abs(\llfig@py) <= abs(\llfig@pz) ? 2 : 3)}%
+      \pgfmathtruncatemacro\llfig@kk{\pgfmathresult}%
+      \ifcase\llfig@kk\or
+        \edef\llfig@bx{0}\edef\llfig@by{\llfig@pz}\edef\llfig@bz{-(\llfig@py)}% p x e1
+      \or
+        \edef\llfig@bx{-(\llfig@pz)}\edef\llfig@by{0}\edef\llfig@bz{\llfig@px}% p x e2
+      \else
+        \edef\llfig@bx{\llfig@py}\edef\llfig@by{-(\llfig@px)}\edef\llfig@bz{0}% p x e3
+      \fi
+      \llfig@addvec{\llfig@bx}{\llfig@by}{\llfig@bz}%
+      \llfig@addvec{\llfig@py*(\llfig@bz) - \llfig@pz*(\llfig@by)}%
+                   {\llfig@pz*(\llfig@bx) - \llfig@px*(\llfig@bz)}%
+                   {\llfig@px*(\llfig@by) - \llfig@py*(\llfig@bx)}%
+    \or % p x q for two independent rows
+      \edef\llfig@qx{\llfig@col{\llfig@q}{x}}\edef\llfig@qy{\llfig@col{\llfig@q}{y}}%
+      \edef\llfig@qz{\llfig@col{\llfig@q}{z}}%
+      \llfig@addvec{\llfig@py*(\llfig@qz) - \llfig@pz*(\llfig@qy)}%
+                   {\llfig@pz*(\llfig@qx) - \llfig@px*(\llfig@qz)}%
+                   {\llfig@px*(\llfig@qy) - \llfig@py*(\llfig@qx)}%
+    \fi
+  \fi
+  % Col A shows the true columns; if they are long, its picture is scaled
+  % down so that both halves come out about the same size
+  \pgfmathsetmacro\llfig@colwin{max(\llfig@window, \llfig@big + 0.3)}%
+  \pgfmathsetmacro\llfig@colscale{\llfig@scale*\llfig@window/\llfig@colwin}%
+  \edef\llfig@tmp{%
+    \noexpand\SubspaceFig[\unexpanded{#1}, ambient=\llfig@nA,
+      name={$\noexpand\operatorname{Nul}\noexpand\,\llfig@mname$},
+      vector name=u, color=blue]{\llfig@nullbasis}%
+    \noexpand\quad$\noexpand\xrightarrow{\noexpand\;\llfig@mname\noexpand\;}$%
+    \noexpand\quad
+    \noexpand\SubspaceFig[\unexpanded{#1}, ambient=\llfig@mA,
+      name={$\noexpand\operatorname{Col}\noexpand\,\llfig@mname$},
+      vector name=a, color=red, window=\llfig@colwin,
+      scale=\llfig@colscale]{\llfig@cols}}%
+  \llfig@tmp
   \endgroup}
 \makeatother
