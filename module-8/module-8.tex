@@ -301,13 +301,80 @@ Find the characteristic equations, eigenvalues $\lambda_i$, and a basis for each
                                                   -1 - 4 & 0     & 1     & 0 \\
                                                   0      & 4 - 4 & -2    & 0 \\
                                                   0      & 0     & 2 - 4 & 0
-                                                \end{array}\right] \reason{By substitution}                            \\[1ex]
+                                                \end{array}\right] \reason{By substitution}                                           \\[1ex]
                                                                       & \sim \left[\begin{array}{rrr|r}
                                                                                  -5 & 0 & 1  & 0 \\
                                                                                  0  & 0 & -2 & 0 \\
                                                                                  0  & 0 & -2 & 0
-                                                                               \end{array}\right] \reason{By addition} \\[1ex]
+                                                                               \end{array}\right] \reason{By addition}                \\[1ex]
+                                                                      & \sim \left[\begin{array}{rrr|r}
+                                                                                 -5 & 0 & 1  & 0 \\
+                                                                                 0  & 0 & -2 & 0 \\
+                                                                                 0  & 0 & 0  & 0
+                                                                               \end{array}\right] \reason{$R_3 - R_2 \to R_3 $}       \\[1ex]
+                                                                      & \sim \left[\begin{array}{rrr|r}
+                                                                                 -5 & 0 & 1 & 0 \\
+                                                                                 0  & 0 & 1 & 0 \\
+                                                                                 0  & 0 & 0 & 0
+                                                                               \end{array}\right] \reason{$-\frac{1}{2}R_2 \to R_2 $} \\[1ex]
+                                                                      & \sim \left[\begin{array}{rrr|r}
+                                                                                 -5 & 0 & 0 & 0 \\
+                                                                                 0  & 0 & 1 & 0 \\
+                                                                                 0  & 0 & 0 & 0
+                                                                               \end{array}\right] \reason{$R_1 - R_2 \to R_1 $}       \\[1ex]
+                                                                      & \sim \left[\begin{array}{rrr|r}
+                                                                                 1 & 0 & 0 & 0 \\
+                                                                                 0 & 0 & 1 & 0 \\
+                                                                                 0 & 0 & 0 & 0
+                                                                               \end{array}\right] \reason{$-\frac{1}{5}R_1 \to R_1 $} \\[1ex]
                 \end{align*}
+
+                The parametric form of the solution to this system is:
+                \begin{align*}
+                  \begin{bmatrix}
+                    x_1 \\
+                    x_2 \\
+                    x_3 \\
+                  \end{bmatrix} = \begin{bmatrix}
+                                    x_1 + x_2 + 0x_3  \\
+                                    0x_1 + x_2 + 0x_3 \\
+                                    0x_1 + x_2 + x_3  \\
+                                  \end{bmatrix} & = \begin{bmatrix}
+                                                      x_1  \\
+                                                      0x_1 \\
+                                                      0x_1 \\
+                                                    \end{bmatrix} + \begin{bmatrix}
+                                                                      x_2 \\
+                                                                      x_2 \\
+                                                                      x_2 \\
+                                                                    \end{bmatrix} + \begin{bmatrix}
+                                                                                      0x_3 \\
+                                                                                      0x_3 \\
+                                                                                      x_3  \\
+                                                                                    \end{bmatrix}              \\[1ex]
+                                                    & = x_1\begin{bmatrix}
+                                                             1 \\
+                                                             0 \\
+                                                             0 \\
+                                                           \end{bmatrix} + x_2\begin{bmatrix}
+                                                                                1 \\
+                                                                                1 \\
+                                                                                1 \\
+                                                                              \end{bmatrix} + x_3\begin{bmatrix}
+                                                                                                   0 \\
+                                                                                                   0 \\
+                                                                                                   1 \\
+                                                                                                 \end{bmatrix}
+                \end{align*}
+                Hence the Eigenbasis corresponding to $\lambda_2 = 4$ is $\left\{\begin{bmatrix}1\\0\\0\end{bmatrix}, \begin{bmatrix}1\\1\\1\end{bmatrix}, \begin{bmatrix}0\\0\\1\end{bmatrix}\right\}$.
+                \begin{figure}[H]
+                  \centering
+                  \ParallelepipedFig[u={1,0,0}, v={1,1,1}, w={0,0,1},
+                    u label=$\mathbf{a}_1$, v label=$\mathbf{a}_2$,
+                    w label=$\mathbf{a}_3$,
+                    label below={Eigenbasis for $\lambda_2 = 4$},
+                    azimuth=20, elevation=30]
+                \end{figure}
           \item Eigenbasis for $\lambda_3 = 2$:
                 \begin{align*}
                   \left[\begin{array}{rrr|r}
