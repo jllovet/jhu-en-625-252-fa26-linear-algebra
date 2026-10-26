@@ -481,6 +481,47 @@ The trace of a square matrix $A$ is the sum of its diagonal entries, denoted $tr
 \medskip
 \noindent\textbf{Answer:}
 
+To show that the characteristic polynomial is given by the expression above, we'll start with the definition of the characteristic polynomial we know and from the definitions provided here to see how one can be reduced to the other algebraically.
+
+Let's first recall that the characteristic polynomial is given as
+
+\begin{align*}
+  \det(A - \lambda I)
+\end{align*}
+
+What does this equal for a $2 \times 2$ matrix? Recall that for a $2 \times 2$ matrix $A = \begin{bmatrix}
+    a & b \\
+    c & d
+  \end{bmatrix}$, $\det A = ad - bc$.
+What are the corresponding elements for the characteristic polynomial?
+
+\begin{align*}
+  A - \lambda I & = \begin{bmatrix}
+                      a & b \\
+                      c & d
+                    \end{bmatrix} - \begin{bmatrix}
+                                      \lambda & 0       \\
+                                      0       & \lambda
+                                    \end{bmatrix} \reason{By definition of I and substitution} \\[1ex]
+                & = \begin{bmatrix}
+                      a - \lambda & b           \\
+                      c           & d - \lambda
+                    \end{bmatrix}  \reason{By matrix subtraction}                              \\[1ex]
+\end{align*}
+
+From here, we can consider what the general, parameterized form of the determinant of this matrix $A - \lambda I$ equals.
+
+\begin{align*}
+  \det (A - \lambda I) & = (a - \lambda) (d - \lambda) - bc \reason{By definition of determinant ($ad - bc$)}\\
+  & = ad - a \lambda - d \lambda + \lambda^2 - bc \reason{By multiplication of the first two terms}\\
+  & = \lambda^2 - a \lambda - d \lambda + ad - bc \reason{By commutativity}\\
+  & = \lambda^2 - \underbrace{(a + d)}_{tr(A)} \lambda + \underbrace{ad - bc}_{\det(A)} \reason{By factoring out $-\lambda$}\\
+  & = \lambda^2 - tr(A) \lambda + \det(A) \reason{By substitution based on the identities noted}\\
+\end{align*}
+
+Therefore, $\det (A - \lambda I) = \lambda^2 - tr(A) \lambda + \det(A)$. Since $\det (A - \lambda I)$ gives the characteristic polynomial of $A$, by definition, therefore $\lambda^2 - tr(A) \lambda + \det(A)$ also gives the characteristic polynomial of $A$. \qed
+
+
 \pagebreak
 
 \noindent\textbf{Problem 3:}
