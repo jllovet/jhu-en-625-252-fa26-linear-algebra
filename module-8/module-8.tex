@@ -99,7 +99,7 @@ Find the characteristic equations, eigenvalues $\lambda_i$, and a basis for each
         Now, to find bases for the eigenspaces corresponding to each of these eigenvalues, we will take each eigenvalue in turn, finding solutions to $(A-\lambda_i I)\vec{x} = \vec{0}$.
 
         \begin{enumerate}[label=(\arabic*)]
-          \item $\lambda_1 = 8$
+          \item Eigenbasis for $\lambda_1 = 8$:
                 \begin{align*}
                   \left[\begin{array}{rr|r}
                       5 - \lambda_1 & 3             & 0 \\
@@ -143,7 +143,16 @@ Find the characteristic equations, eigenvalues $\lambda_i$, and a basis for each
                                                                      \end{bmatrix}
                 \end{align*}
                 Hence the Eigenbasis corresponding to $\lambda_1 = 8$ is $\left\{\begin{bmatrix}1\\1\end{bmatrix}\right\}$.
-          \item $\lambda_2 = 2$
+
+                \begin{figure}[H]
+                  \centering
+                  \begin{tikzpicture}[llfig view]
+                    \pic {axes 2d};
+                    \pic {vector={to={1,1}, label=$\mathbf{v}$, color=blue}};
+                  \end{tikzpicture}
+                  \caption{{Eigenbasis for $\lambda_1 = 8$}}
+                \end{figure}
+          \item Eigenbasis for $\lambda_2 = 2$:
                 \begin{align*}
                   \left[\begin{array}{rr|r}
                       5 - 2 & 3     & 0 \\
@@ -179,6 +188,14 @@ Find the characteristic equations, eigenvalues $\lambda_i$, and a basis for each
                                                                      \end{bmatrix}
                 \end{align*}
                 Hence the Eigenbasis corresponding to $\lambda_2 = 2$ is $\left\{\begin{bmatrix}-1\\1\end{bmatrix}\right\}$.
+                \begin{figure}[H]
+                  \centering
+                  \begin{tikzpicture}[llfig view]
+                    \pic {axes 2d};
+                    \pic {vector={to={-1,1}, label=$\mathbf{v}$, color=blue}};
+                  \end{tikzpicture}
+                  \caption{{Eigenbasis for $\lambda_2 = 2$}}
+                \end{figure}
         \end{enumerate}
   \item To find the eigenvalues, we will evaluate $\det (B - \lambda I)$, where $B$ is this problem's matrix, $\lambda$ is a scalar, and $I$ is the identity matrix.
         Before we evaluate $\det (B - \lambda I)$, we can simplify the matrix $B$ to make the calculation of the determinant simpler. Because row addition does not affect the determinant:
@@ -286,8 +303,8 @@ Find the characteristic equations, eigenvalues $\lambda_i$, and a basis for each
                   \ParallelepipedFig[u={1,1,1}, v={0,1,0}, w={0,0,1},
                     u label=$\mathbf{a}_1$, v label=$\mathbf{a}_2$,
                     w label=$\mathbf{a}_3$,
-                    label below={Eigenbasis for $\lambda_1 = -1$},
                     azimuth=20, elevation=30]
+                  \caption{{Eigenbasis for $\lambda_1 = -1$}}
                 \end{figure}
 
 
@@ -372,8 +389,8 @@ Find the characteristic equations, eigenvalues $\lambda_i$, and a basis for each
                   \ParallelepipedFig[u={1,0,0}, v={1,1,1}, w={0,0,1},
                     u label=$\mathbf{a}_1$, v label=$\mathbf{a}_2$,
                     w label=$\mathbf{a}_3$,
-                    label below={Eigenbasis for $\lambda_2 = 4$},
                     azimuth=20, elevation=30]
+                  \caption{Eigenbasis for $\lambda_2 = 4$}
                 \end{figure}
           \item Eigenbasis for $\lambda_3 = 2$:
                 \begin{align*}
@@ -444,8 +461,8 @@ Find the characteristic equations, eigenvalues $\lambda_i$, and a basis for each
                   \centering
                   \ParallelepipedFig[u={1,0,0}, v={0,1,0}, w={-.333,-1,1},
                     u label=$\mathbf{a}_1$, v label=$\mathbf{a}_2$,
-                    w label=$\mathbf{a}_3$,
-                    label below={Eigenbasis for $\lambda_3 = 2$}]
+                    w label=$\mathbf{a}_3$]
+                  \caption{{Eigenbasis for $\lambda_3 = 2$}}
                 \end{figure}
         \end{enumerate}
 \end{enumerate}
