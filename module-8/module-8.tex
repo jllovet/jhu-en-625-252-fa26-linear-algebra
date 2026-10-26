@@ -99,7 +99,7 @@ Find the characteristic equations, eigenvalues $\lambda_i$, and a basis for each
         Now, to find bases for the eigenspaces corresponding to each of these eigenvalues, we will take each eigenvalue in turn, finding solutions to $(A-\lambda_i I)\vec{x} = \vec{0}$.
 
         \begin{enumerate}[label=(\arabic*)]
-          \item Eigenbasis for $\lambda_1 = 8$:
+          \item Basis of the eigenspace $E_{\lambda_i}$ for $\lambda_1 = 8$:
                 \begin{align*}
                   \left[\begin{array}{rr|r}
                       5 - \lambda_1 & 3             & 0 \\
@@ -152,7 +152,7 @@ Find the characteristic equations, eigenvalues $\lambda_i$, and a basis for each
                   \end{tikzpicture}
                   \caption{{Eigenbasis for $\lambda_1 = 8$}}
                 \end{figure}
-          \item Eigenbasis for $\lambda_2 = 2$:
+          \item Basis of the eigenspace $E_{\lambda_i}$ for $\lambda_2 = 2$:
                 \begin{align*}
                   \left[\begin{array}{rr|r}
                       5 - 2 & 3     & 0 \\
@@ -198,7 +198,7 @@ Find the characteristic equations, eigenvalues $\lambda_i$, and a basis for each
                 \end{figure}
         \end{enumerate}
   \item To find the eigenvalues, we will evaluate $\det (B - \lambda I)$, where $B$ is this problem's matrix, $\lambda$ is a scalar, and $I$ is the identity matrix.
-        Before we evaluate $\det (B - \lambda I)$, we can simplify the matrix $B$ to make the calculation of the determinant simpler. Because row addition does not affect the determinant:
+        Before we evaluate $\det (B - \lambda I)$, we can simplify the matrix $B$ to make the calculation of the determinant simpler. Because row addition does not affect the determinant, we will use the following matrix reduction:
         \begin{align*}
           \begin{bmatrix}
             -1 & 0 & 1 \\
@@ -210,20 +210,26 @@ Find the characteristic equations, eigenvalues $\lambda_i$, and a basis for each
                                  0  & 0 & 2
                                \end{bmatrix} \reason{$-3R_1 + R_2 \to R_2$}
         \end{align*}
-        With this simpler matrix, finding the determinant of $\det (B - \lambda I)$ is much easier:
+
+        Let $B_t = \begin{bmatrix}
+            -1 & 0 & 1  \\
+            0  & 4 & -2 \\
+            0  & 0 & 2
+          \end{bmatrix}$. Because row addition does not affect the determinant, $\det (B - \lambda I) = \det (B_t - \lambda I)$.
+        Finding the determinant of $\det (B_t - \lambda I)$ is much easier:
         \begin{align*}
-          \det (B - \lambda I) & = \det \begin{bmatrix}
-                                          -1 - \lambda & 0           & 1           \\
-                                          0            & 4 - \lambda & -2          \\
-                                          0            & 0           & 2 - \lambda
-                                        \end{bmatrix} \reason{By definition of determinant}                                                                    \\[1ex]
-                               & = (-1 - \lambda)(4 - \lambda)(2 - \lambda) \reason{By \cite[Theorem~5.3, p.~283]{LayEtAl2020LinearAlgebraAndItsApplications}} \\[1ex]
+          \det (B_t - \lambda I) & = \det \begin{bmatrix}
+                                            -1 - \lambda & 0           & 1           \\
+                                            0            & 4 - \lambda & -2          \\
+                                            0            & 0           & 2 - \lambda
+                                          \end{bmatrix} \reason{By definition of determinant, matrix subtraction}                                                \\[1ex]
+                                 & = (-1 - \lambda)(4 - \lambda)(2 - \lambda) \reason{By \cite[Theorem~5.3, p.~283]{LayEtAl2020LinearAlgebraAndItsApplications}} \\[1ex]
         \end{align*}
         As above, from this we have the characteristic equation: $\det (B - \lambda I) = (-1 - \lambda)(4 - \lambda)(2 - \lambda)$. The eigenvalues are: $\lambda_1 = -1, \lambda_2 = 4, \lambda_3 = 2$.
         Now, to find bases for the eigenspaces corresponding to each of these eigenvalues, we will take each eigenvalue in turn, finding solutions to $(B-\lambda_i I)\vec{x} = \vec{0}$.
 
         \begin{enumerate}[label=(\arabic*)]
-          \item Eigenbasis for $\lambda_1 = -1$:
+          \item Basis of the eigenspace $E_{\lambda_i}$ for $\lambda_1 = -1$:
                 \begin{align*}
                   \left[\begin{array}{rrr|r}
                       -1 - \lambda & 0           & 1           & 0 \\
@@ -260,55 +266,52 @@ Find the characteristic equations, eigenvalues $\lambda_i$, and a basis for each
                                                                                  0 & 0 & 0 & 0
                                                                                \end{array}\right] \reason{$\frac{1}{5}R_1 \to R_1$}  \\[1ex]
                 \end{align*}
+                From this, we can express the solutions to this system.
+                \begin{align*}
+                  \left[\begin{array}{rrr|r}
+                      0 & 1 & 0 & 0 \\
+                      0 & 0 & 1 & 0 \\
+                      0 & 0 & 0 & 0
+                    \end{array}\right] & \leadsto \begin{matrix}
+                                                    x_1 + 0x_2 + 0x_3 = x_1 \reason{Because $x_1$ is free} \\
+                                                    0x_1 + x_2 + 0x_3 = 0                                  \\
+                                                    0x_1 + 0x_2 + x_3 = 0                                  \\
+                                                  \end{matrix} \\[1ex]
+                                             & \leadsto \begin{matrix}
+                                                          x_1 = x_1 \\
+                                                          x_2 = 0   \\
+                                                          x_3 = 0   \\
+                                                        \end{matrix}                                    \\[1ex]
+                \end{align*}
                 The parametric form of the solution to this system is:
                 \begin{align*}
                   \begin{bmatrix}
                     x_1 \\
                     x_2 \\
                     x_3 \\
-                  \end{bmatrix} = \begin{bmatrix}
-                                    x_1 + 0x_2 + 0x_3 \\
-                                    x_1 + x_2 + 0x_3  \\
-                                    x_1 + 0x_2 + x_3  \\
-                                  \end{bmatrix} & = \begin{bmatrix}
-                                                      x_1 \\
-                                                      x_1 \\
-                                                      x_1 \\
-                                                    \end{bmatrix} + \begin{bmatrix}
-                                                                      0x_2 \\
-                                                                      x_2  \\
-                                                                      0x_2 \\
-                                                                    \end{bmatrix} + \begin{bmatrix}
-                                                                                      0x_3   \\
-                                                                                      + 0x_3 \\
-                                                                                      x_3    \\
-                                                                                    \end{bmatrix}              \\[1ex]
-                                                    & = x_1\begin{bmatrix}
-                                                             1 \\
-                                                             1 \\
-                                                             1 \\
-                                                           \end{bmatrix} + x_2\begin{bmatrix}
-                                                                                0 \\
-                                                                                1 \\
-                                                                                0 \\
-                                                                              \end{bmatrix} + x_3\begin{bmatrix}
-                                                                                                   0 \\
-                                                                                                   0 \\
-                                                                                                   1 \\
-                                                                                                 \end{bmatrix}
+                  \end{bmatrix} & = \begin{bmatrix}
+                                      x_1 \\
+                                      0   \\
+                                      0   \\
+                                    \end{bmatrix} + x_1\begin{bmatrix}
+                                                         1 \\
+                                                         0 \\
+                                                         0 \\
+                                                       \end{bmatrix}
                 \end{align*}
-                Hence the Eigenbasis corresponding to $\lambda_1 = -1$ is $\left\{\begin{bmatrix}1\\1\\1\end{bmatrix}, \begin{bmatrix}0\\1\\0\end{bmatrix}, \begin{bmatrix}0\\0\\1\end{bmatrix}\right\}$.
+                Hence the basis for the eigenspace $E_{\lambda_i}$ corresponding to $\lambda_1 = -1$ is $\left\{\begin{bmatrix}1\\0\\0\end{bmatrix}\right\}$.
                 \begin{figure}[H]
                   \centering
-                  \ParallelepipedFig[u={1,1,1}, v={0,1,0}, w={0,0,1},
-                    u label=$\mathbf{a}_1$, v label=$\mathbf{a}_2$,
-                    w label=$\mathbf{a}_3$,
-                    azimuth=20, elevation=30]
-                  \caption{{Eigenbasis for $\lambda_1 = -1$}}
+                  \begin{tikzpicture}[llfig view]
+                    \pic {axes 3d={min=-1,max=2}};
+                    \pic {vector={to={1,0,0}, label=$\mathbf{u}$, label pos=right,
+                          color=blue}};
+                  \end{tikzpicture}
+                  \caption{{Basis for the eigenspace $E_{\lambda_i}$ corresponding to $\lambda_1 = -1$}}
                 \end{figure}
 
 
-          \item Eigenbasis for $\lambda_2 = 4$:
+          \item Basis of the eigenspace $E_{\lambda_i}$ for $\lambda_2 = 4$:
                 \begin{align*}
                   \left[\begin{array}{rrr|r}
                       -1 - \lambda & 0           & 1           & 0 \\
@@ -383,14 +386,14 @@ Find the characteristic equations, eigenvalues $\lambda_i$, and a basis for each
                                                                                                    1 \\
                                                                                                  \end{bmatrix}
                 \end{align*}
-                Hence the Eigenbasis corresponding to $\lambda_2 = 4$ is $\left\{\begin{bmatrix}1\\0\\0\end{bmatrix}, \begin{bmatrix}1\\1\\1\end{bmatrix}, \begin{bmatrix}0\\0\\1\end{bmatrix}\right\}$.
+                Hence the basis for the eigenspace $E_{\lambda_i}$ corresponding to $\lambda_2 = 4$ is $\left\{\begin{bmatrix}1\\0\\0\end{bmatrix}, \begin{bmatrix}1\\1\\1\end{bmatrix}, \begin{bmatrix}0\\0\\1\end{bmatrix}\right\}$.
                 \begin{figure}[H]
                   \centering
                   \ParallelepipedFig[u={1,0,0}, v={1,1,1}, w={0,0,1},
                     u label=$\mathbf{a}_1$, v label=$\mathbf{a}_2$,
                     w label=$\mathbf{a}_3$,
                     azimuth=20, elevation=30]
-                  \caption{Eigenbasis for $\lambda_2 = 4$}
+                  \caption{{Basis for the eigenspace $E_{\lambda_i}$ corresponding to $\lambda_2 = 4$}}
                 \end{figure}
           \item Eigenbasis for $\lambda_3 = 2$:
                 \begin{align*}
@@ -456,13 +459,13 @@ Find the characteristic equations, eigenvalues $\lambda_i$, and a basis for each
                                                                                                    1            \\
                                                                                                  \end{bmatrix}
                 \end{align*}
-                Hence the Eigenbasis corresponding to $\lambda_3 = 2$ is $\left\{\begin{bmatrix}1\\0\\0\end{bmatrix}, \begin{bmatrix}0\\1\\0\end{bmatrix}, \begin{bmatrix}-\frac{1}{3}\\-1\\1\\\end{bmatrix}\right\}$.
+                Hence the basis for the eigenspace $E_{\lambda_i}$ corresponding to $\lambda_3 = 2$ is $\left\{\begin{bmatrix}1\\0\\0\end{bmatrix}, \begin{bmatrix}0\\1\\0\end{bmatrix}, \begin{bmatrix}-\frac{1}{3}\\-1\\1\\\end{bmatrix}\right\}$.
                 \begin{figure}[H]
                   \centering
                   \ParallelepipedFig[u={1,0,0}, v={0,1,0}, w={-.333,-1,1},
                     u label=$\mathbf{a}_1$, v label=$\mathbf{a}_2$,
                     w label=$\mathbf{a}_3$]
-                  \caption{{Eigenbasis for $\lambda_3 = 2$}}
+                  \caption{{Basis for the eigenspace $E_{\lambda_i}$ corresponding to $\lambda_3 = 2$}}
                 \end{figure}
         \end{enumerate}
 \end{enumerate}
@@ -694,6 +697,91 @@ How does the linear transformation $T: \mathbb{R}^3 \to \mathbb{R}^3$ change the
           \item $\lambda_1 = 1$
         \end{enumerate}
   \item Find a basis for each eigenspace $E_{\lambda_i}$
+        \begin{enumerate}
+          \item $\lambda_1 = 3$
+                \begin{align*}
+                  A - \lambda_1 I & = \begin{bmatrix}
+                                        3 - \lambda_1 & 0             & 0             \\
+                                        2             & 2 - \lambda_1 & 0             \\
+                                        0             & 1             & 1 - \lambda_1
+                                      \end{bmatrix}                           \\[1ex]
+                                  & = \begin{bmatrix}
+                                        3 - 3 & 0     & 0     \\
+                                        2     & 2 - 3 & 0     \\
+                                        0     & 1     & 1 - 3
+                                      \end{bmatrix} \reason{By substitution}                                    \\[1ex]
+                                  & = \begin{bmatrix}
+                                        0 & 0  & 0  \\
+                                        2 & -1 & 0  \\
+                                        0 & 1  & -2
+                                      \end{bmatrix} \reason{By addition}                                        \\[1ex]
+                                  & = \begin{bmatrix}
+                                        2 & -1 & 0  \\
+                                        0 & 1  & -2 \\
+                                        0 & 0  & 0
+                                      \end{bmatrix} \reason{$R_1 \leftrightarrow R_2, R_2 \leftrightarrow R_3$} \\[1ex]
+                                  & = \begin{bmatrix}
+                                        2 & -1 & 0  \\
+                                        0 & 1  & -2 \\
+                                        0 & 0  & 0
+                                      \end{bmatrix} \reason{$R_1 \leftrightarrow R_2, R_2 \leftrightarrow R_3$} \\[1ex]
+                                  & = \begin{bmatrix}
+                                        1 & -\frac{1}{2} & 0  \\
+                                        0 & 1            & -2 \\
+                                        0 & 0            & 0
+                                      \end{bmatrix} \reason{$\frac{1}{2}R_1 \to R_1$}                           \\[1ex]
+                \end{align*}
+                Solve the equation $A_1\vec{x} = \vec{0}$, where $A_1$ is this row reduced matrix.
+                The parametric form of the solution to this system is:
+                \begin{align*}
+                  \begin{bmatrix}
+                    x_1 \\
+                    x_2 \\
+                    x_3 \\
+                  \end{bmatrix} = \begin{bmatrix}
+                                    x_1 + -\frac{1}{2}x_2 + 0x_3 \\
+                                    0x_1 + 1x_2 + -2x_3          \\
+                                    0x_1 + 0x_2 + 0x_3           \\
+                                  \end{bmatrix} & = \begin{bmatrix}
+                                                      x_1  \\
+                                                      0x_1 \\
+                                                      0x_1 \\
+                                                    \end{bmatrix} + \begin{bmatrix}
+                                                                      -\frac{1}{2}x_2 \\
+                                                                      1x_2            \\
+                                                                      0x_2            \\
+                                                                    \end{bmatrix} + \begin{bmatrix}
+                                                                                      0x_3  \\
+                                                                                      -2x_3 \\
+                                                                                      0x_3  \\
+                                                                                    \end{bmatrix}              \\[1ex]
+                                                    & = x_1\begin{bmatrix}
+                                                             1 \\
+                                                             0 \\
+                                                             0 \\
+                                                           \end{bmatrix} + x_2\begin{bmatrix}
+                                                                                -\frac{1}{2} \\
+                                                                                1            \\
+                                                                                0            \\
+                                                                              \end{bmatrix} + x_3\begin{bmatrix}
+                                                                                                   0  \\
+                                                                                                   -2 \\
+                                                                                                   0  \\
+                                                                                                 \end{bmatrix}
+                \end{align*}
+                Hence the Eigenbasis corresponding to $\lambda_1 = 3$ is $\left\{\begin{bmatrix}1\\0\\0\end{bmatrix}, \begin{bmatrix}-\frac{1}{2}\\1\\0\end{bmatrix}, \begin{bmatrix}0\\-2\\0\end{bmatrix}\right\}$.
+                \begin{figure}[H]
+                  \centering
+                  \ParallelepipedFig[u={1,0,0}, v={-.5,1,0}, w={0,-2,0},
+                    u label=$\mathbf{a}_1$, v label=$\mathbf{a}_2$,
+                    w label=$\mathbf{a}_3$,
+                    azimuth=20, elevation=30]
+                  \caption{{Eigenbasis for $\lambda_1 = 3$}}
+                \end{figure}
+
+          \item $\lambda_2 = 2$
+          \item $\lambda_1 = 1$
+        \end{enumerate}
   \item For each eigenspace $E_{\lambda_i}$, choose a random vector $\vec{v} \in E_{\lambda_i}$. For that particular choice of $\vec{v}$, write the corresponding polynomial $p(x)$ associated to $\vec{v}$. For that $p(x)$, verify by working through the calculations that $T(p(x)) = p(x) + (x+1)p'(x) = \lambda p(x)$.
 \end{enumerate}
 
