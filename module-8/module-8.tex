@@ -311,7 +311,7 @@ Find the characteristic equations, eigenvalues $\lambda_i$, and a basis for each
                   \caption{{Basis for the eigenspace $E_{\lambda_i}$ corresponding to $\lambda_1 = -1$}}
                 \end{figure}
 
-
+                \pagebreak
           \item Basis of the eigenspace $E_{\lambda_i}$ for $\lambda_2 = 4$:
                 \begin{align*}
                   \left[\begin{array}{rrr|r}
@@ -361,9 +361,9 @@ Find the characteristic equations, eigenvalues $\lambda_i$, and a basis for each
                                                     0x_1 + 0x_2 + x_3 = 0                                  \\
                                                   \end{matrix} \\[1ex]
                                              & \leadsto \begin{matrix}
-                                                          x_1 = 0 \\
+                                                          x_1 = 0   \\
                                                           x_2 = x_2 \\
-                                                          x_3 = 0 \\
+                                                          x_3 = 0   \\
                                                         \end{matrix}                                    \\[1ex]
                 \end{align*}
                 The parametric form of the solution to this system is:
@@ -392,6 +392,7 @@ Find the characteristic equations, eigenvalues $\lambda_i$, and a basis for each
                   \end{tikzpicture}
                   \caption{{Basis for the eigenspace $E_{\lambda_i}$ corresponding to $\lambda_2 = 4$}}
                 \end{figure}
+                \pagebreak
           \item Eigenbasis for $\lambda_3 = 2$:
                 \begin{align*}
                   \left[\begin{array}{rrr|r}
@@ -419,49 +420,47 @@ Find the characteristic equations, eigenvalues $\lambda_i$, and a basis for each
                                                                                  0 & 0 & 0            & 0
                                                                                \end{array}\right] \reason{$\frac{1}{2}R_2 \to R_2$}   \\[1ex]
                 \end{align*}
+                From this, we can express the solutions to this system.
+                \begin{align*}
+                  \left[\begin{array}{rrr|r}
+                      1 & 0 & -\frac{1}{3} & 0 \\
+                      0 & 1 & -1           & 0 \\
+                      0 & 0 & 0            & 0
+                    \end{array}\right] & \leadsto\ \begin{matrix}
+                                                     x_1 + 0x_2 - \frac{1}{3}x_3  = 0 \\
+                                                     0x_1 + x_2 - x_3             = 0 \\
+                                                     0x_1 + 0x_2 + x_3            = 0 \\
+                                                   \end{matrix} \\[1ex]
+                                                  & \leadsto\ \begin{matrix}
+                                                                x_1 = \frac{1}{3}x_3 \\
+                                                                x_2 = x_3            \\
+                                                                x_3 = x_3            \\
+                                                              \end{matrix}  \\[1ex]
+                \end{align*}
                 The parametric form of the solution to this system is:
                 \begin{align*}
                   \begin{bmatrix}
                     x_1 \\
                     x_2 \\
                     x_3 \\
-                  \end{bmatrix} = \begin{bmatrix}
-                                    x_1 + 0x_2 + -\frac{1}{3}x_3 \\
-                                    0x_1 + x_2 + -1x_3           \\
-                                    0x_1 + 0x_2 + x_3            \\
-                                  \end{bmatrix} & = \begin{bmatrix}
-                                                      x_1  \\
-                                                      0x_1 \\
-                                                      0x_1 \\
-                                                    \end{bmatrix} + \begin{bmatrix}
-                                                                      0x_2 \\
-                                                                      x_2  \\
-                                                                      0x_2 \\
-                                                                    \end{bmatrix} + \begin{bmatrix}
-                                                                                      -\frac{1}{3}x_3 \\
-                                                                                      -1x_3           \\
-                                                                                      x_3             \\
-                                                                                    \end{bmatrix}             \\[1ex]
-                                                    & = x_1\begin{bmatrix}
-                                                             1 \\
-                                                             0 \\
-                                                             0 \\
-                                                           \end{bmatrix} + x_2\begin{bmatrix}
-                                                                                0 \\
-                                                                                1 \\
-                                                                                0 \\
-                                                                              \end{bmatrix} + x_3\begin{bmatrix}
-                                                                                                   -\frac{1}{3} \\
-                                                                                                   -1           \\
-                                                                                                   1            \\
-                                                                                                 \end{bmatrix}
+                  \end{bmatrix} & = \begin{bmatrix}
+                                      \frac{1}{3}x_3 \\
+                                      x_3            \\
+                                      x_3            \\
+                                    \end{bmatrix} + x_3\begin{bmatrix}
+                                                         \frac{1}{3} \\
+                                                         1           \\
+                                                         1           \\
+                                                       \end{bmatrix}
                 \end{align*}
-                Hence the basis for the eigenspace $E_{\lambda_i}$ corresponding to $\lambda_3 = 2$ is $\left\{\begin{bmatrix}1\\0\\0\end{bmatrix}, \begin{bmatrix}0\\1\\0\end{bmatrix}, \begin{bmatrix}-\frac{1}{3}\\-1\\1\\\end{bmatrix}\right\}$.
+                Hence the basis for the eigenspace $E_{\lambda_i}$ corresponding to $\lambda_3 = 2$ is $\left\{\begin{bmatrix}\frac{1}{3}\\1\\1\end{bmatrix}\right\}$.
                 \begin{figure}[H]
                   \centering
-                  \ParallelepipedFig[u={1,0,0}, v={0,1,0}, w={-.333,-1,1},
-                    u label=$\mathbf{a}_1$, v label=$\mathbf{a}_2$,
-                    w label=$\mathbf{a}_3$]
+                  \begin{tikzpicture}[llfig view]
+                    \pic {axes 3d={min=-1,max=2}};
+                    \pic {vector={to={.333,1,1}, label=$\mathbf{u}$, label pos=right,
+                          color=blue}};
+                  \end{tikzpicture}
                   \caption{{Basis for the eigenspace $E_{\lambda_i}$ corresponding to $\lambda_3 = 2$}}
                 \end{figure}
         \end{enumerate}
