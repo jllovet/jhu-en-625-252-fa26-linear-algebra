@@ -541,12 +541,12 @@ Associate to each vector $\begin{bmatrix}a\\b\\c\end{bmatrix} \in \mathbb{R}^3$ 
 Some bookkeeping to start. Since $p(x) = ax^2 + bx + c$, then $p'(x) = 2ax + b$. What does the linear transformation $T(p(x))$ equal?
 
 \begin{align*}
-  T(p(x)) & = p(x) + (x+1)p'(x) \reason{Given}                        \\
+  T(p(x)) & = p(x) + (x+1)p'(x) \reason{Given}                                                                 \\
           & = \underbrace{ax^2 + bx + c}_{p(x)} + (x+1)\underbrace{(2ax + b)}_{p'(x)} \reason{By substitution} \\
-          & = ax^2 + bx + c + \underbrace{2ax^2 + bx + 2ax + b} \reason{By multiplication}      \\
-          & = 3ax^2 + 2ax + 2bx + b + c \reason{By addition and commutativity}                  \\[1ex]
-          & = 3ax^2 + \underbrace{2(a+b)x} + b + c \reason{By factoring}                        \\
-          & = 3ax^2 + 2(a+b)x + \underbrace{(b + c)} \reason{By associativity}                  \\
+          & = ax^2 + bx + c + \underbrace{2ax^2 + bx + 2ax + b} \reason{By multiplication}                     \\
+          & = 3ax^2 + 2ax + 2bx + b + c \reason{By addition and commutativity}                                 \\[1ex]
+          & = 3ax^2 + \underbrace{2(a+b)x} + b + c \reason{By factoring}                                       \\
+          & = 3ax^2 + 2(a+b)x + \underbrace{(b + c)} \reason{By associativity}                                 \\
 \end{align*}
 
 How does the linear transformation $T: \mathbb{R}^3 \to \mathbb{R}^3$ change the components of the vector $\begin{bmatrix}a\\b\\c\end{bmatrix}$? Based on the derivation above, the transformation works as follows:
