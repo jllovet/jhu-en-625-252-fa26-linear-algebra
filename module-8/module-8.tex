@@ -142,7 +142,7 @@ Find the characteristic equations, eigenvalues $\lambda_i$, and a basis for each
                                                                        1
                                                                      \end{bmatrix}
                 \end{align*}
-                Hence the Eigenbasis corresponding to $\lambda_1 = 8$ is $\left\{\begin{bmatrix}1\\1\end{bmatrix}\right\}$.
+                Hence the basis of the eigenspace $E_{\lambda_i}$ corresponding to $\lambda_1 = 8$ is $\left\{\begin{bmatrix}1\\1\end{bmatrix}\right\}$.
 
                 \begin{figure}[H]
                   \centering
@@ -150,7 +150,7 @@ Find the characteristic equations, eigenvalues $\lambda_i$, and a basis for each
                     \pic {axes 2d};
                     \pic {vector={to={1,1}, label=$\mathbf{v}$, color=blue}};
                   \end{tikzpicture}
-                  \caption{{Eigenbasis for $\lambda_1 = 8$}}
+                  \caption{{Basis for the eigenspace $E_{\lambda_i}$ corresponding to $\lambda_1 = 8$}}
                 \end{figure}
           \item Basis of the eigenspace $E_{\lambda_i}$ for $\lambda_2 = 2$:
                 \begin{align*}
@@ -187,14 +187,14 @@ Find the characteristic equations, eigenvalues $\lambda_i$, and a basis for each
                                                                        1
                                                                      \end{bmatrix}
                 \end{align*}
-                Hence the Eigenbasis corresponding to $\lambda_2 = 2$ is $\left\{\begin{bmatrix}-1\\1\end{bmatrix}\right\}$.
+                Hence the basis for the eigenspace corresponding to $\lambda_2 = 2$ is $\left\{\begin{bmatrix}-1\\1\end{bmatrix}\right\}$.
                 \begin{figure}[H]
                   \centering
                   \begin{tikzpicture}[llfig view]
                     \pic {axes 2d};
                     \pic {vector={to={-1,1}, label=$\mathbf{v}$, color=blue}};
                   \end{tikzpicture}
-                  \caption{{Eigenbasis for $\lambda_2 = 2$}}
+                  \caption{{Basis for the eigenspace $E_{\lambda_i}$ corresponding to $\lambda_2 = 2$}}
                 \end{figure}
         \end{enumerate}
   \item To find the eigenvalues, we will evaluate $\det (B - \lambda I)$, where $B$ is this problem's matrix, $\lambda$ is a scalar, and $I$ is the identity matrix.
@@ -393,7 +393,7 @@ Find the characteristic equations, eigenvalues $\lambda_i$, and a basis for each
                   \caption{{Basis for the eigenspace $E_{\lambda_i}$ corresponding to $\lambda_2 = 4$}}
                 \end{figure}
                 \pagebreak
-          \item Eigenbasis for $\lambda_3 = 2$:
+          \item Basis of the eigenspace $E_{\lambda_i}$ for $\lambda_3 = 2$:
                 \begin{align*}
                   \left[\begin{array}{rrr|r}
                       -1 - \lambda & 0           & 1           & 0 \\
@@ -695,10 +695,10 @@ How does the linear transformation $T: \mathbb{R}^3 \to \mathbb{R}^3$ change the
           \item $\lambda_1 = 3$
                 \begin{align*}
                   A - \lambda_1 I & = \left[\begin{array}{rrr|r}
-                                             3 - \lambda_1 & 0             & 0             & 0 \\
-                                             2             & 2 - \lambda_1 & 0             & 0 \\
-                                             0             & 1             & 1 - \lambda_1 & 0
-                                           \end{array}\right]                            \\[1ex]
+                                          3 - \lambda_1 & 0             & 0             & 0 \\
+                                          2             & 2 - \lambda_1 & 0             & 0 \\
+                                          0             & 1             & 1 - \lambda_1 & 0
+                                        \end{array}\right]                               \\[1ex]
                                   & \sim \left[\begin{array}{rrr|r}
                                              3 - 3 & 0     & 0     & 0 \\
                                              2     & 2 - 3 & 0     & 0 \\
