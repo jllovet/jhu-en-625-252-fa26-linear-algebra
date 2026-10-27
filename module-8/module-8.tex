@@ -541,12 +541,12 @@ Associate to each vector $\begin{bmatrix}a\\b\\c\end{bmatrix} \in \mathbb{R}^3$ 
 Some bookkeeping to start. Since $p(x) = ax^2 + bx + c$, then $p'(x) = 2ax + b$. What does the linear transformation $T(p(x))$ equal?
 
 \begin{align*}
-  T(p(x)) & = p(x) + (x+1)p'(x) \reason{Given}                                                                 \\
-          & = \underbrace{ax^2 + bx + c}_{p(x)} + (x+1)\underbrace{(2ax + b)}_{p'(x)} \reason{By substitution} \\
-          & = ax^2 + bx + c + \underbrace{2ax^2 + bx + 2ax + b} \reason{By multiplication}                     \\
-          & = 3ax^2 + 2ax + 2bx + b + c \reason{By addition and commutativity}                                 \\[1ex]
-          & = 3ax^2 + \underbrace{2(a+b)x} + b + c \reason{By factoring}                                       \\
-          & = 3ax^2 + 2(a+b)x + \underbrace{(b + c)} \reason{By associativity}                                 \\
+  T(p(x)) & = p(x) + (x+1)p'(x) \reason{Given}                                                                                                \\
+          & = \underbrace{ax^2 + bx + c}_{p(x)} + (x+1)\underbrace{(2ax + b)}_{p'(x)} \reason{By substitution}                                \\
+          & = ax^2 + bx + c + \underbrace{2ax^2 + bx + 2ax + b} \reason{By multiplication}                                                    \\
+          & = 3ax^2 + 2ax + 2bx + b + c \reason{By addition and commutativity}                                                                \\[1ex]
+          & = 3ax^2 + \underbrace{2(a+b)x} + b + c \reason{By factoring}                                                                      \\
+          & = 3ax^2 + 2(a+b)x + \underbrace{(b + c)} \reason{By associativity} \refstepcounter{equation} \tag{\theequation} \label{eq:T-of-p}
 \end{align*}
 
 How does the linear transformation $T: \mathbb{R}^3 \to \mathbb{R}^3$ change the components of the vector $\begin{bmatrix}a\\b\\c\end{bmatrix}$? Based on the derivation above, the transformation works as follows:
@@ -918,6 +918,77 @@ How does the linear transformation $T: \mathbb{R}^3 \to \mathbb{R}^3$ change the
                 \end{figure}
         \end{enumerate}
   \item For each eigenspace $E_{\lambda_i}$, choose a random vector $\vec{v} \in E_{\lambda_i}$. For that particular choice of $\vec{v}$, write the corresponding polynomial $p(x)$ associated to $\vec{v}$. For that $p(x)$, verify by working through the calculations that $T(p(x)) = p(x) + (x+1)p'(x) = \lambda p(x)$.
+
+        \begin{enumerate}
+          \item $E_{\lambda_1 = 3}$: Let $\vec{u}$ be the vector $2\begin{bmatrix}1\\2\\1\end{bmatrix}$. Then $\vec{u} \in E_{\lambda_1 = 3}$ because $\vec{u}$ is a linear combination of the basis of the space.
+                \begin{align*}
+                  \vec{u} & = 2\begin{bmatrix}1\\2\\1\end{bmatrix} = \begin{bmatrix}
+                                                                       2 \\4\\2
+                                                                     \end{bmatrix} \\[1ex]
+                \end{align*}
+                Evaluating the linear transformation based on the identity we derived above,
+                \begin{align*}
+                  T(\vec{u}) & = 3ax^2 + 2(a+b)x + (b + c) \reason{By \eqref{eq:T-of-p}} \\
+                             & = 3(2)x^2 + 2(2+4)x + (4 + 2) \reason{By substitution}    \\
+                             & = 6x^2 + 12x + 6 \reason{By addition, multiplication}
+                \end{align*}
+
+                Reading off the coefficients, the vector corresponding to $T(\vec{u})$ is
+                \begin{align*}
+                  \begin{bmatrix}
+                    6 \\12\\6
+                  \end{bmatrix}
+                \end{align*}
+
+                But then $T(\vec{u}) = 3\vec{u}$. Also, $\lambda_1 = 3$. Therefore, $T(\vec{u}) = \lambda_1\vec{u}$, which was what we wanted.
+
+          \item $E_{\lambda_2 = 2}$: Let $\vec{v}$ be the vector $5\begin{bmatrix}0\\1\\1\end{bmatrix}$. Then $\vec{v} \in E_{\lambda_2 = 2}$ because $\vec{v}$ is a linear combination of the basis of the space.
+                \begin{align*}
+                  \vec{v} & = 5\begin{bmatrix}0\\1\\1\end{bmatrix} = \begin{bmatrix}
+                                                                       0 \\5\\5
+                                                                     \end{bmatrix} \\[1ex]
+                \end{align*}
+                Evaluating the linear transformation based on the identity we derived above,
+                \begin{align*}
+                  T(\vec{u}) & = 3ax^2 + 2(a+b)x + (b + c) \reason{By \eqref{eq:T-of-p}} \\
+                             & = 3(0)x^2 + 2(0+5)x + (5 + 5) \reason{By substitution}    \\
+                             & = 0x^2 + 10x + 10 \reason{By addition, multiplication}
+                \end{align*}
+
+                Reading off the coefficients, the vector corresponding to $T(\vec{u})$ is
+                \begin{align*}
+                  \begin{bmatrix}
+                    0 \\10\\10
+                  \end{bmatrix}
+                \end{align*}
+
+                But then $T(\vec{u}) = 2\vec{u}$. Also, $\lambda_2 = 2$. Therefore, $T(\vec{u}) = \lambda_2\vec{u}$, which was what we wanted.
+
+          \item $E_{\lambda_3 = 1}$: Let $\vec{w}$ be the vector $3\begin{bmatrix}0\\0\\1\end{bmatrix}$. Then $\vec{w} \in E_{\lambda_3 = 1}$ because $\vec{w}$ is a linear combination of the basis of the space.
+                \begin{align*}
+                  \vec{w} & = 3\begin{bmatrix}0\\0\\1\end{bmatrix} = \begin{bmatrix}
+                                                                       0 \\0\\3
+                                                                     \end{bmatrix} \\[1ex]
+                \end{align*}
+                Evaluating the linear transformation based on the identity we derived above,
+                \begin{align*}
+                  T(\vec{u}) & = 3ax^2 + 2(a+b)x + (b + c) \reason{By \eqref{eq:T-of-p}} \\
+                             & = 3(0)x^2 + 2(0+0)x + (0 + 3) \reason{By substitution}    \\
+                             & = 0x^2 + 0x + 3 \reason{By addition, multiplication}
+                \end{align*}
+
+                Reading off the coefficients, the vector corresponding to $T(\vec{u})$ is
+                \begin{align*}
+                  \begin{bmatrix}
+                    0 \\0\\3
+                  \end{bmatrix}
+                \end{align*}
+
+                But then $T(\vec{u}) = 1\vec{u}$. Also, $\lambda_3 = 1$. Therefore, $T(\vec{u}) = \lambda_3\vec{u}$, which was what we wanted.
+
+                \qed
+
+        \end{enumerate}
 \end{enumerate}
 
 \pagebreak
