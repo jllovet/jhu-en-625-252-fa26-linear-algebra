@@ -688,7 +688,7 @@ How does the linear transformation $T: \mathbb{R}^3 \to \mathbb{R}^3$ change the
         \begin{enumerate}
           \item $\lambda_1 = 3$
           \item $\lambda_2 = 2$
-          \item $\lambda_1 = 1$
+          \item $\lambda_3 = 1$
         \end{enumerate}
   \item Find a basis for each eigenspace $E_{\lambda_i}$
         \begin{enumerate}
@@ -809,9 +809,9 @@ How does the linear transformation $T: \mathbb{R}^3 \to \mathbb{R}^3$ change the
                                                      0x_1 + 0x_2 + x_3 & = x_3 \reason{Because $x_3$ is free} \\
                                                    \end{matrix} \\[1ex]
                                              & \leadsto\ \begin{matrix}
-                                                           x_1 = 0x_3   \\
-                                                           x_2 = x_3 \\
-                                                           x_3 = x_3 \\
+                                                           x_1 = 0x_3 \\
+                                                           x_2 = x_3  \\
+                                                           x_3 = x_3  \\
                                                          \end{matrix}                                      \\[1ex]
                 \end{align*}
                 The parametric form of the solution to this system is:
@@ -821,8 +821,8 @@ How does the linear transformation $T: \mathbb{R}^3 \to \mathbb{R}^3$ change the
                     x_2 \\
                     x_3 \\
                   \end{bmatrix} & = \begin{bmatrix}
-                                      0x_3  \\
-                                      x_3 \\
+                                      0x_3 \\
+                                      x_3  \\
                                       x_3  \\
                                     \end{bmatrix} + x_3\begin{bmatrix}
                                                          0 \\
@@ -840,7 +840,7 @@ How does the linear transformation $T: \mathbb{R}^3 \to \mathbb{R}^3$ change the
                   \end{tikzpicture}
                   \caption{{Basis for the eigenspace $E_{\lambda_i}$ corresponding to $\lambda_2 = 2$}}
                 \end{figure}
-          \item $\lambda_1 = 1$
+          \item $\lambda_3 = 1$
         \end{enumerate}
   \item For each eigenspace $E_{\lambda_i}$, choose a random vector $\vec{v} \in E_{\lambda_i}$. For that particular choice of $\vec{v}$, write the corresponding polynomial $p(x)$ associated to $\vec{v}$. For that $p(x)$, verify by working through the calculations that $T(p(x)) = p(x) + (x+1)p'(x) = \lambda p(x)$.
 \end{enumerate}
