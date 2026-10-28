@@ -1,0 +1,166 @@
+\documentclass{article}
+
+% Packages
+\usepackage[utf8]{inputenc}     % Unicode input 
+\usepackage{amsmath, amssymb}   % American Math Society Foratting & Symbols
+\usepackage{graphicx}           % Allows you to insert graphics
+\usepackage{hyperref}           % Allows automatic references & hyperlinking
+\usepackage[
+  backend=biber,
+  style=numeric-comp,
+  sorting=none
+]{biblatex}
+\addbibresource{references.bib}
+
+% Macros (these are shortcuts)
+% Read more about them here 
+% http://www.math.uh.edu/~torok/math_6298/latex/macros.html
+\newcommand{\R}{{\mathbb R}}    % Type $\R$ instead of $\mathbb{R}$ for the real numbers styliezed R
+\newcommand{\vt}{\mathbf}       % Type $\vt{...}$ instead of $\mathbf{...}$ to bold a symbol.
+
+\begin{document}
+
+% Title Stuff
+\title{Linear Algebra Group Project 1}
+\author{Nigel McCowan, Jonathan Llovet, Raul Perez}
+\maketitle
+
+Example citation \cite[Theorem~N.M, p.~abc]{LayEtAl2020LinearAlgebraAndItsApplications}
+
+\section{Part I: Matrix Exponential}
+
+\subsection{Background}
+
+Recall from Calculus that a Maclaurin Series is an infinite series with real coefficients of the form
+\begin{align*}
+  f(x) = \sum_{n=0}^{\infty} a_n x^n.
+\end{align*}
+These series are used in analysis, combinatorics (as generating functions) and in electrical engineering (under the name \emph{Z}-transforms). In Calculus, you learn how to find the radius and interval of convergence, add, subtract and multiply series. You also calculate examples of series for common functions. One of the first examples of a convergent Maclauren series defined for all real numbers is the series:
+\begin{align*}
+  e^x = \sum_{n=0}^{\infty} \frac{x^n}{n!} = 1 + x + \frac{x^2}{2!} + \frac{x^3}{3!} + \ldots
+\end{align*}
+Our goal for this project is to define a similar infinite series for square matrices with real entries. These calculations have applications in higher branches of mathematics including differential equations and Lie theory. Other similar power series can be defined for matrices as well, such as $\cos A$ and $\sin A$. This project will only study the matrix exponential, $e^A$.
+
+\subsection{Assignment}
+
+Let $A$ be an $n \times n$ matrix. Define $e^A = \lim\limits_{m \to \infty} B_m$, where
+\begin{align*}
+  B_m = I_n + A + \frac{A^2}{2!} + \ldots \frac{A^m}{m!}
+\end{align*}
+This limit always converges for all $A$ and therefore
+\begin{align*}
+  e^A = \sum_{m=0}^{\infty} \frac{A^m}{m!} = I + A + \frac{A^2}{2!} + \frac{A^3}{3!} + \ldots
+\end{align*}
+and $B_m$ is the $m$th partial sum. Notice that if $A$ is a $1 \times 1$ matrix, then the above coincides with the power series for $f(x) = e^x$ from Calculus.
+
+\begin{enumerate}
+
+  \item (4 points) Compute $e^{0_n}$, where $0_n$ represents the $n \times n$ zero matrix.
+
+  \item (4 points) Compute $e^{I_n}$, where $I_n$ represents the $n \times n$ identity matrix.
+
+  \item (6 points) Let $A$ be diagonalizable, so that $A = PDP^{-1}$ for some diagonal matrix $D$ and invertible matrix $P$. Show that $e^A = Pe^{D}P^{-1}$.
+
+  \item (5 points) Let $A = \begin{bmatrix}
+            a_1    & 0      & \ldots & 0      \\
+            0      & a_2    & \ldots & 0      \\
+            \vdots & \vdots & \ddots & \vdots \\
+            0      & 0      & \ldots & a_n
+          \end{bmatrix}$ be a diagonal matrix.
+
+        Show that $e^A = \begin{bmatrix}
+            e^{a_1} & 0       & \ldots & 0       \\
+            0       & e^{a_2} & \ldots & 0       \\
+            \vdots  & \vdots  & \ddots & \vdots  \\
+            0       & 0       & \ldots & e^{a_n}
+          \end{bmatrix}$.
+
+  \item (4 points) Compute $e^A$ if $A = \begin{bmatrix} 2 & 0 \\ 0 & 3 \end{bmatrix}$.
+
+  \item (5 points) Show that $e^A e^{-A} = I_n$. (Hint: use the fact that $e^{(s+t)A} = e^{sA}e^{tA}$.)
+
+  \item (6 points) Use the fact that the matrix transpose distributes over infinite sums to show that $e^{(A^T)} = (e^A)^T$. Use this to show that if $A$ is symmetric then so is $e^A$.
+
+  \item (6 points) In general, it is \emph{not} true that $e^A e^B = e^{A+B}$, which differs when compared to the exponential function for real numbers. (If $A$ and $B$ commute, that is, if $AB = BA$, then the above relation does hold however)
+
+        Show, using the matrices
+        \begin{align*}
+          A = \begin{pmatrix} 0 & 1 & 7 \\ 0 & 0 & 2 \\ 0 & 0 & 0 \end{pmatrix}
+          \qquad
+          B = \begin{pmatrix} 0 & 1 & -1 \\ 0 & 0 & 3 \\ 0 & 0 & 0 \end{pmatrix}
+        \end{align*}
+        that $e^A e^B \neq e^{A+B}$. To calculate $e^A$ and $e^B$, use the fact that $A^3 = 0_3$ and $B^3 = 0_3$.
+
+\end{enumerate}
+
+\section{Part II: The Fibonacci Sequence}
+
+\subsection{Background}
+
+Recall that we can define the Fibonacci sequence recursively by the following:
+\begin{align*}
+  a_1 = 1, a_2 = 1, a_{n+1} = a_n + a_{n-1}
+\end{align*}
+This recursive sequence is named after Leonardo Fibonacci, who wrote about the sequence in 1202. The first few terms of this sequence are:
+\begin{align*}
+  1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, \ldots
+\end{align*}
+These numbers have appeared in popular culture because they relate mathematics to seemingly unrelated things in science and nature. In this part of the project, we will see how linear algebra can be used to study this famous sequence. If we wanted to find the 1000th Fibonacci number with the recursive definition, we would first have to find the first 999 terms of the Fibonacci sequence. We will apply the techniques of this unit to find an explicit formula for $a_n$, the $n$th Fibonacci number.
+
+Let $A = \begin{bmatrix}
+    1 & 1 \\
+    1 & 0
+  \end{bmatrix}$ and let $\vec{x}_n = \begin{bmatrix}
+    a_{n+1} \\
+    a_n
+  \end{bmatrix}$. Notice that:
+\begin{align*}
+  A\vec{x}_n & = \begin{bmatrix}
+                   1 & 1 \\
+                   1 & 0
+                 \end{bmatrix} \begin{bmatrix}
+                                 a_{n+1} \\
+                                 a_n
+                               \end{bmatrix} \\[1ex]
+             & = \begin{bmatrix}
+                   a_n + a_{n+1} \\
+                   a_{n+1}
+                 \end{bmatrix}               \\[1ex]
+             & = \begin{bmatrix}
+                   a_{n+2} \\
+                   a_{n+1}
+                 \end{bmatrix}               \\[1ex]
+             & = \vec{x}_{n+1}
+\end{align*}
+Multiplying by the matrix A gives the next number in the Fibonacci sequence. In general:
+\begin{align*}
+  \vec{x}_n = A^n \vec{x}_0, \text{ with } \vec{x}_0 = \begin{bmatrix} 1 \\ 0 \end{bmatrix}.
+\end{align*}
+
+\subsection{Assignment}
+
+\begin{enumerate}
+
+  \item (3 points) Verify that the eigenvalues of $A$ are:
+        \begin{align*}
+          \lambda_1 = \frac{1 + \sqrt{5}}{2}, \quad \lambda_2 = \frac{1 - \sqrt{5}}{2}.
+        \end{align*}
+        If these numbers look familiar, it's because $\lambda_1$ is called the \emph{Golden Ratio}, often denoted by $\varphi$, and $\lambda_2$ is $1 - \varphi$, or $\overline{\varphi}$.
+
+  \item (3 points) Verify that $\begin{bmatrix} \varphi \\ 1 \end{bmatrix}$ and $\begin{bmatrix} 1 - \varphi \\ 1 \end{bmatrix}$ are eigenvectors for the eigenvalues $\lambda_1$ and $\lambda_2$ respectively.
+
+  \item (6 points) Diagonalize $A$ by writing $A = PDP^{-1}$ for a diagonal matrix $D$ and an invertible matrix $P$.
+
+  \item (6 points) Use the fact that $\vec{x}_n = A^n \vec{x}_0$ and your answer from the previous part to verify the formula:
+        \begin{align*}
+          a_n = \frac{1}{\sqrt{5}} \left( \frac{1 + \sqrt{5}}{2} \right)^n - \frac{1}{\sqrt{5}} \left( \frac{1 - \sqrt{5}}{2} \right)^n.
+        \end{align*}
+
+  \item (2 points) Use this formula and a calculator to find the 45th term of the Fibonacci sequence.
+
+\end{enumerate}
+
+\pagebreak
+\printbibliography
+
+\end{document}
