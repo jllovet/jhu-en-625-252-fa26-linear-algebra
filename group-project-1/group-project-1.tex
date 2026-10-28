@@ -77,7 +77,9 @@ and $B_m$ is the $m$th partial sum. Notice that if $A$ is a $1 \times 1$ matrix,
 
   \item (4 points) Compute $e^A$ if $A = \begin{bmatrix} 2 & 0 \\ 0 & 3 \end{bmatrix}$.
 
-  \item (5 points) Show that $e^A e^{-A} = I_n$. (Hint: use the fact that $e^{(s+t)A} = e^{sA}e^{tA}$.)
+  \item (5 points) Show that $e^A e^{-A} = I_n$.
+
+        (Hint: use the fact that $e^{(s+t)A} = e^{sA}e^{tA}$.)
 
   \item (6 points) Use the fact that the matrix transpose distributes over infinite sums to show that $e^{(A^T)} = (e^A)^T$. Use this to show that if $A$ is symmetric then so is $e^A$.
 
@@ -85,9 +87,17 @@ and $B_m$ is the $m$th partial sum. Notice that if $A$ is a $1 \times 1$ matrix,
 
         Show, using the matrices
         \begin{align*}
-          A = \begin{pmatrix} 0 & 1 & 7 \\ 0 & 0 & 2 \\ 0 & 0 & 0 \end{pmatrix}
+          A = \begin{pmatrix}
+                0 & 1 & 7 \\
+                0 & 0 & 2 \\
+                0 & 0 & 0
+              \end{pmatrix}
           \qquad
-          B = \begin{pmatrix} 0 & 1 & -1 \\ 0 & 0 & 3 \\ 0 & 0 & 0 \end{pmatrix}
+          B = \begin{pmatrix}
+                0 & 1 & -1 \\
+                0 & 0 & 3  \\
+                0 & 0 & 0
+              \end{pmatrix}
         \end{align*}
         that $e^A e^B \neq e^{A+B}$. To calculate $e^A$ and $e^B$, use the fact that $A^3 = 0_3$ and $B^3 = 0_3$.
 
