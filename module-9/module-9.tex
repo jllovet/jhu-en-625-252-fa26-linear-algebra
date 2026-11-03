@@ -97,6 +97,9 @@ For each of the following matrices, determine if $A$ is diagonalizable. If $A$ i
             1 & 2 \\
             0 & 1
           \end{bmatrix}$
+
+        First we must find the eigenvalues.
+
         \begin{align*}
           \det(A - \lambda I) & = \begin{vmatrix}
                                     1 - \lambda & 2           \\
@@ -105,22 +108,28 @@ For each of the following matrices, determine if $A$ is diagonalizable. If $A$ i
                               & = (1 - \lambda)^2 - 2(0)      \\[1ex]
                               & = (1 - \lambda)^2
         \end{align*}
-        Therefore, the eigenvalue is $1$ with a multiplicity of $2$. Now we must find the eigenvectors. $A - \lambda I$ where $\lambda = 1$:
+        Therefore, the eigenvalue is $1$ with a multiplicity of $2$. Now we must find the eigenvectors.
+
+        $A - \lambda I$ where $\lambda = 1$:
         \begin{align*}
           \begin{bmatrix}
             1 - 1 & 2     \\
             0     & 1 - 1
-          \end{bmatrix} = \begin{bmatrix}
-                            0 & 2 \\
-                            0 & 0
-                          \end{bmatrix} \sim \begin{bmatrix}
-                                               0 & 1 \\
-                                               0 & 0
-                                             \end{bmatrix}
+          \end{bmatrix} & = \begin{bmatrix}
+                              0 & 2 \\
+                              0 & 0
+                            \end{bmatrix} \\ &\sim \begin{bmatrix}
+                                                     0 & 1 \\
+                                                     0 & 0
+                                                   \end{bmatrix} \reason{By row reduction}
         \end{align*}
+        Therefore
         \begin{align*}
-          x_1     & = x_1                 \\
-          x_2     & = 0                   \\
+          x_1 & = x_1 \\
+          x_2 & = 0   \\
+        \end{align*}
+        which implies
+        \begin{align*}
           \vec{x} & = x_1\begin{bmatrix}
                            1 \\
                            0
@@ -132,6 +141,7 @@ For each of the following matrices, determine if $A$ is diagonalizable. If $A$ i
             0 & -2 \\
             1 & 3
           \end{bmatrix}$
+        Starting as before with finding the eigenvalues.
         \begin{align*}
           \det(A - \lambda I) & = \begin{vmatrix}
                                     0 - \lambda & -2          \\
@@ -243,7 +253,7 @@ For each of the following matrices, determine if $A$ is diagonalizable. If $A$ i
                                                0 & 1
                                              \end{bmatrix}
         \end{align*}
-        Finally, I also verified computationally that $PDP^{-1} = A$. Therefore, by the derivation above, which has been validated computationally on a TI-84 Plus, $A$ is diagonalizable, and we have found $P, D$ such that $P$ is invertible, $D$ is diagonal, and $A = PDP^{-1}$.
+        Finally, I also verified computationally on a TI-84 Plus that $PDP^{-1} = A$.
         \begin{align*}
           A                 & = PDP^{-1}                               \\[1ex]
           \begin{bmatrix}
@@ -260,6 +270,7 @@ For each of the following matrices, determine if $A$ is diagonalizable. If $A$ i
                                                         -1 & -1
                                                       \end{bmatrix}
         \end{align*}
+        Therefore, by the derivation above, which has been validated computationally, $A$ is diagonalizable, and we have found $P, D$ such that $P$ is invertible, $D$ is diagonal, and $A = PDP^{-1}$.
 
   \item $A = \begin{bmatrix}
             0 & 0 & 1  \\
@@ -271,7 +282,7 @@ For each of the following matrices, determine if $A$ is diagonalizable. If $A$ i
                                     0 - \lambda & 0           & 1           \\
                                     1           & 0 - \lambda & -1          \\
                                     0           & 1           & 1 - \lambda
-                                  \end{vmatrix}                                                                                                                          \\[1ex]
+                                  \end{vmatrix}                                                                                                                                  \\[1ex]
                               & = -\lambda(1)\begin{vmatrix}
                                                0 - \lambda & -1          \\
                                                1           & 1 - \lambda
@@ -281,13 +292,13 @@ For each of the following matrices, determine if $A$ is diagonalizable. If $A$ i
                                                                   \end{vmatrix} + 1(1)\begin{vmatrix}
                                                                                         1 & 0 - \lambda \\
                                                                                         0 & 1
-                                                                                      \end{vmatrix} \reason{\begin{tabular}[c]{@{}l@{}}By definition of det \\ with cofactor expansion\end{tabular}} \\[1ex]
-                              & = -\lambda\left[(-\lambda)(1 - \lambda) + 1\right] + 0 + 1 \reason{By evaluation of determinants}                                                                    \\[1ex]
-                              & = -\lambda(-\lambda + \lambda^2 + 1) + 1 \reason{By multiplication}                                                                                                  \\[1ex]
-                              & = \lambda^2 - \lambda^3 - \lambda + 1 \reason{By multiplication}                                                                                                     \\[1ex]
-                              & = -\lambda^3 + \lambda^2 - \lambda + 1 \reason{By commutativity}                                                                                                     \\[1ex]
-                              & = -(\lambda^3 - \lambda^2 + \lambda - 1) \reason{By factoring out $-1$}                                                                                              \\[1ex]
-                              & = -(\lambda^2(\lambda - 1) + 1(\lambda - 1)) \reason{By factoring out $\lambda - 1$}                                                                                 \\[1ex]
+                                                                                      \end{vmatrix} \reason{\begin{tabular}[c]{@{}l@{}}By definition of determinant \\ with cofactor expansion\end{tabular}} \\[1ex]
+                              & = -\lambda\left[(-\lambda)(1 - \lambda) + 1\right] + 0 + 1 \reason{By evaluation of determinants}                                                                            \\[1ex]
+                              & = -\lambda(-\lambda + \lambda^2 + 1) + 1 \reason{By multiplication}                                                                                                          \\[1ex]
+                              & = \lambda^2 - \lambda^3 - \lambda + 1 \reason{By multiplication}                                                                                                             \\[1ex]
+                              & = -\lambda^3 + \lambda^2 - \lambda + 1 \reason{By commutativity}                                                                                                             \\[1ex]
+                              & = -(\lambda^3 - \lambda^2 + \lambda - 1) \reason{By factoring out $-1$}                                                                                                      \\[1ex]
+                              & = -(\lambda^2(\lambda - 1) + 1(\lambda - 1)) \reason{By factoring out $\lambda - 1$}                                                                                         \\[1ex]
                               & = -(\lambda^2 + 1)(\lambda - 1) \reason{By distribution}
         \end{align*}
         Using the roots to find the eigenvalues:
@@ -326,6 +337,8 @@ For each of the following matrices, determine if $A$ is diagonalizable. If $A$ i
                               & = 3\lambda^2 - 15\lambda + 18 - \lambda^3 + 5\lambda^2 - 6\lambda - 2 + \lambda \reason{By expansion, arithmetic}                                                          \\[1ex]
                               & = -\lambda^3 + 8\lambda^2 - 20\lambda + 16 \reason{By simplification}                                                                                                      \\[1ex]
                               & = -(\lambda^3 - 8\lambda^2 + 20\lambda - 16) \reason{By factoring out $-1$}                                                                                                \\[1ex]
+                              & = -(\lambda^3 - 4\lambda^2 - 4\lambda^2 + 16\lambda + 4\lambda - 16) \reason{By reorganizing terms}                                                                        \\[1ex]
+                              & = -(\lambda^2 - 4\lambda + 4)(\lambda - 4) \reason{By factoring}                                                                                                           \\[1ex]
                               & = -(\lambda - 2)^2(\lambda - 4) \reason{By factoring}
         \end{align*}
         Therefore the eigenvalues are $2, 2, 4$. Now we must find the eigenvectors.
@@ -604,7 +617,7 @@ Consider also the commutative diagram based on the one found in \textcite[Ch.~5.
   \caption{Commutative diagram for $A = PDP^{-1}$}\label{fig:commutative-diagram}
 \end{figure}
 
-This illustrates that the columns of $P$ form the basis of $\R^2$ such that the linear transformation $T: \R^2 \to \R^2$ with standard matrix $A$ has a linear transformation to $\mathcal{B}$ with matrix $D$ that we know is diagonal. The basis of $\mathcal{B}$ then is
+This illustrates that the columns of $P$ form the basis of $\R^2$ such that the linear transformation $T: \R^2 \to \R^2$ with standard matrix $A$ has a linear transformation relative to $\mathcal{B}$ with matrix $D$ that we know is diagonal. The basis of $\mathcal{B}$ then is
 \begin{align*}
   \left\{\begin{bmatrix}
            -1 \\
@@ -616,7 +629,7 @@ This illustrates that the columns of $P$ form the basis of $\R^2$ such that the 
 \end{align*}
 and the matrix corresponding to $T$ in base $\mathcal{B}$ is
 \begin{align*}
-  \begin{bmatrix}
+  D = \begin{bmatrix}
     2 & 0 \\
     0 & 1
   \end{bmatrix}
@@ -675,15 +688,15 @@ Because the two rows are linearly dependent, either can be expressed in terms of
   \left[\begin{array}{rr|r}
       3i & -1 & 0 \\
       9  & 3i & 0
-    \end{array}\right] \implies 9x_1 & = -3ix_2           \\[1ex]
-  x_1                                & = \frac{-3ix_2}{9} \\[1ex]
-                                     & = \frac{-i}{3}x_2  \\[1ex]
+    \end{array}\right] \leadsto 9x_1 & = -3ix_2           \\[1ex]
+  x_1                                & = \frac{-3}{9}ix_2 \\[1ex]
+                                     & = -\frac{1}{3}ix_2  \\[1ex]
   x_2                                & = x_2
 \end{align*}
 Hence, the associated eigenvector is
 \begin{align*}
   \vec{x} = \begin{bmatrix}
-              \frac{-i}{3} \\
+              -\frac{1}{3}i \\
               1
             \end{bmatrix}
 \end{align*}
@@ -729,7 +742,7 @@ Let's check our work:
                                                 -3 & 0
                                               \end{bmatrix}
 \end{align*}
-I checked the matrix multiplication computationally and validated that this equation holds.
+As above, I checked the matrix multiplication computationally and validated that this equation holds.
 
 \pagebreak
 
