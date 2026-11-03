@@ -70,27 +70,416 @@ For each of the following matrices, determine if $A$ is diagonalizable. If $A$ i
 
 \begin{enumerate}[label=(\alph*)]
   \item $A = \begin{bmatrix}
-              1 & 2 \\
-              0 & 1
-            \end{bmatrix}$
+            1 & 2 \\
+            0 & 1
+          \end{bmatrix}$
   \item $A = \begin{bmatrix}
-              0 & -2 \\
-              1 & 3
-            \end{bmatrix}$
+            0 & -2 \\
+            1 & 3
+          \end{bmatrix}$
   \item $A = \begin{bmatrix}
-              0 & 0 & 1  \\
-              1 & 0 & -1 \\
-              0 & 1 & 1
-            \end{bmatrix}$
+            0 & 0 & 1  \\
+            1 & 0 & -1 \\
+            0 & 1 & 1
+          \end{bmatrix}$
   \item $A = \begin{bmatrix}
-              3  & 1  & 1 \\
-              2  & 4  & 2 \\
-              -1 & -1 & 1
-            \end{bmatrix}$
+            3  & 1  & 1 \\
+            2  & 4  & 2 \\
+            -1 & -1 & 1
+          \end{bmatrix}$
 \end{enumerate}
 
 \medskip
 \noindent\textbf{Answer:}
+
+\begin{enumerate}[label=(\alph*)]
+  \item $A = \begin{bmatrix}
+            1 & 2 \\
+            0 & 1
+          \end{bmatrix}$
+        \begin{align*}
+          \det(A - \lambda I) & = \begin{vmatrix}
+                                    1 - \lambda & 2           \\
+                                    0           & 1 - \lambda
+                                  \end{vmatrix} \\[1ex]
+                              & = (1 - \lambda)^2 - 2(0)      \\[1ex]
+                              & = (1 - \lambda)^2
+        \end{align*}
+        Therefore, the eigenvalue is $1$ with a multiplicity of $2$. Now we must find the eigenvectors. $A - \lambda I$ where $\lambda = 1$:
+        \begin{align*}
+          \begin{bmatrix}
+            1 - 1 & 2     \\
+            0     & 1 - 1
+          \end{bmatrix} = \begin{bmatrix}
+                            0 & 2 \\
+                            0 & 0
+                          \end{bmatrix} \sim \begin{bmatrix}
+                                               0 & 1 \\
+                                               0 & 0
+                                             \end{bmatrix}
+        \end{align*}
+        \begin{align*}
+          x_1     & = x_1                 \\
+          x_2     & = 0                   \\
+          \vec{x} & = x_1\begin{bmatrix}
+                           1 \\
+                           0
+                         \end{bmatrix}
+        \end{align*}
+        Because there is only one eigenvector, we do not have enough vectors to form a basis of $\R^2$. By \textcite[Theorem~5.7, p.~294]{LayEtAl2020LinearAlgebraAndItsApplications}, this means that the matrix $A$ is not diagonalizable.
+
+  \item $A = \begin{bmatrix}
+            0 & -2 \\
+            1 & 3
+          \end{bmatrix}$
+        \begin{align*}
+          \det(A - \lambda I) & = \begin{vmatrix}
+                                    0 - \lambda & -2          \\
+                                    1           & 3 - \lambda
+                                  \end{vmatrix} \\[1ex]
+                              & = (-\lambda)(3 - \lambda) + 2 \\[1ex]
+                              & = -3\lambda + \lambda^2 + 2   \\[1ex]
+                              & = \lambda^2 - 3\lambda + 2    \\[1ex]
+                              & = (\lambda - 2)(\lambda - 1)
+        \end{align*}
+        Therefore, the eigenvalues are $2, 1$. Now we must find the eigenvectors.
+
+        $A - \lambda I$ where $\lambda = 2$:
+        \begin{align*}
+          \begin{bmatrix}
+            0 - 2 & -2    \\
+            1     & 3 - 2
+          \end{bmatrix} & = \begin{bmatrix}
+                              -2 & -2 \\
+                              1  & 1
+                            \end{bmatrix}                                \\[1ex]
+                             & \sim \begin{bmatrix}
+                                      1 & 1 \\
+                                      0 & 0
+                                    \end{bmatrix} \reason{By row reduction}
+        \end{align*}
+        Therefore,
+        \begin{align*}
+          x_1     & = -x_2                \\
+          x_2     & = x_2                 \\
+          \vec{x} & = x_2\begin{bmatrix}
+                           -1 \\
+                           1
+                         \end{bmatrix}
+        \end{align*}
+
+        $A - \lambda I$ where $\lambda = 1$:
+        \begin{align*}
+          \begin{bmatrix}
+            0 - 1 & -2    \\
+            1     & 3 - 1
+          \end{bmatrix} & = \begin{bmatrix}
+                              -1 & -2 \\
+                              1  & 2
+                            \end{bmatrix}                                \\[1ex]
+                             & \sim \begin{bmatrix}
+                                      1 & 2 \\
+                                      0 & 0
+                                    \end{bmatrix} \reason{By row reduction}
+        \end{align*}
+        Therefore,
+        \begin{align*}
+          x_1     & = -2x_2               \\
+          x_2     & = x_2                 \\
+          \vec{x} & = x_2\begin{bmatrix}
+                           -2 \\
+                           1
+                         \end{bmatrix}
+        \end{align*}
+
+        By the diagonalization theorem \cite[Theorem~5.5, p.~291]{LayEtAl2020LinearAlgebraAndItsApplications}, the columns of $P$ are the eigenvectors we just found, and the entries on the diagonal of $D$ are the corresponding eigenvalues. Our two eigenvectors, corresponding to $2, 1$ respectively, are
+        \begin{align*}
+          \begin{bmatrix}
+            -1 \\
+            1
+          \end{bmatrix}, \begin{bmatrix}
+                           -2 \\
+                           1
+                         \end{bmatrix}
+        \end{align*}
+        Therefore
+        \begin{align*}
+          P = \begin{bmatrix}
+                -1 & -2 \\
+                1  & 1
+              \end{bmatrix} \qquad D = \begin{bmatrix}
+                                         2 & 0 \\
+                                         0 & 1
+                                       \end{bmatrix}
+        \end{align*}
+        \begin{align*}
+          P^{-1} & = \frac{1}{(-1) + 2}\begin{bmatrix}
+                                         1  & 2  \\
+                                         -1 & -1
+                                       \end{bmatrix} \reason{By formula for inverse of $2 \times 2$ matrix} \\[1ex]
+                 & = \frac{1}{1}\begin{bmatrix}
+                                  1  & 2  \\
+                                  -1 & -1
+                                \end{bmatrix} \reason{By addition}                                          \\[1ex]
+                 & = \begin{bmatrix}
+                       1  & 2  \\
+                       -1 & -1
+                     \end{bmatrix} \reason{By multiplication}
+        \end{align*}
+        Validating that $PP^{-1} = I_2$:
+        \begin{align*}
+          \begin{bmatrix}
+            -1 & -2 \\
+            1  & 1
+          \end{bmatrix}\begin{bmatrix}
+                         1  & 2  \\
+                         -1 & -1
+                       \end{bmatrix} & = \begin{bmatrix}
+                                           -1 + 2 & -2 + 2 \\
+                                           1 - 1  & 2 - 1
+                                         \end{bmatrix}    \\[1ex]
+                                         & = \begin{bmatrix}
+                                               1 & 0 \\
+                                               0 & 1
+                                             \end{bmatrix}
+        \end{align*}
+        Finally, I also verified computationally that $PDP^{-1} = A$. Therefore, by the derivation above, which has been validated computationally on a TI-84 Plus, $A$ is diagonalizable, and we have found $P, D$ such that $P$ is invertible, $D$ is diagonal, and $A = PDP^{-1}$.
+        \begin{align*}
+          A                 & = PDP^{-1}                               \\[1ex]
+          \begin{bmatrix}
+            0 & -2 \\
+            1 & 3
+          \end{bmatrix} & = \begin{bmatrix}
+                              -1 & -2 \\
+                              1  & 1
+                            \end{bmatrix}\begin{bmatrix}
+                                           2 & 0 \\
+                                           0 & 1
+                                         \end{bmatrix}\begin{bmatrix}
+                                                        1  & 2  \\
+                                                        -1 & -1
+                                                      \end{bmatrix}
+        \end{align*}
+
+  \item $A = \begin{bmatrix}
+            0 & 0 & 1  \\
+            1 & 0 & -1 \\
+            0 & 1 & 1
+          \end{bmatrix}$
+        \begin{align*}
+          \det(A - \lambda I) & = \begin{vmatrix}
+                                    0 - \lambda & 0           & 1           \\
+                                    1           & 0 - \lambda & -1          \\
+                                    0           & 1           & 1 - \lambda
+                                  \end{vmatrix}                                                                                                                          \\[1ex]
+                              & = -\lambda(1)\begin{vmatrix}
+                                               0 - \lambda & -1          \\
+                                               1           & 1 - \lambda
+                                             \end{vmatrix} + 0(-1)\begin{vmatrix}
+                                                                    1 & -1          \\
+                                                                    0 & 1 - \lambda
+                                                                  \end{vmatrix} + 1(1)\begin{vmatrix}
+                                                                                        1 & 0 - \lambda \\
+                                                                                        0 & 1
+                                                                                      \end{vmatrix} \reason{\begin{tabular}[c]{@{}l@{}}By definition of det \\ with cofactor expansion\end{tabular}} \\[1ex]
+                              & = -\lambda\left[(-\lambda)(1 - \lambda) + 1\right] + 0 + 1 \reason{By evaluation of determinants}                                                                    \\[1ex]
+                              & = -\lambda(-\lambda + \lambda^2 + 1) + 1 \reason{By multiplication}                                                                                                  \\[1ex]
+                              & = \lambda^2 - \lambda^3 - \lambda + 1 \reason{By multiplication}                                                                                                     \\[1ex]
+                              & = -\lambda^3 + \lambda^2 - \lambda + 1 \reason{By commutativity}                                                                                                     \\[1ex]
+                              & = -(\lambda^3 - \lambda^2 + \lambda - 1) \reason{By factoring out $-1$}                                                                                              \\[1ex]
+                              & = -(\lambda^2(\lambda - 1) + 1(\lambda - 1)) \reason{By factoring out $\lambda - 1$}                                                                                 \\[1ex]
+                              & = -(\lambda^2 + 1)(\lambda - 1) \reason{By distribution}
+        \end{align*}
+        Using the roots to find the eigenvalues:
+        \begin{align*}
+          \lambda^2 + 1 & = 0            & \lambda - 1 & = 0 \\
+          \lambda^2     & = -1           & \lambda     & = 1 \\
+          \lambda       & = \pm\sqrt{-1} &             &     \\
+                        & = 0 \pm i      &             &
+        \end{align*}
+        Here because the eigenvalues are not all real, we will say that the matrix is not diagonalizable, per instructions from Dr. Cutrone.
+
+  \item $A = \begin{bmatrix}
+            3  & 1  & 1 \\
+            2  & 4  & 2 \\
+            -1 & -1 & 1
+          \end{bmatrix}$
+        \begin{align*}
+          \det(A - \lambda I) & = \begin{vmatrix}
+                                    3 - \lambda & 1           & 1           \\
+                                    2           & 4 - \lambda & 2           \\
+                                    -1          & -1          & 1 - \lambda
+                                  \end{vmatrix}                                                                                                                                \\[1ex]
+                              & = (3 - \lambda)(1)\begin{vmatrix}
+                                                    4 - \lambda & 2           \\
+                                                    -1          & 1 - \lambda
+                                                  \end{vmatrix} - 1\begin{vmatrix}
+                                                                     2  & 2           \\
+                                                                     -1 & 1 - \lambda
+                                                                   \end{vmatrix} + 1\begin{vmatrix}
+                                                                                      2  & 4 - \lambda \\
+                                                                                      -1 & -1
+                                                                                    \end{vmatrix} \reason{\begin{tabular}[c]{@{}l@{}}By definition of determinant \\ with cofactor expansion\end{tabular}} \\[1ex]
+                              & = (3 - \lambda)\left[(4 - \lambda)(1 - \lambda) + 2\right] - (2(1 - \lambda) + 2) + (-2 + (4 - \lambda)) \reason{By evaluation of determinants}                            \\[1ex]
+                              & = (3 - \lambda)(4 - 4\lambda - \lambda + \lambda^2 + 2) - (2 - 2\lambda + 2) + 2 - \lambda \reason{By expansion, arithmetic}                                               \\[1ex]
+                              & = (3 - \lambda)(\lambda^2 - 5\lambda + 6) - 4 + 2\lambda + 2 - \lambda \reason{By arithmetic}                                                                              \\[1ex]
+                              & = 3\lambda^2 - 15\lambda + 18 - \lambda^3 + 5\lambda^2 - 6\lambda - 2 + \lambda \reason{By expansion, arithmetic}                                                          \\[1ex]
+                              & = -\lambda^3 + 8\lambda^2 - 20\lambda + 16 \reason{By simplification}                                                                                                      \\[1ex]
+                              & = -(\lambda^3 - 8\lambda^2 + 20\lambda - 16) \reason{By factoring out $-1$}                                                                                                \\[1ex]
+                              & = -(\lambda - 2)^2(\lambda - 4) \reason{By factoring}
+        \end{align*}
+        Therefore the eigenvalues are $2, 2, 4$. Now we must find the eigenvectors.
+
+        $A - \lambda I$ with $\lambda = 2$:
+        \begin{align*}
+          \begin{bmatrix}
+            3 - 2 & 1     & 1     \\
+            2     & 4 - 2 & 2     \\
+            -1    & -1    & 1 - 2
+          \end{bmatrix} & = \begin{bmatrix}
+                              1  & 1  & 1  \\
+                              2  & 2  & 2  \\
+                              -1 & -1 & -1
+                            \end{bmatrix}                                        \\[1ex]
+                                     & \sim \begin{bmatrix}
+                                              1 & 1 & 1 \\
+                                              0 & 0 & 0 \\
+                                              0 & 0 & 0
+                                            \end{bmatrix} \reason{By row reduction}
+        \end{align*}
+        Therefore
+        \begin{align*}
+          x_1 & = -x_2 - x_3 \\
+          x_2 & = x_2        \\
+          x_3 & = x_3
+        \end{align*}
+        And consequently,
+        \begin{align*}
+          \vec{x} & = \begin{bmatrix}
+                        -x_2 \\
+                        x_2  \\
+                        0x_2
+                      \end{bmatrix} + \begin{bmatrix}
+                                        -x_3 \\
+                                        0x_3 \\
+                                        x_3
+                                      \end{bmatrix} = x_2\begin{bmatrix}
+                                                           -1 \\
+                                                           1  \\
+                                                           0
+                                                         \end{bmatrix} + x_3\begin{bmatrix}
+                                                                              -1 \\
+                                                                              0  \\
+                                                                              1
+                                                                            \end{bmatrix}
+        \end{align*}
+        Therefore the eigenvectors corresponding to $\lambda = 2$ are:
+        \begin{align*}
+          \begin{bmatrix}
+            -1 \\
+            1  \\
+            0
+          \end{bmatrix}, \begin{bmatrix}
+                           -1 \\
+                           0  \\
+                           1
+                         \end{bmatrix}
+        \end{align*}
+
+        $A - \lambda I$ with $\lambda = 4$:
+        \begin{align*}
+          \begin{bmatrix}
+            3 - 4 & 1     & 1     \\
+            2     & 4 - 4 & 2     \\
+            -1    & -1    & 1 - 4
+          \end{bmatrix} & = \begin{bmatrix}
+                              -1 & 1  & 1  \\
+                              2  & 0  & 2  \\
+                              -1 & -1 & -3
+                            \end{bmatrix}                                                                                                            \\[1ex]
+                                     & \sim \begin{bmatrix}
+                                              1  & -1 & -1 \\
+                                              2  & 0  & 2  \\
+                                              -1 & -1 & -3
+                                            \end{bmatrix} \reason{$-R_1 \to R_1$}                                                                       \\[1ex]
+                                     & \sim \begin{bmatrix}
+                                              1 & -1 & -1 \\
+                                              0 & 2  & 4  \\
+                                              0 & -2 & -4
+                                            \end{bmatrix} \reason{\begin{tabular}[c]{@{}l@{}}$-2R_1 + R_2 \to R_2$ \\ $R_1 + R_3 \to R_3$\end{tabular}} \\[1ex]
+                                     & \sim \begin{bmatrix}
+                                              1 & -1 & -1 \\
+                                              0 & 1  & 2  \\
+                                              0 & 0  & 0
+                                            \end{bmatrix} \reason{
+                                                            \begin{tabular}[c]{@{}l@{}}$R_2 + R_3 \to R_3$\\ $\frac{1}{2}R_2 \to R_2$\end{tabular}}     \\[1ex]
+                                     & \sim \begin{bmatrix}
+                                              1 & 0 & 1 \\
+                                              0 & 1 & 2 \\
+                                              0 & 0 & 0
+                                            \end{bmatrix} \reason{$R_2 + R_1 \to R_1$}
+        \end{align*}
+        Therefore
+        \begin{align*}
+          x_1 & = -x_3  \\
+          x_2 & = -2x_3 \\
+          x_3 & = x_3
+        \end{align*}
+        And consequently,
+        \begin{align*}
+          \vec{x} & = x_3\begin{bmatrix}
+                           -1 \\
+                           -2 \\
+                           1
+                         \end{bmatrix}
+        \end{align*}
+        Therefore the eigenvector corresponding to $\lambda = 4$ is
+        \begin{align*}
+          \begin{bmatrix}
+            -1 \\
+            -2 \\
+            1
+          \end{bmatrix}
+        \end{align*}
+
+        By the diagonalization theorem \cite[Theorem~5.3, p.~291]{LayEtAl2020LinearAlgebraAndItsApplications}, the columns of $P$ are the eigenvectors we just found, and the entries on the diagonal of $D$ are the corresponding eigenvalues. Our three eigenvectors, corresponding to $2, 2, 4$ respectively, are
+        \begin{align*}
+          \begin{bmatrix}
+            -1 \\
+            1  \\
+            0
+          \end{bmatrix}, \begin{bmatrix}
+                           -1 \\
+                           0  \\
+                           1
+                         \end{bmatrix}, \begin{bmatrix}
+                                          -1 \\
+                                          -2 \\
+                                          1
+                                        \end{bmatrix}
+        \end{align*}
+        Therefore,
+        \begin{align*}
+          P = \begin{bmatrix}
+                -1 & -1 & -1 \\
+                1  & 0  & -2 \\
+                0  & 1  & 1
+              \end{bmatrix} \qquad D = \begin{bmatrix}
+                                         2 & 0 & 0 \\
+                                         0 & 2 & 0 \\
+                                         0 & 0 & 4
+                                       \end{bmatrix}
+        \end{align*}
+        By row reduction of $\begin{bmatrix} P & I \end{bmatrix}$, I found $P^{-1}$ to be
+        \begin{align*}
+          P^{-1} = \begin{bmatrix}
+                     -1           & 0            & -1           \\
+                     \frac{1}{2}  & \frac{1}{2}  & \frac{3}{2}  \\
+                     -\frac{1}{2} & -\frac{1}{2} & -\frac{1}{2}
+                   \end{bmatrix}
+        \end{align*}
+        I verified computationally that $PP^{-1} = I$. Finally, I also verified computationally that $PDP^{-1} = A$. Therefore, by the derivation above, which has been validated computationally on a TI-84 Plus, $A$ is diagonalizable, and we have found $P, D$ such that $P$ is invertible, $D$ is diagonal, and $A = PDP^{-1}$.
+\end{enumerate}
 
 \pagebreak
 
@@ -105,6 +494,66 @@ For the matrix $A = \begin{bmatrix}
 \medskip
 \noindent\textbf{Answer:}
 
+By the derivation in Problem 1, we found that
+\begin{align*}
+  A                 & = PDP^{-1}                               \\[1ex]
+  \begin{bmatrix}
+    0 & -2 \\
+    1 & 3
+  \end{bmatrix} & = \begin{bmatrix}
+                      -1 & -2 \\
+                      1  & 1
+                    \end{bmatrix}\begin{bmatrix}
+                                   2 & 0 \\
+                                   0 & 1
+                                 \end{bmatrix}\begin{bmatrix}
+                                                1  & 2  \\
+                                                -1 & -1
+                                              \end{bmatrix}
+\end{align*}
+By the argument in \textcite[Example~2, p.~290]{LayEtAl2020LinearAlgebraAndItsApplications},
+\begin{align*}
+  A^n = PD^nP^{-1}
+\end{align*}
+But $D^n$ is found by raising the elements on the diagonal to the $n$th power. Therefore,
+\begin{align*}
+  \begin{bmatrix}
+    0 & -2 \\
+    1 & 3
+  \end{bmatrix}^n & = \begin{bmatrix}
+                        -1 & -2 \\
+                        1  & 1
+                      \end{bmatrix}\begin{bmatrix}
+                                     2^n & 0   \\
+                                     0   & 1^n
+                                   \end{bmatrix}\begin{bmatrix}
+                                                  1  & 2  \\
+                                                  -1 & -1
+                                                \end{bmatrix}                            \\[1ex]
+                    & = \begin{bmatrix}
+                          -1 \cdot 2^n + 0 & 0 - 2 \cdot 1^n \\
+                          1 \cdot 2^n + 0  & 0 + 1^n
+                        \end{bmatrix}\begin{bmatrix}
+                                       1  & 2  \\
+                                       -1 & -1
+                                     \end{bmatrix} \reason{By matrix multiplication $PD^n$} \\[1ex]
+                    & = \begin{bmatrix}
+                          -1 \cdot 2^n & -2  \\
+                          2^n          & 1^n
+                        \end{bmatrix}\begin{bmatrix}
+                                       1  & 2  \\
+                                       -1 & -1
+                                     \end{bmatrix} \reason{By simplification}               \\[1ex]
+                    & = \begin{bmatrix}
+                          -2^n + 2          & -1 \cdot 2^n \cdot 2 + 2  \\
+                          2^n - 1 \cdot 1^n & 2 \cdot 2^n - 1 \cdot 1^n
+                        \end{bmatrix} \reason{By matrix multiplication $(PD^n)P^{-1}$}      \\[1ex]
+                    & = \begin{bmatrix}
+                          -2^n + 2 & -2^{n+1} + 2 \\
+                          2^n - 1  & 2^{n+1} - 1
+                        \end{bmatrix} \reason{By simplification}
+\end{align*}
+
 \pagebreak
 
 \noindent\textbf{Problem 3:}
@@ -114,6 +563,64 @@ Let $T : \R^2 \to \R^2$ be the linear transformation with standard matrix $A$ fr
 
 \medskip
 \noindent\textbf{Answer:}
+
+Again, note that in the derivation in Problem 1, we found that
+\begin{align*}
+  A                 & = PDP^{-1}                               \\[1ex]
+  \begin{bmatrix}
+    0 & -2 \\
+    1 & 3
+  \end{bmatrix} & = \begin{bmatrix}
+                      -1 & -2 \\
+                      1  & 1
+                    \end{bmatrix}\begin{bmatrix}
+                                   2 & 0 \\
+                                   0 & 1
+                                 \end{bmatrix}\begin{bmatrix}
+                                                1  & 2  \\
+                                                -1 & -1
+                                              \end{bmatrix}
+\end{align*}
+But \textcite[Theorem~5.8, p.~300]{LayEtAl2020LinearAlgebraAndItsApplications} says
+
+\begin{tcolorbox}[colback=blue!10!white, colframe=blue!10!black, title={Theorem 5.8 - Diagonal Matrix Representation}]
+  Suppose $A = PDP^{-1}$, where $D$ is a diagonal $n \times n$ matrix. If $\mathcal{B}$ is the basis for $\R^n$ formed by the columns of $P$, then $D$ is the $\mathcal{B}$-matrix for the transformation $\vec{x} \mapsto A\vec{x}$.
+\end{tcolorbox}
+
+Consider also the commutative diagram based on the one found in \textcite[Ch.~5.4, p.~301]{LayEtAl2020LinearAlgebraAndItsApplications}:
+
+\begin{figure}[H]
+  \centering
+  \begin{tikzpicture}[>=stealth, map label/.style={font=\footnotesize, align=center}]
+    \node (x) at (0, 2) {$\vec{x}$};
+    \node (Ax) at (5, 2) {$A\vec{x}$};
+    \node (xB) at (0, 0) {$[\vec{x}]_{\mathcal{B}}$};
+    \node (AxB) at (5, 0) {$[A\vec{x}]_{\mathcal{B}}$};
+    \draw[->] (x) -- node[above, map label] {Multiplication\\by $A$} (Ax);
+    \draw[->] (x) -- node[left, map label] {Multiplication\\by $P^{-1}$} (xB);
+    \draw[->] (xB) -- node[below, map label] {Multiplication\\by $D$} (AxB);
+    \draw[->] (AxB) -- node[right, map label] {Multiplication\\by $P$} (Ax);
+  \end{tikzpicture}
+  \caption{Commutative diagram for $A = PDP^{-1}$}\label{fig:commutative-diagram}
+\end{figure}
+
+This illustrates that the columns of $P$ form the basis of $\R^2$ such that the linear transformation $T: \R^2 \to \R^2$ with standard matrix $A$ has a linear transformation to $\mathcal{B}$ with matrix $D$ that we know is diagonal. The basis of $\mathcal{B}$ then is
+\begin{align*}
+  \left\{\begin{bmatrix}
+           -1 \\
+           1
+         \end{bmatrix}, \begin{bmatrix}
+                          -2 \\
+                          1
+                        \end{bmatrix}\right\}
+\end{align*}
+and the matrix corresponding to $T$ in base $\mathcal{B}$ is
+\begin{align*}
+  \begin{bmatrix}
+    2 & 0 \\
+    0 & 1
+  \end{bmatrix}
+\end{align*}
 
 \pagebreak
 
@@ -130,6 +637,99 @@ Let $A = \begin{bmatrix}
 
 \medskip
 \noindent\textbf{Answer:}
+
+First, we have to find the characteristic polynomial.
+\begin{align*}
+  \det(A - \lambda I) & = \begin{vmatrix}
+                            1 - \lambda & -1          \\
+                            9           & 1 - \lambda
+                          \end{vmatrix}           \\[1ex]
+                      & = (1 - \lambda)^2 + 9                   \\[1ex]
+                      & = 1 - \lambda - \lambda + \lambda^2 + 9 \\[1ex]
+                      & = \lambda^2 - 2\lambda + 10
+\end{align*}
+Solving this with the quadratic formula:
+\begin{align*}
+  \frac{-(-2) \pm \sqrt{(-2)^2 - 4(1)(10)}}{2(1)} & = \frac{2 \pm \sqrt{4 - 40}}{2}      \\[1ex]
+                                                  & = \frac{2 \pm \sqrt{-36}}{2}         \\[1ex]
+                                                  & = \frac{2 \pm \sqrt{-1}\sqrt{36}}{2} \\[1ex]
+                                                  & = \frac{2 \pm 6i}{2}                 \\[1ex]
+                                                  & = 1 \pm 3i
+\end{align*}
+Therefore the eigenvalues are $1 \pm 3i$. Now we must find the eigenvectors. Consider $\lambda = 1 - 3i$:
+\begin{align*}
+  \begin{bmatrix}
+    1 - (1 - 3i) & -1           \\
+    9            & 1 - (1 - 3i)
+  \end{bmatrix} & = \begin{bmatrix}
+                      3i & -1 \\
+                      9  & 3i
+                    \end{bmatrix}
+\end{align*}
+But because $\det(A - \lambda I) = 0$, the matrix $A - \lambda I$ is singular, meaning the rows are linearly dependent. Verifying this:
+\begin{align*}
+  \det(A - \lambda I) = (3i)^2 + 9 = 3^2i^2 + 9 = -9 + 9 = 0
+\end{align*}
+Because the two rows are linearly dependent, either can be expressed in terms of the other. I will use row 2 to avoid the complex arithmetic.
+\begin{align*}
+  \left[\begin{array}{rr|r}
+      3i & -1 & 0 \\
+      9  & 3i & 0
+    \end{array}\right] \implies 9x_1 & = -3ix_2           \\[1ex]
+  x_1                                & = \frac{-3ix_2}{9} \\[1ex]
+                                     & = \frac{-i}{3}x_2  \\[1ex]
+  x_2                                & = x_2
+\end{align*}
+Hence, the associated eigenvector is
+\begin{align*}
+  \vec{x} = \begin{bmatrix}
+              \frac{-i}{3} \\
+              1
+            \end{bmatrix}
+\end{align*}
+By \textcite[Theorem~5.9, p.~309]{LayEtAl2020LinearAlgebraAndItsApplications}
+\begin{align*}
+  P & = \begin{bmatrix}
+          \operatorname{Re}\vec{v} & \operatorname{Im}\vec{v}
+        \end{bmatrix} = \begin{bmatrix}
+                          0 & -\frac{1}{3} \\
+                          1 & 0
+                        \end{bmatrix} \\[1ex]
+  C & = \begin{bmatrix}
+          1 & -3 \\
+          3 & 1
+        \end{bmatrix}
+\end{align*}
+Let's check our work:
+\begin{align*}
+  P^{-1} = \frac{1}{0 + \frac{1}{3}}\begin{bmatrix}
+                                      0  & \frac{1}{3} \\
+                                      -1 & 0
+                                    \end{bmatrix} = 3\begin{bmatrix}
+                                                       0  & \frac{1}{3} \\
+                                                       -1 & 0
+                                                     \end{bmatrix} = \begin{bmatrix}
+                                                                       0  & 1 \\
+                                                                       -3 & 0
+                                                                     \end{bmatrix}
+\end{align*}
+\begin{align*}
+  A                 & = PCP^{-1}                               \\[1ex]
+  \begin{bmatrix}
+    1 & -1 \\
+    9 & 1
+  \end{bmatrix} & = \begin{bmatrix}
+                      0 & -\frac{1}{3} \\
+                      1 & 0
+                    \end{bmatrix}\begin{bmatrix}
+                                   1 & -3 \\
+                                   3 & 1
+                                 \end{bmatrix}\begin{bmatrix}
+                                                0  & 1 \\
+                                                -3 & 0
+                                              \end{bmatrix}
+\end{align*}
+I checked the matrix multiplication computationally and validated that this equation holds.
 
 \pagebreak
 
