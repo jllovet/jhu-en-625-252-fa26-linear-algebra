@@ -2,7 +2,7 @@
 
 % Packages
 \usepackage[utf8]{inputenc}     % Unicode input 
-\usepackage{amsmath, amssymb}   % American Math Society Foratting & Symbols
+\usepackage{amsmath, amssymb}   % American Math Society Formatting & Symbols
 \usepackage{graphicx}           % Allows you to insert graphics
 \usepackage{hyperref}           % Allows automatic references & hyperlinking
 \usepackage[
@@ -15,8 +15,9 @@
 % Macros (these are shortcuts)
 % Read more about them here 
 % http://www.math.uh.edu/~torok/math_6298/latex/macros.html
-\newcommand{\R}{{\mathbb R}}    % Type $\R$ instead of $\mathbb{R}$ for the real numbers styliezed R
+\newcommand{\R}{{\mathbb R}}    % Type $\R$ instead of $\mathbb{R}$ for the real numbers stylized R
 \newcommand{\vt}{\mathbf}       % Type $\vt{...}$ instead of $\mathbf{...}$ to bold a symbol.
+\newcommand{\reason}[1]{&& \text{#1}}
 
 \begin{document}
 
@@ -24,8 +25,6 @@
 \title{Linear Algebra Group Project 1}
 \author{Nigel McCowan, Jonathan Llovet, Raul Perez}
 \maketitle
-
-Example citation \cite[Theorem~N.M, p.~abc]{LayEtAl2020LinearAlgebraAndItsApplications}
 
 \section{Part I: Matrix Exponential}
 
@@ -57,9 +56,114 @@ and $B_m$ is the $m$th partial sum. Notice that if $A$ is a $1 \times 1$ matrix,
 
   \item (4 points) Compute $e^{0_n}$, where $0_n$ represents the $n \times n$ zero matrix.
 
-  \item (4 points) Compute $e^{I_n}$, where $I_n$ represents the $n \times n$ identity matrix.
+        \emph{Solution}: Using the definition of the matrix exponential:
 
-  \item (6 points) Let $A$ be diagonalizable, so that $A = PDP^{-1}$ for some diagonal matrix $D$ and invertible matrix $P$. Show that $e^A = Pe^{D}P^{-1}$.
+        \[
+          e^A=\sum_{m=0}^{\infty}\frac{A^m}{m!}
+          =I_n+A+\frac{A^2}{2!}+\frac{A^3}{3!}+\cdots
+        \]
+
+        Let \(A=0_n\), where \(0_n\) is the \(n\times n\) zero matrix.
+
+        Since \(0_n^m=0_n\) for every positive integer \(m\), and \(0_n^0 = I_n\), we have
+
+        \begin{align*}
+          e^{0_n} & =I_n + 0_n + \frac{0_n}{2!} + \frac{0_n}{3!} + \cdots             \\[1ex]
+                  & =I_n + 0_n + 0_n + 0_n + \cdots \reason{By scalar multiplication}
+        \end{align*}
+
+        All terms after the identity matrix are the zero matrix. Therefore,
+
+        \[
+          \boxed{e^{0_n}=I_n}
+        \]
+
+        Thus, the exponential of the \(n\times n\) zero matrix is the \(n\times n\) identity matrix.
+
+
+  \item (4 points) Compute $e^{I_n}$, where $I_n$ represents the $n \times n$ identity matrix.
+        \emph{Solution}: Consider the given expression
+        \begin{align*}
+          e^A = \sum_{m=0}^{\infty} \frac{A^m}{m!}
+        \end{align*}
+
+        Substituting $A = I_n$, we obtain the following:
+        \begin{align*}
+          e^{I_n}
+           & =
+          \sum_{m=0}^{\infty}\frac{I_n^{m}}{m!}
+        \end{align*}
+
+        But $I^m_n = I_n$ for every nonnegative integer $m$. Therefore,
+        \begin{align*}
+          e^{I_n} & = I_n + I_n + \frac{I_n}{2!} + \frac{I_n}{3!} + \cdots                              \\[1ex]
+                  & = (1 + 1 + \frac{1}{2!} + \frac{1}{3!} + \cdots)I_n \reason{By factoring out $I_n$}
+        \end{align*}
+
+        Furthermore, the expression inside the parentheses is the Maclaurin series for $e^x$ evaluated at $x=1$. That is,
+        \[
+          \sum_{m=0}^{\infty}\frac{1^m}{m!} = e
+        \]
+        This implies,
+        \begin{align*}
+          e^{I_n} & = \left(\sum_{m=0}^{\infty}\frac{1^m}{m!}\right)I_n \\[1ex]
+                  & = eI_n
+        \end{align*}
+
+        Therefore
+        \[
+          \boxed{e^{I_n} = eI_n}
+        \]
+
+  \item (6 points) Let $A$ be diagonalizable, so that $A = PDP^{-1}$ for some diagonal matrix $D$ and invertible matrix $P$. Show that $e^A = Pe^{D}P^{-1}$.\\
+        \emph{Solution}: Recall the definition of the matrix exponential and substitute $A=PDP^{-1}$ into the equation.
+        \begin{equation}
+          e^A
+          =I_n+PDP^{-1}+\frac{(PDP^{-1})^2}{2!}+\frac{(PDP^{-1})^3}{3!}+\cdots \label{eq:etoa_with_pdpinv_substituted}
+        \end{equation}
+        Next consider the following to obtain $A^m=PD^mP^{-1}$.
+        \begin{align*}
+          A^2 & = PDP^{-1}PDP^{-1}                             \\
+              & = PDIDP^{-1} \reason{Because $P^{-1}P=I$}      \\
+              & = PD^2P^{-1} \reason{By matrix multiplication}
+        \end{align*}
+        This same argument holds for every nonnegative integer $m$.
+
+        Consider the case where $m=0$,
+        \[
+          PD^0P^{-1} = PI_nP^{-1} = PP^{-1} = I_n
+        \]
+        With this, we can substitute these values for $A^m=PD^mP^{-1}$ back into the series in \eqref{eq:etoa_with_pdpinv_substituted},
+        \begin{equation}
+          e^A = \underbrace{PI_nP^{-1}}_{A^0} +
+          \underbrace{PDP^{-1}}_{A^1} +
+          \underbrace{\frac{PD^2P^{-1}}{2!}}_{A^2/2!} +
+          \underbrace{\frac{PD^3P^{-1}}{3!}}_{A^3/3!} +
+          \cdots \label{eq:expanded_e_to_A}
+        \end{equation}
+        But note that by the definition of the matrix exponential,
+        \begin{equation}
+          e^D=\sum_{m=0}^{\infty}\frac{D^m}{m!}
+          = I_n + D + \frac{D^2}{2!} + \frac{D^3}{3!} + \cdots \label{eq:e_to_D}
+        \end{equation}
+
+        Left-multiplying each element of \eqref{eq:e_to_D} by $P$, we obtain:
+        \begin{equation}
+          Pe^D = PI_n + PD + \frac{PD^2}{2!} + \frac{PD^3}{3!} + \cdots \label{eq:e_to_D_left_multiplied_by_P}
+        \end{equation}
+
+        Subsequently right-multiplying each element of \eqref{eq:e_to_D_left_multiplied_by_P} by $P^{-1}$, we obtain:
+        \begin{equation}
+          Pe^DP^{-1} = PI_nP^{-1} + PDP^{-1} + \frac{PD^2P^{-1}}{2!} + \frac{PD^3P^{-1}}{3!} + \cdots \label{eq:e_to_D_left_multiplied_by_P_right_multiplied_by_P_inverse}
+        \end{equation}
+
+        But the right-hand side of \eqref{eq:e_to_D_left_multiplied_by_P_right_multiplied_by_P_inverse} is equal to the right-hand side of \eqref{eq:expanded_e_to_A}. Therefore,
+        \[
+          \boxed{e^A
+            =Pe^DP^{-1}}
+        \]
+        which was what we wanted.
+        \medskip
 
   \item (5 points) Let $A = \begin{bmatrix}
             a_1    & 0      & \ldots & 0      \\
@@ -75,13 +179,155 @@ and $B_m$ is the $m$th partial sum. Notice that if $A$ is a $1 \times 1$ matrix,
             0       & 0       & \ldots & e^{a_n}
           \end{bmatrix}$.
 
+        \emph{Solution}: Recall the definition of the matrix exponential.
+
+        \[
+          e^A=\sum_{m=0}^{\infty}\frac{A^m}{m!}
+          =I_n+A+\frac{A^2}{2!}+\frac{A^3}{3!}+\cdots
+        \]
+
+        Because $A$ is a diagonal matrix, each positive integer
+        power of $A$ is also diagonal, with
+        \[
+          A^m =
+          \begin{bmatrix}
+            a_1^m  & 0      & \cdots & 0      \\
+            0      & a_2^m  & \cdots & 0      \\
+            \vdots & \vdots & \ddots & \vdots \\
+            0      & 0      & \cdots & a_n^m
+          \end{bmatrix},
+        \]
+        and with the special case $A^0=I_n$.
+
+        Substituting these values of $A^m$ into the matrix exponential series,
+        we obtain the following expression for $e^A$:
+        \[
+          e^A =
+          \begin{bmatrix}
+            \displaystyle\sum_{m=0}^{\infty}\frac{a_1^m}{m!}
+                   & 0                                                & \cdots & 0      \\
+            0      & \displaystyle\sum_{m=0}^{\infty}\frac{a_2^m}{m!}
+                   & \cdots                                           & 0               \\
+            \vdots & \vdots                                           & \ddots & \vdots \\
+            0      & 0                                                & \cdots &
+            \displaystyle\sum_{m=0}^{\infty}\frac{a_n^m}{m!}
+          \end{bmatrix}.
+        \]
+
+        The Maclaurin series provides an expression for $e^x$, which gives us the following for each diagonal entry.
+        \[
+          \sum_{m=0}^{\infty}\frac{a_i^m}{m!}=e^{a_i}.
+        \]
+
+        Hence,
+        \[
+          \boxed{
+            e^A =
+            \begin{bmatrix}
+              e^{a_1} & 0       & \cdots & 0       \\
+              0       & e^{a_2} & \cdots & 0       \\
+              \vdots  & \vdots  & \ddots & \vdots  \\
+              0       & 0       & \cdots & e^{a_n}
+            \end{bmatrix}
+          }.
+        \]
   \item (4 points) Compute $e^A$ if $A = \begin{bmatrix} 2 & 0 \\ 0 & 3 \end{bmatrix}$.
+
+        \emph{Solution}: Note that $A$ is a diagonal matrix. As we showed in the previous problem, for a diagonal matrix $B$, with diagonal entries $b_1,\dots,b_n$,
+        \[
+          e^B =
+          \begin{bmatrix}
+            e^{b_1} & 0       & \cdots & 0       \\
+            0       & e^{b_2} & \cdots & 0       \\
+            \vdots  & \vdots  & \ddots & \vdots  \\
+            0       & 0       & \cdots & e^{b_n}
+          \end{bmatrix}
+        \]
+
+        In other words, raising $e$ to the power of a diagonal matrix $B$ is equal to the diagonal matrix with $e$ raised to the corresponding component of $B$ on the diagonal. Therefore, substituting the given matrix $A$ for $B$ on the left-hand side and the corresponding diagonal entries from $A$ as powers of $e$ on the right-hand side, we obtain
+        \[
+          \boxed{
+            e^A =
+            \begin{bmatrix}
+              e^2 & 0   \\
+              0   & e^3
+            \end{bmatrix}
+          }.
+        \]
 
   \item (5 points) Show that $e^A e^{-A} = I_n$.
 
         (Hint: use the fact that $e^{(s+t)A} = e^{sA}e^{tA}$.)
 
+        \emph{Solution}: Let $s=1$ and $t=-1$. Substituting these values
+        into the given property, we obtain
+        \[
+          e^{0A} = e^Ae^{-A}.
+        \]
+
+        Since $0A=0_n$, where $0_n$ is the $n \times n$
+        zero matrix, we have
+        \[
+          e^{0_n} = e^Ae^{-A}.
+        \]
+
+        From Question 1, we know that $e^{0_n}=I_n$.
+        Therefore,
+        \[
+          \boxed{e^Ae^{-A}=I_n}.
+        \]
+
   \item (6 points) Use the fact that the matrix transpose distributes over infinite sums to show that $e^{(A^T)} = (e^A)^T$. Use this to show that if $A$ is symmetric then so is $e^A$.
+
+        \emph{Solution}: Recall the definition of the matrix
+        exponential and take the transpose of both sides to obtain the following.
+        \[
+          (e^A)^T =
+          \left(\sum_{m=0}^{\infty}\frac{A^m}{m!}\right)^T.
+        \]
+
+        Since the transpose distributes over infinite sums,
+        we can rewrite this as
+        \[
+          (e^A)^T =
+          \sum_{m=0}^{\infty}
+          \left(\frac{A^m}{m!}\right)^T.
+        \]
+
+        Since $m!$ is a scalar, we have
+        \[
+          (e^A)^T =
+          \sum_{m=0}^{\infty}\frac{(A^m)^T}{m!}.
+        \]
+
+        Using the property $(A^m)^T=(A^T)^m$,
+        we obtain
+        \[
+          (e^A)^T =
+          \sum_{m=0}^{\infty}\frac{(A^T)^m}{m!}.
+        \]
+
+        Substituting for the right-hand side of this result, by the definition of the matrix exponential,
+        \[
+          \boxed{(e^A)^T=e^{A^T}}.
+        \]
+
+        Now suppose that $A$ is symmetric. By definition,
+        $A^T=A$.
+
+        Using the result above,
+        \[
+          (e^A)^T=e^{A^T}=e^A.
+        \]
+
+        Since $(e^A)^T=e^A$, the matrix $e^A$
+        is symmetric.
+
+        Therefore,
+        \[
+          \boxed{\text{If } A \text{ is symmetric, then }
+            e^A \text{ is symmetric.}}
+        \]
 
   \item (6 points) In general, it is \emph{not} true that $e^A e^B = e^{A+B}$, which differs when compared to the exponential function for real numbers. (If $A$ and $B$ commute, that is, if $AB = BA$, then the above relation does hold however)
 
@@ -100,6 +346,126 @@ and $B_m$ is the $m$th partial sum. Notice that if $A$ is a $1 \times 1$ matrix,
               \end{pmatrix}
         \end{align*}
         that $e^A e^B \neq e^{A+B}$. To calculate $e^A$ and $e^B$, use the fact that $A^3 = 0_3$ and $B^3 = 0_3$.
+
+        \emph{Solution}: Recall the definition of the matrix exponential with $A^3=0_3$ and $B^3=0_3$. Since all higher powers of $A$ and $B$ are also equal to $0_3$, we can use the following,
+        \[
+          e^A=I_3+A+\frac{A^2}{2!},
+          \qquad
+          e^B=I_3+B+\frac{B^2}{2!}.
+        \]
+
+        First, calculating the squares gives
+        \[
+          A^2=
+          \begin{bmatrix}
+            0 & 0 & 2 \\
+            0 & 0 & 0 \\
+            0 & 0 & 0
+          \end{bmatrix},
+          \qquad
+          B^2=
+          \begin{bmatrix}
+            0 & 0 & 3 \\
+            0 & 0 & 0 \\
+            0 & 0 & 0
+          \end{bmatrix}.
+        \]
+
+        Substituting into the exponential series,
+        we obtain
+        \[
+          e^A=
+          \begin{bmatrix}
+            1 & 1 & 8 \\
+            0 & 1 & 2 \\
+            0 & 0 & 1
+          \end{bmatrix},
+          \qquad
+          e^B=
+          \begin{bmatrix}
+            1 & 1 & \frac12 \\
+            0 & 1 & 3       \\
+            0 & 0 & 1
+          \end{bmatrix}.
+        \]
+
+        Multiplying these matrices gives
+        \[
+          e^Ae^B=
+          \begin{bmatrix}
+            1 & 1 & 8 \\
+            0 & 1 & 2 \\
+            0 & 0 & 1
+          \end{bmatrix}
+          \begin{bmatrix}
+            1 & 1 & \frac12 \\
+            0 & 1 & 3       \\
+            0 & 0 & 1
+          \end{bmatrix}
+          =
+          \begin{bmatrix}
+            1 & 2 & \frac{23}{2} \\
+            0 & 1 & 5            \\
+            0 & 0 & 1
+          \end{bmatrix}.
+        \]
+
+        Next, adding $A$ and $B$ gives
+        \[
+          A+B=
+          \begin{bmatrix}
+            0 & 2 & 6 \\
+            0 & 0 & 5 \\
+            0 & 0 & 0
+          \end{bmatrix}.
+        \]
+
+        Squaring this matrix, we obtain
+        \[
+          (A+B)^2=
+          \begin{bmatrix}
+            0 & 0 & 10 \\
+            0 & 0 & 0  \\
+            0 & 0 & 0
+          \end{bmatrix}.
+        \]
+
+        Since $(A+B)^3=0_3$, we have
+        \[
+          e^{A+B}=I_3+(A+B)+\frac{(A+B)^2}{2!}.
+        \]
+
+        Therefore,
+        \[
+          e^{A+B}=
+          \begin{bmatrix}
+            1 & 2 & 11 \\
+            0 & 1 & 5  \\
+            0 & 0 & 1
+          \end{bmatrix}.
+        \]
+
+        Comparing the two results,
+        \[
+          e^Ae^B=
+          \begin{bmatrix}
+            1 & 2 & \frac{23}{2} \\
+            0 & 1 & 5            \\
+            0 & 0 & 1
+          \end{bmatrix}
+          \neq
+          \begin{bmatrix}
+            1 & 2 & 11 \\
+            0 & 1 & 5  \\
+            0 & 0 & 1
+          \end{bmatrix}
+          =e^{A+B}.
+        \]
+
+        Thus, we have shown that
+        \[
+          \boxed{e^Ae^B\neq e^{A+B}}.
+        \]
 
 \end{enumerate}
 
@@ -157,16 +523,315 @@ Multiplying by the matrix A gives the next number in the Fibonacci sequence. In 
         \end{align*}
         If these numbers look familiar, it's because $\lambda_1$ is called the \emph{Golden Ratio}, often denoted by $\varphi$, and $\lambda_2$ is $1 - \varphi$, or $\overline{\varphi}$.
 
+        \emph{Solution}: To find the eigenvalues of $A$, we will need to start by finding the characteristic polynomial. Recall that
+        \begin{align*}
+          A = \begin{bmatrix}
+                1 & 1 \\
+                1 & 0
+              \end{bmatrix}
+        \end{align*}
+        The characteristic equation is $\det(A - \lambda I) = 0$. That is,
+        \begin{align*}
+          0 = \det(A - \lambda I) & = \begin{vmatrix}
+                                        1 - \lambda & 1           \\
+                                        1           & 0 - \lambda
+                                      \end{vmatrix}     \\
+                                  & = \begin{vmatrix}
+                                        1 - \lambda & 1         \\
+                                        1           & - \lambda
+                                      \end{vmatrix}       \\
+                                  & = (1 - \lambda)(- \lambda) - 1(1) \\
+                                  & = \lambda^2 -\lambda - 1
+        \end{align*}
+
+        The characteristic equation of $A$ is $\lambda^2 -\lambda - 1 = 0$. We can find the roots of this characteristic polynomial with the quadratic formula:
+        \begin{align*}
+          \lambda & = \frac{-(-1) \pm \sqrt{(-1)^2 - 4(1)(-1)}}{2(1)} \\
+                  & = \frac{1 \pm \sqrt{1 + 4}}{2(1)}                 \\
+                  & = \frac{1 \pm \sqrt{5}}{2}
+        \end{align*}
+        Therefore, we have shown that the eigenvalues of $A$ are
+        \[
+          \boxed{\lambda=\frac{1\pm\sqrt{5}}{2}}
+        \]
+        As noted above, the eigenvalue $\lambda_1 = \frac{1 + \sqrt{5}}{2}$ is the  irrational number often known as the \textit{Golden Ratio}, denoted by $\varphi$. It and the second eigenvalue $\lambda_2$, denoted $1 - \varphi$, are equal to the following, respectively,
+
+        \begin{align*}
+           & \lambda{_1} = \varphi = 1.618\ldots      \\
+           & \lambda{_2} = 1 - \varphi = -0.618\ldots
+        \end{align*}
+
   \item (3 points) Verify that $\begin{bmatrix} \varphi \\ 1 \end{bmatrix}$ and $\begin{bmatrix} 1 - \varphi \\ 1 \end{bmatrix}$ are eigenvectors for the eigenvalues $\lambda_1$ and $\lambda_2$ respectively.
+
+        \emph{Solution}: To verify this, we will validate that $A\vec{v}_i=\lambda_i\vec{v}_i$ holds for each of the vectors $\vec{v}_1 = \begin{bmatrix} \varphi \\ 1 \end{bmatrix}$ and $\vec{v}_2 = \begin{bmatrix} 1 - \varphi \\ 1 \end{bmatrix}$, where $\lambda_i$ is the eigenvalue corresponding to each vector $\vec{v}_i$.
+
+        First we will verify that $\vec{v}_1 = \begin{bmatrix} \varphi \\ 1 \end{bmatrix}$ is an eigenvector corresponding to $\lambda_1=\varphi$.
+        \begin{align*}
+          A\vec{v}_1 & = A \begin{bmatrix}
+                             \varphi \\ 1
+                           \end{bmatrix} = \begin{bmatrix}
+                                             1 & 1 \\
+                                             1 & 0
+                                           \end{bmatrix} \begin{bmatrix}
+                                                           \varphi \\
+                                                           1
+                                                         \end{bmatrix}   \reason{By substitution} \\
+                     & = \begin{bmatrix}
+                           \varphi +1 \\
+                           \varphi
+                         \end{bmatrix} \reason{By matrix multiplication}
+        \end{align*}
+        Here, note the following:
+        \begin{align*}
+          \varphi^2 & = \left(\frac{1 + \sqrt{5}}{2}\right)\left(\frac{1 + \sqrt{5}}{2}\right)                      \\
+                    & = \frac{1 + 2\sqrt{5} + 5}{4} \reason{By multiplication}                                      \\
+                    & = \frac{6 + 2\sqrt{5}}{4} \reason{By addition}                                                \\
+                    & = \left(\frac{2}{2}\right)\left(\frac{3 + \sqrt{5}}{2}\right) \reason{By factoring out $2/2$} \\
+                    & = \frac{3 + \sqrt{5}}{2} \reason{By multiplication by $1$}                                    \\
+                    & = \frac{2 + 1 + \sqrt{5}}{2} \reason{By decomposition of $3$}                                 \\
+                    & = \frac{1 + \sqrt{5}}{2} + \frac{2}{2} \reason{By definition of addition of fractions}        \\
+                    & = \frac{1 + \sqrt{5}}{2} + 1 \reason{By reciprocal multiplication}                            \\
+                    & = \varphi+1 \reason{By substitution}
+        \end{align*}
+        But then, since $A \begin{bmatrix}
+            \varphi \\
+            1
+          \end{bmatrix} = \begin{bmatrix}
+            \varphi +1 \\
+            \varphi
+          \end{bmatrix}$ and $\varphi^2 = \varphi+1$,
+
+        \begin{align*}
+          A \begin{bmatrix}
+              \varphi \\
+              1
+            \end{bmatrix} = \begin{bmatrix}
+                              \varphi+1 \\
+                              \varphi
+                            \end{bmatrix} & = \begin{bmatrix}
+                                                \varphi^2 \\
+                                                \varphi
+                                              \end{bmatrix} = \varphi\begin{bmatrix}
+                                                                       \varphi \\
+                                                                       1
+                                                                     \end{bmatrix}
+        \end{align*}
+
+        But $\varphi = \lambda_1$. Therefore, $A\vec{v}_1 = \lambda_1\vec{v}_1$, which proves that $\vec{v}_1$ is an eigenvector corresponding to $\lambda_1$.
+
+        Second, we will verify that $\vec{v}_2 = \begin{bmatrix} 1 - \varphi \\ 1 \end{bmatrix}$ is an eigenvector corresponding to $\lambda_2 = 1 - \varphi$.
+
+        \begin{align*}
+          A \begin{bmatrix}
+              1-\varphi \\
+              1
+            \end{bmatrix} & = \begin{bmatrix}
+                                1 & 1 \\
+                                1 & 0
+                              \end{bmatrix} \begin{bmatrix}
+                                              1-\varphi \\
+                                              1
+                                            \end{bmatrix} \reason{By substitution for $A$} \\[1ex]
+                              & = \begin{bmatrix}
+                                    2-\varphi \\
+                                    1-\varphi
+                                  \end{bmatrix} \reason{By matrix multiplication}
+        \end{align*}
+
+        Here, note that
+        \begin{align*}
+          (1 - \varphi)\begin{bmatrix}
+                         1 - \varphi \\
+                         1
+                       \end{bmatrix} & = \begin{bmatrix}
+                                           (1 - \varphi)^2 \\
+                                           1 - \varphi
+                                         \end{bmatrix}
+        \end{align*}
+        And also note that
+        \begin{equation}
+          (1 - \varphi)^2 = \varphi^2 - 2\varphi + 1 \label{eq:1_minus_phi_vector_multiplication}
+        \end{equation}
+
+        Because, as we noted above, $\varphi^2 = \varphi + 1$,
+        \begin{align*}
+          (1 - \varphi)^2 & = \varphi^2 - 2\varphi + 1                                            \\
+                          & = \varphi + 1 - 2\varphi + 1 \reason{By substitution for $\varphi^2$} \\
+                          & = 2 - \varphi \reason{By addition}
+        \end{align*}
+
+        But then by substitution of this result and \eqref{eq:1_minus_phi_vector_multiplication} into the matrix vector multiplication $A\vec{v}_2$, we find,
+        \begin{align*}
+          A \begin{bmatrix}
+              1-\varphi \\
+              1
+            \end{bmatrix} & = \begin{bmatrix}
+                                2-\varphi \\
+                                1-\varphi
+                              \end{bmatrix}  \reason{By matrix multiplication above} \\[1ex]
+                              & = \begin{bmatrix}
+                                    (1-\varphi)^2 \\
+                                    1-\varphi
+                                  \end{bmatrix}      \reason{By substitution}        \\[1ex]
+                              & = (1-\varphi)\begin{bmatrix}
+                                               1-\varphi \\
+                                               1
+                                             \end{bmatrix} \reason{By factoring}     \\
+                              & = \lambda_2\vec{v}_2 \reason{By substitution}
+        \end{align*}
+        This last derivation shows that the following identity holds.
+        \[\boxed{
+            A \begin{bmatrix}
+              1-\varphi \\
+              1
+            \end{bmatrix} = (1-\varphi)\begin{bmatrix}
+              1-\varphi \\
+              1
+            \end{bmatrix}
+          }\]
+        This proves that $\vec{v}_2$ is an eigenvector corresponding to the eigenvalue $\lambda_2$.
 
   \item (6 points) Diagonalize $A$ by writing $A = PDP^{-1}$ for a diagonal matrix $D$ and an invertible matrix $P$.
 
+        \emph{Solution}: By the Diagonalization Theorem in \textcite[Theorem~5.5, p.~291]{LayEtAl2020LinearAlgebraAndItsApplications}, since $\vec{v}_1$ and $\vec{v}_2$ are eigenvectors corresponding to the eigenvalues $\lambda_1$ and $\lambda_2$, the matrix $P$ is formed from the eigenvectors $\vec{v}_1$ and $\vec{v}_2$, and $D$ is formed by placing the eigenvalues $\lambda_1$ and $\lambda_2$ on the corresponding positions on the diagonal of $D$. Therefore,
+
+        \begin{align*}
+          P = \begin{bmatrix}
+                \varphi & 1-\varphi \\
+                1       & 1
+              \end{bmatrix} \qquad D = \begin{bmatrix}
+                                         \varphi & 0           \\
+                                         0       & 1 - \varphi
+                                       \end{bmatrix}
+        \end{align*}
+
+        Since $P$ is a $2 \times 2$ matrix, we can use the inverse matrix formula to find its inverse $P^{-1}$, namely.
+
+        \begin{align*}
+          P^{-1} & = \frac{1}{\varphi - (1 - \varphi)}\begin{bmatrix}
+                                                        1  & -(1-\varphi) \\
+                                                        -1 & \varphi
+                                                      \end{bmatrix} \reason{By \cite[Theorem~2.4, p.~112]{LayEtAl2020LinearAlgebraAndItsApplications}} \\[1ex]
+                 & = \frac{1}{2\varphi - 1}\begin{bmatrix}
+                                             1  & -(1-\varphi) \\
+                                             -1 & \varphi
+                                           \end{bmatrix} \reason{By distribution}                                                                      \\[1ex]
+                 & = \frac{1}{2(\frac{1 + \sqrt{5}}{2}) - 1}\begin{bmatrix}
+                                                              1  & -(1-\varphi) \\
+                                                              -1 & \varphi
+                                                            \end{bmatrix} \reason{By substitution for $\varphi$}                                       \\[1ex]
+                 & = \frac{1}{1 + \sqrt{5} - 1}\begin{bmatrix}
+                                                 1  & -(1-\varphi) \\
+                                                 -1 & \varphi
+                                               \end{bmatrix} \reason{By multiplication}                                                                \\[1ex]
+                 & = \frac{1}{\sqrt{5}}\begin{bmatrix}
+                                         1  & -(1-\varphi) \\
+                                         -1 & \varphi
+                                       \end{bmatrix} \reason{By addition}
+        \end{align*}
+
+        Therefore, by the Diagonalization Theorem in \textcite[Theorem~5.5, p.~291]{LayEtAl2020LinearAlgebraAndItsApplications}, we have diagonalized $A$ and can write it as $A = PDP^{-1}$, where $D$ is a diagonal matrix similar to $A$, and $P$ is an invertible matrix.
+        \pagebreak
   \item (6 points) Use the fact that $\vec{x}_n = A^n \vec{x}_0$ and your answer from the previous part to verify the formula:
         \begin{align*}
           a_n = \frac{1}{\sqrt{5}} \left( \frac{1 + \sqrt{5}}{2} \right)^n - \frac{1}{\sqrt{5}} \left( \frac{1 - \sqrt{5}}{2} \right)^n.
         \end{align*}
 
+        \emph{Solution}: Diagonalizing $A=PDP^{-1}$ gives the following.
+
+        \begin{equation}
+          A^n = PD^{n}P^{-1} \label{eq:A_to_the_n}
+        \end{equation}
+        This identity, together with the equation given in the prompt, implies
+        \begin{align*}
+          \vec{x}_n & = A^{n}\vec{x}_0 \reason{Given in prompt}                                                \\
+                    & = \left(PD^{n}P^{-1}\right)\vec{x}_0 \reason{By substitution with \eqref{eq:A_to_the_n}}
+        \end{align*}
+        Then we compute,
+        \begin{align*}
+          P^{-1}\vec{x}_0 & = \frac{1}{\sqrt{5}}\begin{bmatrix}
+                                                  1  & \varphi-1 \\
+                                                  -1 & \varphi
+                                                \end{bmatrix}\begin{bmatrix}
+                                                               1 \\
+                                                               0
+                                                             \end{bmatrix} \reason{\begin{tabular}[c]{@{}l@{}}By substitution with\\previous result and\\section prompt\end{tabular}} \\[1ex]
+                          & = \frac{1}{\sqrt{5}}\begin{bmatrix}
+                                                  1 \\
+                                                  -1
+                                                \end{bmatrix} \reason{By matrix multiplication}
+        \end{align*}
+        Note that because $D$ is diagonal,
+        \begin{align*}
+          D^n & = \begin{bmatrix}
+                    \varphi^n & 0             \\
+                    0         & (1-\varphi)^n
+                  \end{bmatrix}
+        \end{align*}
+        Left multiplying by $D^n$,
+        \begin{align*}
+          D^{n}P^{-1}\vec{x}_0 & = \begin{bmatrix}
+                                     \varphi^n & 0             \\
+                                     0         & (1-\varphi)^n
+                                   \end{bmatrix}\frac{1}{\sqrt{5}}\begin{bmatrix}
+                                                                    1 \\
+                                                                    -1
+                                                                  \end{bmatrix} \reason{By substitution}  \\[1ex]
+                               & = \frac{1}{\sqrt{5}}\begin{bmatrix}
+                                                       \varphi^n & 0             \\
+                                                       0         & (1-\varphi)^n
+                                                     \end{bmatrix}\begin{bmatrix}
+                                                                    1 \\
+                                                                    -1
+                                                                  \end{bmatrix} \reason{By associativity} \\[1ex]
+                               & = \frac{1}{\sqrt{5}}\begin{bmatrix}
+                                                       \varphi^n \\
+                                                       -(1-\varphi)^n
+                                                     \end{bmatrix} \reason{By matrix multiplication}
+        \end{align*}
+
+        Left multiplying by $P$,
+        \begin{align*}
+          P(D^{n}P^{-1}\vec{x}_0) & = \frac{1}{\sqrt{5}}\begin{bmatrix}
+                                                          \varphi & 1-\varphi \\
+                                                          1       & 1
+                                                        \end{bmatrix}\begin{bmatrix}
+                                                                       \varphi^n \\
+                                                                       -(1-\varphi)^n
+                                                                     \end{bmatrix}       \\[1ex]
+                                  & = \frac{1}{\sqrt{5}}\begin{bmatrix}
+                                                          \varphi^{n+1} - (1-\varphi)^{n+1} \\
+                                                          \varphi^n-(1-\varphi)^n
+                                                        \end{bmatrix}
+        \end{align*}
+
+        Recall that it was given in the prompt that $\vec{x}_n = \begin{bmatrix}
+            a_{n+1} \\
+            a_n
+          \end{bmatrix}$. Taking this together with our last derivation, note that
+        \begin{align*}
+          a_n = \tfrac{1}{\sqrt{5}}(\varphi^n - (1 - \varphi)^n)
+        \end{align*}
+
+
+        Finally, substituting $\varphi$ and $1-\varphi$, we obtain the formula for $a_n$ that we were seeking to verify.
+        \begin{equation}
+          a_n = \frac{1}{\sqrt{5}} \left( \frac{1 + \sqrt{5}}{2} \right)^n-\frac{1}{\sqrt{5}} \left( \frac{1 - \sqrt{5}}{2} \right)^n
+        \end{equation}
+
+        This is also the formula for the $n$th term of the Fibonacci sequence.
+
   \item (2 points) Use this formula and a calculator to find the 45th term of the Fibonacci sequence.
+
+        \emph{Solution}: In order to find the 45th term in the Fibonacci sequence we substitute 45 for $n$ as follows.
+        \[
+          a_{45} = \frac{1}{\sqrt{5}} \left( \frac{1 + \sqrt{5}}{2} \right)^{45} -\frac{1}{\sqrt{5}} \left( \frac{1 - \sqrt{5}}{2} \right)^{45}
+        \]
+        Evaluating this, we find
+        \[
+          a_{45}=1{,}134{,}903{,}170
+        \]
+
 
 \end{enumerate}
 
