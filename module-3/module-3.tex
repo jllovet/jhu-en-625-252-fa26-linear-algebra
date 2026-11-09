@@ -78,6 +78,95 @@ Which of the following are linear transformations? For each problem below, first
 \medskip
 \noindent\textbf{Answer:}
 
+\begin{enumerate}[label=(\alph*)]
+  \item Reflection about the $x$-axis in $\mathbb{R}^2$ is linear. The standard matrix for reflection about the $x$-axis in $\mathbb{R}^2$ is
+        \begin{align*}
+          A = \begin{bmatrix}
+                1 & 0  \\
+                0 & -1
+              \end{bmatrix}.
+        \end{align*}
+
+  \item Reflection about the line $x = 1$ in $\mathbb{R}^2$ is not linear. It is not linear, because
+        \begin{align*}
+          T(\vec{0}) = \begin{bmatrix}
+                         2 \\
+                         0
+                       \end{bmatrix} \neq \vec{0},
+        \end{align*}
+        which violates the condition $T(c\vec{u}) = cT(\vec{u})$ from the definition of a linear transformation in \cite[Ch.~1, p.~70]{LayEtAl2020LinearAlgebraAndItsApplications}. If this were linear, the image $T(\vec{0})$ would be $\vec{0}$.
+
+  \item Translation $T_{\vec{v}}: \mathbb{R}^2 \to \mathbb{R}^2$ by a nonzero vector $\vec{v}$ in $\mathbb{R}^2$ is not linear for a similar reason to why (b) is not linear. Translation by a nonzero vector does not send $\vec{0}$ to $\vec{0}$. Therefore, $T_{\vec{v}}$ is not a linear transformation.
+
+  \item $T(x) = x^2$ in $\mathbb{R}$ is not linear. Consider condition (ii) of the definition of a linear transformation, which says $T(c\vec{u}) = cT(\vec{u})$ for all scalars $c$ and all vectors $\vec{u}$ in the domain of $T$. But $T(3x) = (3x)^2 \neq 3(x^2)$. Consider when $x = 4$. Then
+        \begin{align*}
+          T(3x) & = T(12) = 144, \\
+          \intertext{but}
+          3T(4) & = 3(16) = 48, \\
+          \intertext{and}
+          144   & \neq 48.
+        \end{align*}
+        Therefore, $T(x) = x^2$ in $\mathbb{R}$ is not linear.
+
+  \item Let each vector $\vec{v} \in \mathbb{R}^4$ be associated with the cubic polynomial as described. The derivative is $f'(x) = 3ax^2 + 2bx + 1c + 0d$. Then the linear transformation $T: f \mapsto f'$ can be described as follows in terms of the coefficients:
+        \begin{align*}
+          \begin{bmatrix}
+            a \\
+            b \\
+            c \\
+            d
+          \end{bmatrix} \xrightarrow{T} \begin{bmatrix}
+                                          3a \\
+                                          2b \\
+                                          1c \\
+                                          0d
+                                        \end{bmatrix}
+        \end{align*}
+        The matrix $A$ corresponding to $T$ is
+        \begin{align*}
+          A = \begin{bmatrix}
+                0 & 0 & 0 & 0 \\
+                3 & 0 & 0 & 0 \\
+                0 & 2 & 0 & 0 \\
+                0 & 0 & 1 & 0
+              \end{bmatrix}
+        \end{align*}
+        Consider the example $f(x) = 2x^3 + 3x^2 + 4x + 7$. The coefficient vector corresponding to this is
+        \begin{align*}
+          \vec{v} = \begin{bmatrix}
+                      2 \\
+                      3 \\
+                      4 \\
+                      7
+                    \end{bmatrix}.
+        \end{align*}
+        The product $A\vec{v}$ is
+        \begin{align*}
+          \begin{bmatrix}
+            0 & 0 & 0 & 0 \\
+            3 & 0 & 0 & 0 \\
+            0 & 2 & 0 & 0 \\
+            0 & 0 & 1 & 0
+          \end{bmatrix}
+          \begin{bmatrix}
+            2 \\
+            3 \\
+            4 \\
+            7
+          \end{bmatrix}
+          = \begin{bmatrix}
+              0 \\
+              6 \\
+              6 \\
+              4
+            \end{bmatrix}
+        \end{align*}
+        This corresponds to the coefficients we expect from the derivative:
+        \begin{align*}
+          f'(x) = 0x^3 + 6x^2 + 6x + 4
+        \end{align*}
+\end{enumerate}
+
 \pagebreak
 
 \noindent\textbf{Problem 2:}
