@@ -71,8 +71,8 @@ Which of the following are linear transformations? For each problem below, first
   \item Translation $T_{\vec{v}}: \mathbb{R}^2 \to \mathbb{R}^2$ by a nonzero vector $\vec{v}$ in $\mathbb{R}^2$. (i.e., $T(\vec{x}) = \vec{x} + \vec{v}$)
   \item $T(x) = x^2$ in $\mathbb{R}$
   \item For each vector $\vec{v} = \begin{bmatrix}a\\b\\c\\d\end{bmatrix} \in \mathbb{R}^4$, associate it to the cubic polynomial $f(x) = ax^3 + bx^2 + cx + d$.
-  
-  Then consider the transformation $T(f) = f'$, where $f'(x)$ is the derivative.
+
+        Then consider the transformation $T(f) = f'$, where $f'(x)$ is the derivative.
 \end{enumerate}
 
 \medskip
@@ -102,7 +102,7 @@ Which of the following are linear transformations? For each problem below, first
         \begin{align*}
           T(3x) & = T(12) = 144, \\
           \intertext{but}
-          3T(4) & = 3(16) = 48, \\
+          3T(4) & = 3(16) = 48,  \\
           \intertext{and}
           144   & \neq 48.
         \end{align*}
@@ -116,7 +116,7 @@ Which of the following are linear transformations? For each problem below, first
             c \\
             d
           \end{bmatrix} \xrightarrow{T} \begin{bmatrix}
-                                          0 \\
+                                          0  \\
                                           3a \\
                                           2b \\
                                           1c
@@ -187,6 +187,128 @@ In the (sadly fictitious) suspense movie, \emph{The Linear Combination}, our thr
 
 \medskip
 \noindent\textbf{Answer:}
+
+\begin{enumerate}[label=(\alph*)]
+  \item Let Adam's vector $\begin{pmatrix}1\\0\\1\end{pmatrix}$ be denoted by $\vec{a}$. Similarly, $\begin{pmatrix}1\\2\\3\end{pmatrix}$ by $\vec{b}$ and $\begin{pmatrix}0\\0\\7\end{pmatrix}$ by $\vec{c}$. Then by what is given, $T(\vec{a})$, $T(\vec{b})$, $T(\vec{c})$ are known. By linearity of $T$, for scalars $s_1, s_2, s_3$:
+        \begin{equation}
+          s_1T(\vec{a}) + s_2T(\vec{b}) + s_3T(\vec{c}) = T(s_1\vec{a} + s_2\vec{b} + s_3\vec{c}) \label{eq:linear_combination}
+        \end{equation}
+        Are there weights $s_1, s_2, s_3$ that allow Adam, Bob, and Carl to find $T\begin{pmatrix}4\\4\\15\end{pmatrix}$? Let's examine the input vectors $\vec{a}, \vec{b}, \vec{c}$ relative to each other. If they are linearly independent, then they will span $\mathbb{R}^3$, and all vectors in $\mathbb{R}^3$ will be linear combinations of them.
+        \begin{align*}
+          \begin{bmatrix}
+            \vec{a} & \vec{b} & \vec{c}
+          \end{bmatrix}
+           & = \begin{bmatrix}
+                 1 & 1 & 0 \\
+                 0 & 2 & 0 \\
+                 1 & 3 & 7
+               \end{bmatrix}                                                        \\[1ex]
+           & \sim \begin{bmatrix}
+                    1 & 1 & 0 \\
+                    0 & 1 & 0 \\
+                    0 & 2 & 7
+                  \end{bmatrix} \reason{$\frac{1}{2}R_2 \to R_2$, $R_3 - R_1 \to R_3$} \\[1ex]
+           & \sim \begin{bmatrix}
+                    1 & 1 & 0 \\
+                    0 & 1 & 0 \\
+                    0 & 0 & 7
+                  \end{bmatrix} \reason{$R_3 - 2R_2 \to R_3$}                          \\[1ex]
+           & \sim \begin{bmatrix}
+                    1 & 0 & 0 \\
+                    0 & 1 & 0 \\
+                    0 & 0 & 1
+                  \end{bmatrix} \reason{$R_1 - R_2 \to R_1$, $\frac{1}{7}R_3 \to R_3$}
+        \end{align*}
+        Since $\begin{bmatrix}\vec{a} & \vec{b} & \vec{c}\end{bmatrix}$ is row equivalent to the identity matrix, $\vec{a}$, $\vec{b}$, and $\vec{c}$ are linearly independent and span $\mathbb{R}^3$. What then is the solution to $\left[\begin{array}{ccc|c} \vec{a} & \vec{b} & \vec{c} & \begin{pmatrix}4\\4\\15\end{pmatrix} \end{array}\right]$?
+        \begin{align*}
+          \left[\begin{array}{rrr|r}
+              1 & 1 & 0 & 4  \\
+              0 & 2 & 0 & 4  \\
+              1 & 3 & 7 & 15
+            \end{array}\right]
+           & \sim \left[\begin{array}{rrr|r}
+                      1 & 1 & 0 & 4  \\
+                      0 & 1 & 0 & 2  \\
+                      0 & 2 & 7 & 11
+                    \end{array}\right] \reason{$\frac{1}{2}R_2 \to R_2$, $R_3 - R_1 \to R_3$} \\[1ex]
+           & \sim \left[\begin{array}{rrr|r}
+                      1 & 1 & 0 & 4 \\
+                      0 & 1 & 0 & 2 \\
+                      0 & 0 & 7 & 7
+                    \end{array}\right] \reason{$R_3 - 2R_2 \to R_3$}                          \\[1ex]
+           & \sim \left[\begin{array}{rrr|r}
+                      1 & 1 & 0 & 4 \\
+                      0 & 1 & 0 & 2 \\
+                      0 & 0 & 1 & 1
+                    \end{array}\right] \reason{$\frac{1}{7}R_3 \to R_3$}                      \\[1ex]
+           & \sim \left[\begin{array}{rrr|r}
+                      1 & 0 & 0 & 2 \\
+                      0 & 1 & 0 & 2 \\
+                      0 & 0 & 1 & 1
+                    \end{array}\right] \reason{$R_1 - R_2 \to R_1$}
+        \end{align*}
+        The preceding gives us the weights $s_1, s_2, s_3$.
+        \begin{align*}
+          T\begin{pmatrix}4\\4\\15\end{pmatrix} & = T(s_1\vec{a} + s_2\vec{b} + s_3\vec{c}) \reason{By \eqref{eq:linear_combination} and definition of linear combination} \\
+                                                & = T(2\vec{a}) + T(2\vec{b}) + 1T(\vec{c}) \reason{By substitution and linearity}                                                                                \\[1ex]
+                                                & = 2\begin{pmatrix}2\\1\\0\end{pmatrix} + 2\begin{pmatrix}0\\1\\1\end{pmatrix} + 1\begin{pmatrix}1\\1\\0\end{pmatrix} \reason{By evaluation of $T$}     \\[1ex]
+                                                & = \begin{pmatrix}4\\2\\0\end{pmatrix} + \begin{pmatrix}0\\2\\2\end{pmatrix} + \begin{pmatrix}1\\1\\0\end{pmatrix} \reason{By scalar multiplication}        \\[1ex]
+                                                & = \begin{pmatrix}5\\5\\2\end{pmatrix} \reason{By vector addition}
+        \end{align*}
+
+        Therefore, the combination to the safe is $\begin{pmatrix}5\\5\\2\end{pmatrix}$.
+
+  \item What are Bob and Carl able to determine on their own?
+        \begin{align*}
+          \begin{bmatrix}
+            \vec{b} & \vec{c}
+          \end{bmatrix}
+          = \begin{bmatrix}
+              1 & 0 \\
+              2 & 0 \\
+              3 & 7
+            \end{bmatrix}
+        \end{align*}
+        The two vectors that Bob and Carl have together span a plane in $\mathbb{R}^3$, which does not give them enough information to solve the combination. A third linearly independent vector is required to fully specify the combination, since with a plane spanned, there are infinitely many options for the final vector. For example, these yield different solutions:
+        \begin{align*}
+          \left[\begin{array}{rrr|r}
+              1 & 0 & 0 & 4  \\
+              2 & 0 & 1 & 4  \\
+              3 & 7 & 0 & 15
+            \end{array}\right],
+          \quad
+          \left[\begin{array}{rrr|r}
+              1 & 0 & 1 & 4  \\
+              2 & 0 & 1 & 4  \\
+              3 & 7 & 1 & 15
+            \end{array}\right]
+        \end{align*}
+
+  \item Would Bob and Carl be able to find the combination if it were $T\begin{pmatrix}2\\4\\-1\end{pmatrix}$? If yes, then $\begin{pmatrix}2\\4\\-1\end{pmatrix}$ would need to be within $\text{Span}\left\{\vec{b}, \vec{c}\right\}$. If this is the case, then $\begin{pmatrix}2\\4\\-1\end{pmatrix}$ would be a linear combination of Bob and Carl's input vectors. Validating this:
+        \begin{align*}
+          \left[\begin{array}{rr|r}
+              1 & 0 & 2  \\
+              2 & 0 & 4  \\
+              3 & 7 & -1
+            \end{array}\right]
+           & \sim \left[\begin{array}{rr|r}
+                      1 & 0 & 2  \\
+                      0 & 0 & 0  \\
+                      3 & 7 & -1
+                    \end{array}\right] \reason{$R_2 - 2R_1 \to R_2$}     \\[1ex]
+           & \sim \left[\begin{array}{rr|r}
+                      1 & 0 & 2  \\
+                      0 & 0 & 0  \\
+                      0 & 7 & -7
+                    \end{array}\right] \reason{$R_3 - 3R_1 \to R_3$}     \\[1ex]
+           & \sim \left[\begin{array}{rr|r}
+                      1 & 0 & 2  \\
+                      0 & 0 & 0  \\
+                      0 & 1 & -1
+                    \end{array}\right] \reason{$\frac{1}{7}R_3 \to R_3$}
+        \end{align*}
+        This shows that if the combination were $T\begin{pmatrix}2\\4\\-1\end{pmatrix}$, it would lie on the span of Bob and Carl's vectors, and hence they would have been able to find the combination.
+\end{enumerate}
 
 \pagebreak
 
