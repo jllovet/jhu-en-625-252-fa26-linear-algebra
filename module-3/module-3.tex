@@ -108,7 +108,7 @@ Which of the following are linear transformations? For each problem below, first
         \end{align*}
         Therefore, $T(x) = x^2$ in $\mathbb{R}$ is not linear.
 
-  \item Let each vector $\vec{v} \in \mathbb{R}^4$ be associated with the cubic polynomial as described. The derivative is $f'(x) = 3ax^2 + 2bx + 1c + 0d$. Then the linear transformation $T: f \mapsto f'$ can be described as follows in terms of the coefficients:
+  \item Let each vector $\vec{v} \in \mathbb{R}^4$ be associated with the cubic polynomial $f(x) = ax^3 + bx^2 + cx + d$ as described. The derivative is $f'(x) = 3ax^2 + 2bx + 1c + 0d$ or equivalently $f'(x) = 0x^3 + 3ax^2 + 2bx + 1c$. Then the linear transformation $T: f \to f'$ can be described as follows in terms of the coefficients:
         \begin{align*}
           \begin{bmatrix}
             a \\
@@ -116,10 +116,10 @@ Which of the following are linear transformations? For each problem below, first
             c \\
             d
           \end{bmatrix} \xrightarrow{T} \begin{bmatrix}
+                                          0 \\
                                           3a \\
                                           2b \\
-                                          1c \\
-                                          0d
+                                          1c
                                         \end{bmatrix}
         \end{align*}
         The matrix $A$ corresponding to $T$ is
