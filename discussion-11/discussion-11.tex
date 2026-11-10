@@ -1,0 +1,114 @@
+\documentclass[10pt,letterpaper,final]{report}
+\usepackage[margin=.75in]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\renewcommand\qedsymbol{$\blacksquare$}
+\usepackage{enumerate}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{pdfpages}
+\usepackage{graphics}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage{tikz-qtree}
+\usepackage{forest}
+\usepackage{float}
+\usetikzlibrary{automata,arrows}
+\usetikzlibrary{shapes.multipart, positioning}
+\usepackage{mdframed}
+\usepackage[
+  backend=biber,
+  style=numeric-comp,
+  sorting=none
+]{biblatex}
+\addbibresource{references.bib}
+
+\usepackage{minted}
+\usemintedstyle{algol_nu}
+\usepackage{xltabular}
+\usepackage{pdflscape}
+\usepackage{tcolorbox}
+\usepackage{array}
+\usepackage{todonotes}
+\setuptodonotes{inline}  % render \todo notes as full-width blocks in the text flow, not margin boxes
+
+\newcommand{\reason}[1]{&& \text{#1}}
+
+% Based on template from COSC-417 at Towson University, originally authored by Marius Zimand
+
+% To input a script, adapt the following:
+% \inputminted[breaklines, breakanywhere, fontsize=\footnotesize, frame=single, fontsize=\footnotesize]{python}{script.py}
+
+\begin{document}
+\begin{center}
+  \fbox{
+    \vbox{
+      \begin{flushleft}
+        Jonathan Llovet \\  % authors' names
+        EN.625.252.81 \\  %class
+        2026-11-12 \\  % date
+        Module 11 - Discussion 11 \\ % ID
+      \end{flushleft}
+      \center{\Large{\textbf{Linear Algebra}}}
+      %\end{mdframed}
+    } % end vbox
+  } % end fbox
+  \vline
+\end{center}
+
+\noindent Answer any \textbf{two} of the following.
+
+\medskip
+\noindent\textbf{Prompt 1:}
+\medskip
+
+The dot product of vectors is a specific example of a special function called an \emph{inner product} on a particular set $V$. Define an inner product in general, and give an example of an inner product on another set other than $R^n$.
+
+\medskip
+\noindent\textbf{Answer:}
+\medskip
+
+\pagebreak
+\noindent\textbf{Prompt 2:}
+\medskip
+
+The norm of a vector, defined using the dot product, is an attempt to define the notion of distance in $R^n$. This norm is called the \emph{Euclidean norm}.  As with everything, the norm can be thought of as a function on vectors to the nonnegative real line that satisfies certain properties. Define the abstract norm or distance function $d(x,y)$.  Then find and define other norms on $R^n$. Some examples include the Taxicab norm, max norm, or $p$-norm.
+
+\medskip
+\noindent\textbf{Answer:}
+\medskip
+
+\pagebreak
+\noindent\textbf{Prompt 3:}
+\medskip
+
+State the Cauchy-Schwarz inequality.  Then explain the following statement ``The triangle inequality is just an application of the Cauchy-Schwarz inequality.'' in your own words. Then define a \emph{Metric Space}, noting the use of the triangle inequality. Given an example of a Metric Space other than $R^n$.
+
+\medskip
+\noindent\textbf{Answer:}
+\medskip
+
+\pagebreak
+\noindent\textbf{Prompt 4:}
+\medskip
+
+Define an \emph{orthogonal matrix}. Explain why the determinant of an orthogonal matrix must be $1$ or $-1$. Give some computational advantages or discuss some decompositions that using orthogonal matrices.
+
+\medskip
+\noindent\textbf{Answer:}
+\medskip
+
+\pagebreak
+
+\section*{Source Code}
+The full source code, including LaTeX, tooling, other artifacts, and git history is available on my Github repository for the class here:
+\begin{center}
+  \url{https://github.com/jllovet/jhu-en-625-252-fa26-linear-algebra}
+\end{center}
+
+\printbibliography
+
+\end{document}
