@@ -1,0 +1,116 @@
+\documentclass[10pt,letterpaper,final]{report}
+\usepackage[margin=.75in]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\renewcommand\qedsymbol{$\blacksquare$}
+\usepackage{enumerate}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{pdfpages}
+\usepackage{graphics}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage{tikz-qtree}
+\usepackage{forest}
+\usepackage{float}
+\usetikzlibrary{automata,arrows}
+\usetikzlibrary{shapes.multipart, positioning}
+\usepackage{mdframed}
+\usepackage[
+  backend=biber,
+  style=numeric-comp,
+  sorting=none
+]{biblatex}
+\addbibresource{references.bib}
+
+\usepackage{minted}
+\usemintedstyle{algol_nu}
+\usepackage{xltabular}
+\usepackage{pdflscape}
+\usepackage{tcolorbox}
+\usepackage{array}
+\usepackage{todonotes}
+\setuptodonotes{inline}  % render \todo notes as full-width blocks in the text flow, not margin boxes
+
+\newcommand{\reason}[1]{&& \text{#1}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\norm}[1]{\|#1\|}
+
+\input{diagram_macros}
+
+% Based on template from COSC-417 at Towson University, originally authored by Marius Zimand
+
+% To input a script, adapt the following:
+% \inputminted[breaklines, breakanywhere, fontsize=\footnotesize, frame=single, fontsize=\footnotesize]{python}{script.py}
+
+\begin{document}
+\begin{center}
+  \fbox{
+    \vbox{
+      \begin{flushleft}
+        Jonathan Llovet \\  % authors' names
+        EN.625.252.81 \\  %class
+        2026-11-15 \\  % date
+        Module 11 - Homework 11 \\ % ID
+      \end{flushleft}
+      \center{\Large{\textbf{Linear Algebra - Inner Product, Length, and Orthogonality}}}
+      %\end{mdframed}
+    } % end vbox
+  } % end fbox
+  \vline
+\end{center}
+
+\medskip
+\noindent\textbf{Problem 1:}
+\medskip
+
+For complex vectors $\vec{x}, \vec{y} \in \C^n$, the dot product is defined as $\vec{x} \cdot \vec{y} = \sum_{i=1}^{n} x_i\overline{y_i}$, where $\overline{y_i}$ is the conjugate of each component of $\vec{y}$. When the vectors have only real components, this definition coincides with the definition from the text.
+
+Let $\vec{x} = \begin{bmatrix}
+    2     \\
+    1 + i \\
+    i
+  \end{bmatrix}$ and $\vec{y} = \begin{bmatrix}
+    2 - i \\
+    2     \\
+    1 + 2i
+  \end{bmatrix}$, where $i^2 = -1$. Compute the following:
+
+\begin{enumerate}[label=(\alph*)]
+  \item $\vec{x} \cdot \vec{y}$
+  \item $\norm{\vec{x}}$
+  \item $\norm{\vec{y}}$
+  \item $\norm{\vec{x} - \vec{y}}$
+  \item $\norm{\vec{x} + \vec{y}}$
+  \item The angle between $\vec{x}$ and $\vec{y}$.
+  \item The unit vector $\vec{u}$ in the direction of $\vec{x}$.
+\end{enumerate}
+
+\medskip
+\noindent\textbf{Answer:}
+
+\pagebreak
+
+\noindent\textbf{Problem 2:}
+\medskip
+
+For the vectors $\vec{x}$ and $\vec{y}$ in the previous problem, state and verify the Cauchy-Schwarz inequality and the Triangle inequality. (See the bottom of p.~381 and top of p.~382 in the text.)
+
+\medskip
+\noindent\textbf{Answer:}
+
+\pagebreak
+
+\section*{Source Code}
+The full source code, including LaTeX, tooling, other artifacts, and git history is available on my Github repository for the class here:
+\begin{center}
+  \url{https://github.com/jllovet/jhu-en-625-252-fa26-linear-algebra}
+\end{center}
+
+\printbibliography
+
+\end{document}
