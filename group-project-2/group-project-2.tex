@@ -150,23 +150,40 @@ This is equivalent to the augmented matrix below:
   \left[\begin{array}{rrr|r}
       1             & -1 & - \frac{1}{2} & 0 \\[1ex]
       - \frac{1}{2} & 1  & - \frac{1}{2} & 0 \\[1ex]
-      - \frac{1}{2} & 0  & - 1           & 0
+      - \frac{1}{2} & 0  & 1             & 0
     \end{array}\right]
 \]
 
-But this matrix is row equivalent to
+This matrix is row equivalent to
 
 \[
   \left[\begin{array}{rrr|r}
-      1 & 0 & 0 & 0 \\[1ex]
-      0 & 1 & 0 & 0 \\[1ex]
-      0 & 0 & 1 & 0
+      1 & 0 & -2   & 0 \\[1ex]
+      0 & 1 & -1.5 & 0 \\[1ex]
+      0 & 0 & 0    & 0
     \end{array}\right]
 \]
 
-Therefore, the solution to the set of linear equations is $\begin{bmatrix}
-    1 \\1\\1
-  \end{bmatrix}$. To normalize this so that the sum is equal to $1$, we can divide each of the components by the sum of the components, which is $3$. Hence, the PageRanks (to a precision of three decimal places) are:
+Therefore, the solution to the set of linear equations is
+\begin{align*}
+  \begin{aligned}
+    x_1 & = 2x_3   \\
+    x_2 & = 1.5x_3 \\
+    x_3 & = x_3
+  \end{aligned}
+  \quad \implies \quad
+  \vec{x} = x_3 \begin{bmatrix}
+                  2   \\
+                  1.5 \\
+                  1
+                \end{bmatrix}
+\end{align*}
+
+Let $\vec{v}$ denote $\begin{bmatrix}
+    2   \\
+    1.5 \\
+    1
+  \end{bmatrix}$. We need to normalize $\vec{v}$ so that the sum of each of the components of $\vec{v}$ is equal to $1$. To do this, we can divide each of the components by the sum of the components, which is $2 + 1.5 + 1 = 4.5$. Hence, the PageRanks (to a precision of three decimal places) are:
 
 \begin{align*}
   \begin{bmatrix}
@@ -174,10 +191,14 @@ Therefore, the solution to the set of linear equations is $\begin{bmatrix}
     r(B) \\
     r(C)
   \end{bmatrix} & = \begin{bmatrix}
-                      .333 \\
-                      .333 \\
-                      .333
-                    \end{bmatrix}
+                      2/4.5   \\[1ex]
+                      1.5/4.5 \\[1ex]
+                      1/4.5
+                    \end{bmatrix} = \begin{bmatrix}
+                                      .444 \\
+                                      .333 \\
+                                      .222
+                                    \end{bmatrix} \\
 \end{align*}
 
 \textbf{Example 1 (con't)}: Returning to our example, we may write the system of linear equations we found in matrix form:
